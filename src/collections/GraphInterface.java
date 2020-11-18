@@ -6,35 +6,35 @@
 
 package collections;
 
-public interface Graph<B> {
+public interface GraphInterface<B> {
 		
 	//------------------------------------------------------------------------------------
 	
-	public boolean addVertex(Graph<B> graph, B vertex) ;
+	public boolean addVertex(GraphInterface<B> graph, B vertex) ;
 	
 	//------------------------------------------------------------------------------------
 	
-	public boolean addEdge(Graph<B> graph, B v1, B v2, int weight) ;
+	public boolean addEdge(GraphInterface<B> graph, B v1, B v2, int weight) ;
 	
 	//------------------------------------------------------------------------------------
 	
-	public boolean addEdge(Graph<B> graph, B v1, B v2) ;
+	public boolean addEdge(GraphInterface<B> graph, B v1, B v2) ;
 	
 	//------------------------------------------------------------------------------------
 		
-	public boolean isEmpty(Graph<B> graph) ;
+	public boolean isEmpty(GraphInterface<B> graph) ;
 	
 	//------------------------------------------------------------------------------------
 	
-	public boolean removeVertex(Graph<B> graph, B vertex) ;
+	public boolean removeVertex(GraphInterface<B> graph, B vertex) ;
 	
 	//------------------------------------------------------------------------------------
 	
-	public boolean removeEdge(Graph<B> graph, B v1, B v2) ;
+	public boolean removeEdge(GraphInterface<B> graph, B v1, B v2) ;
 	
 	//------------------------------------------------------------------------------------
 	
-	public B search(Graph<B> graph) ;
+	public B search(GraphInterface<B> graph) ;
 	
 	//------------------------------------------------------------------------------------
 	
