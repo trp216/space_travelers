@@ -9,6 +9,7 @@ package collections;
 import java.util.ArrayDeque;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Queue;
 
 import utilities.Pair;
 
@@ -17,6 +18,37 @@ public class GraphAlgorithms {
 	//------------------------------------------------------------------------------------
 	
 	public static <V> List<V> BFS(Graph<V> graph, V vertex) {
+		Hashtable<V,List<Pair<V,Integer>>> adjacencyList = graph.getAdjacencyList();
+		
+		//More efficient than Stack
+		Queue<V> queue = new ArrayDeque<V>();
+		
+		queue.offer(graph.getVertexList().get(vertex));
+		
+		int N = adjacencyList.size();
+		
+		Hashtable<V,Boolean> visitedNodes = new Hashtable<V,Boolean>(N);
+		
+		visitedNodes.put(vertex, true);
+		
+		while(!queue.isEmpty()){
+			
+			V node = queue.poll();
+			
+			for (Pair<V,Integer> p: adjacencyList.get(node)) {
+								
+				V adjacentNode = p.getKey();
+				
+				if(!visitedNodes.containsKey(adjacentNode)) {					
+					visitedNodes.put(adjacentNode, true);					
+					queue.offer(adjacentNode);
+										
+				}			
+				
+			}
+			
+		}
+		
 		return null;		
 	}
 	
