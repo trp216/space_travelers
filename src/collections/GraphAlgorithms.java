@@ -19,7 +19,7 @@ public class GraphAlgorithms {
 
 	//------------------------------------------------------------------------------------
 	
-	public static <V> List<V> BFS(Graph<V> graph, V vertex) {
+	public static <V extends Vertex> List<V> BFS(Graph<V> graph, V vertex) {
 		Hashtable<V, List<Pair<Integer, V>>> adjacencyList = graph.getAdjacencyList();
 		
 		//More efficient than Stack
@@ -56,7 +56,7 @@ public class GraphAlgorithms {
 	
 	//------------------------------------------------------------------------------------
 	
-	public static <V> V DFS(Graph<V> graph, V vertex) {
+	public static <V extends Vertex> V DFS(Graph<V> graph, V vertex) {
 		
 		Hashtable<V,List<Pair<Integer,V>>> adjacencyList = graph.getAdjacencyList();
 				
@@ -98,7 +98,7 @@ public class GraphAlgorithms {
 	
 	//------------------------------------------------------------------------------------
 	
-	public <V> int dijkstra(Graph<V> graph, V sourceVertex, V endVertex) {
+	public <V extends Vertex> int dijkstra(Graph<V> graph, V sourceVertex, V endVertex) {
 		
 		Hashtable<V,Integer> dist = dijkstra(graph,sourceVertex);
 		
@@ -107,7 +107,7 @@ public class GraphAlgorithms {
 	
 	//------------------------------------------------------------------------------------
 	
-	public <V> Hashtable<V,Integer> dijkstra(Graph<V> graph, V sourceVertex) {
+	public <V extends Vertex> Hashtable<V,Integer> dijkstra(Graph<V> graph, V sourceVertex) {
 		
 		Hashtable<V, List<Pair<Integer,V>>> adjacencyList = graph.getAdjacencyList();
 		Hashtable<V,Integer> dist = new Hashtable<>();
@@ -138,7 +138,7 @@ public class GraphAlgorithms {
 			
 			if (distance > dist.get(vertex)) continue;
 			
-			List<Pair<Integer,V>> adjacentVertices = adjacencyList.get(top);
+			List<Pair<Integer,V>> adjacentVertices = adjacencyList.get(vertex);
 			
 			for (Pair<Integer, V> p : adjacentVertices) {
 							

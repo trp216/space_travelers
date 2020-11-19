@@ -6,7 +6,7 @@ import java.util.List;
 
 import utilities.Pair;
 
-public class AdjacencyListGraph<V> implements Graph<V>{
+public class AdjacencyListGraph<V extends Vertex> implements Graph<V>{
 	
 	Hashtable<V, List<Pair<Integer, V>>>  adList;
 	
@@ -54,7 +54,7 @@ public class AdjacencyListGraph<V> implements Graph<V>{
 	}
 
 	@Override
-	public Hashtable<V, Hashtable<V, Integer>> getWeightMatrix() {
+	public List<List<V>> getWeightMatrix() {
 		// TODO Auto-generated method stub
 		return null;
 	}

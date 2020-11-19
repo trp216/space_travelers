@@ -6,26 +6,51 @@
 
 package collections;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Hashtable;
 import java.util.List;
 
 import utilities.Pair;
 
-public class MatrixGraph<V> implements Graph<V> {
+public class MatrixGraph<V extends Vertex> implements Graph<V> {
 
+	private List<V> vertices;
+	
+	private List<List<Integer>> matrix;	
+	
+	//------------------------------------------------------------------------------------
+	
+	public MatrixGraph() {
+		vertices = new ArrayList<V>();
+		matrix = new ArrayList<>();		
+	}
+	
+	
 	//------------------------------------------------------------------------------------
 	
 	@Override
 	public boolean addVertex(V vertex) {
-		// TODO Auto-generated method stub
-		return false;
+		vertices.add(vertex.getId(), vertex);
+		
+		if(matrix.get(vertex.getId()) != null) {
+			return false;
+		}
+		else {
+			matrix.add(vertex.getId(),new ArrayList<>());
+			return true;
+		}		
+		
 	}
 
 	//------------------------------------------------------------------------------------
 	
 	@Override
 	public boolean addEdge(V v1, V v2, int weight) {
-		// TODO Auto-generated method stub
+		
+		matrix.get(v1.getId()).add(v2.getId(), weight);
+		
 		return false;
 	}
 	
@@ -33,7 +58,9 @@ public class MatrixGraph<V> implements Graph<V> {
 
 	@Override
 	public boolean addEdge(V v1, V v2) {
-		// TODO Auto-generated method stub
+
+		matrix.get(v1.getId()).add(v2.getId(), 1);
+		
 		return false;
 	}
 	
@@ -41,8 +68,7 @@ public class MatrixGraph<V> implements Graph<V> {
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return vertices.isEmpty();
 	}
 	
 	//------------------------------------------------------------------------------------
@@ -64,7 +90,7 @@ public class MatrixGraph<V> implements Graph<V> {
 	//------------------------------------------------------------------------------------
 
 	@Override
-	public Hashtable<V,Hashtable<V,Integer>> getWeightMatrix() {
+	public List<List<V>> getWeightMatrix() {
 		// TODO Auto-generated method stub
 		return null;
 	}

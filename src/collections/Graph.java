@@ -11,7 +11,7 @@ import java.util.List;
 
 import utilities.Pair;
 
-public interface Graph<V> {
+public interface Graph<V extends Vertex> {
 		
 	//------------------------------------------------------------------------------------
 	
@@ -53,7 +53,7 @@ public interface Graph<V> {
 	
 	// METHOD 7 (INTERFACE)
 
-	public Hashtable<V,Hashtable<V,Integer>> getWeightMatrix() ;
+	public List<List<V>> getWeightMatrix() ;
 
 	//------------------------------------------------------------------------------------
 	
