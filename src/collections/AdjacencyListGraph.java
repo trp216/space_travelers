@@ -1,5 +1,6 @@
 package collections;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -7,10 +8,19 @@ import utilities.Pair;
 
 public class AdjacencyListGraph<V> implements Graph<V>{
 	
+	Hashtable<V, List<Pair<Integer, V>>>  adList;
+	
 	@Override
 	public boolean addVertex(V vertex) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean added = false;
+		
+		//agregar if no se ha agregado el vertice antes
+		if(adList.get(vertex)==null){
+			adList.put(vertex, new ArrayList<Pair<Integer,V>>());
+			added = true;
+		}
+		
+		return added;
 	}
 
 	@Override
@@ -52,7 +62,7 @@ public class AdjacencyListGraph<V> implements Graph<V>{
 	@Override
 	public Hashtable<V, List<Pair<Integer, V>>> getAdjacencyList() {
 		// TODO Auto-generated method stub
-		return null;
+		return adList;
 	}
 
 	@Override
