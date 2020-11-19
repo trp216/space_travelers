@@ -6,81 +6,108 @@
 
 package collections;
 
+import java.util.Hashtable;
 import java.util.List;
 
-public class MatrixGraph<B> implements Graph<B> {
+import utilities.Pair;
 
+public class MatrixGraph<V> implements Graph<V> {
+
+	//------------------------------------------------------------------------------------
+	
 	@Override
-	public boolean addVertex(B vertex) {
+	public boolean addVertex(V vertex) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	//------------------------------------------------------------------------------------
+	
 	@Override
-	public boolean addEdge(B v1, B v2, int weight) {
+	public boolean addEdge(V v1, V v2, int weight) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	//------------------------------------------------------------------------------------
 
 	@Override
-	public boolean addEdge(B v1, B v2) {
+	public boolean addEdge(V v1, V v2) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	//------------------------------------------------------------------------------------
 
 	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-	@Override
-	public boolean removeVertex(B vertex) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeEdge(B v1, B v2) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public List<List<B>> getWeightMatrix() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<List<B>> getAdjacencyList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<B> getEdgeList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<B> getEdgeList(B vertex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<B> getVertexList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<B> getAdjacentVertices(B vertex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
+	//------------------------------------------------------------------------------------
+
+	@Override
+	public boolean removeVertex(V vertex) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	//------------------------------------------------------------------------------------
+
+	@Override
+	public boolean removeEdge(V v1, V v2) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	//------------------------------------------------------------------------------------
+
+	@Override
+	public Hashtable<V,Hashtable<V,Integer>> getWeightMatrix() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	//------------------------------------------------------------------------------------
+
+	@Override
+	public Hashtable<V,List<Pair<V,Integer>>> getAdjacencyList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	//------------------------------------------------------------------------------------
+
+	@Override
+	public List<V> getEdgeList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	//------------------------------------------------------------------------------------
+
+	@Override
+	public List<V> getEdgeList(V vertex) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	//------------------------------------------------------------------------------------
+	
+	@Override
+	public Hashtable<V,V> getVertexList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	//------------------------------------------------------------------------------------
+	
+	@Override
+	public List<V> getAdjacentVertices(V vertex) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	//------------------------------------------------------------------------------------
 }

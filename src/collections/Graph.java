@@ -6,7 +6,10 @@
 
 package collections;
 
+import java.util.Hashtable;
 import java.util.List;
+
+import utilities.Pair;
 
 public interface Graph<V> {
 		
@@ -36,11 +39,11 @@ public interface Graph<V> {
 	
 	//------------------------------------------------------------------------------------
 
-	public List<List<V>> getWeightMatrix() ;
+	public Hashtable<V,Hashtable<V,Integer>> getWeightMatrix() ;
 
 	//------------------------------------------------------------------------------------
 
-	public List<List<V>> getAdjacencyList() ;
+	public Hashtable<V,List<Pair<V,Integer>>> getAdjacencyList() ;
 	
 	//------------------------------------------------------------------------------------
 	
@@ -52,7 +55,7 @@ public interface Graph<V> {
 
 	//------------------------------------------------------------------------------------
 	
-	public List<V> getVertexList() ;
+	public Hashtable<V,V> getVertexList() ;
 
 	//------------------------------------------------------------------------------------
 	
