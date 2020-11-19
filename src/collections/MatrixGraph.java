@@ -72,7 +72,7 @@ public class MatrixGraph<V> implements Graph<V> {
 	//------------------------------------------------------------------------------------
 
 	@Override
-	public Hashtable<V,List<Pair<V,Integer>>> getAdjacencyList() {
+	public Hashtable<V,List<Pair<Integer,V>>> getAdjacencyList() {
 		// TODO Auto-generated method stub
 		return null;
 	}

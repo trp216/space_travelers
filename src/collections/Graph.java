@@ -43,7 +43,7 @@ public interface Graph<V> {
 
 	//------------------------------------------------------------------------------------
 
-	public Hashtable<V,List<Pair<V,Integer>>> getAdjacencyList() ;
+	public Hashtable<V,List<Pair<Integer,V>>> getAdjacencyList() ;
 	
 	//------------------------------------------------------------------------------------
 	
