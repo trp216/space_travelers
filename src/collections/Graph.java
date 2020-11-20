@@ -9,27 +9,29 @@ package collections;
 import java.util.Hashtable;
 import java.util.List;
 
+import javax.naming.directory.InvalidAttributesException;
+
 import utilities.Pair;
 
-public interface Graph<V extends Vertex> {
+public interface Graph<E> {
 		
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 1 (INTERFACE)
 	
-	public boolean addVertex(V vertex) ;
+	public boolean addVertex(E element, int vertexId) throws IllegalArgumentException;
 	
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 2 (INTERFACE)
 	
-	public boolean addEdge(V v1, V v2, int weight) ;
+	public boolean addEdge(int vertexId1, int vertexId2, int weight) throws InvalidAttributesException,IllegalArgumentException ;
 	
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 3 (INTERFACE)
 	
-	public boolean addEdge(V v1, V v2) ;
+	public boolean addEdge(int vertexId1, int vertexId2) throws InvalidAttributesException,IllegalArgumentException ;
 	
 	//------------------------------------------------------------------------------------
 	
@@ -41,49 +43,49 @@ public interface Graph<V extends Vertex> {
 	
 	// METHOD 5 (INTERFACE)
 	
-	public boolean removeVertex(V vertex) ;
+	public boolean removeVertex(E vertex) ;
 	
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 6 (INTERFACE)
 	
-	public boolean removeEdge(V v1, V v2) ;
+	public boolean removeEdge(E v1, E v2) ;
 	
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 7 (INTERFACE)
 
-	public List<List<V>> getWeightMatrix() ;
+	public List<List<Integer>> getWeightMatrix() ;
 
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 8 (INTERFACE)
 
-	public Hashtable<V,List<Pair<Integer,V>>> getAdjacencyList() ;
+	public Hashtable<E,List<Pair<Integer,E>>> getAdjacencyList() ;
 	
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 9 (INTERFACE)
 	
-	public List<V> getEdgeList() ;
+	public List<E> getEdgeList() ;
 
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 10 (INTERFACE)
 	
-	public List<V> getEdgeList(V vertex) ;
+	public List<E> getEdgeList(E vertex) ;
 
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 11 (INTERFACE)
 	
-	public Hashtable<V,V> getVertexList() ;
+	public Hashtable<E,E> getVertexList() ;
 
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 12 (INTERFACE)
 	
-	public List<V> getAdjacentVertices(V vertex) ;
+	public List<E> getAdjacentVertices(E vertex) ;
 
 	//------------------------------------------------------------------------------------
 	
