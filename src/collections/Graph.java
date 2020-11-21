@@ -6,6 +6,7 @@
 
 package collections;
 
+import java.util.Collection;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -43,49 +44,49 @@ public interface Graph<E> {
 	
 	// METHOD 5 (INTERFACE)
 	
-	public boolean removeVertex(E vertex) ;
+	public boolean removeVertex(int vertexId);
 	
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 6 (INTERFACE)
 	
-	public boolean removeEdge(E v1, E v2) ;
+	public boolean removeEdge(int vertexId1, int vertexId2) ;
 	
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 7 (INTERFACE)
 
-	public List<List<Integer>> getWeightMatrix() ;
+	public Hashtable<Integer, Hashtable<Integer, Integer>> getWeightMatrix() ;
 
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 8 (INTERFACE)
 
-	public Hashtable<E,List<Pair<Integer,E>>> getAdjacencyList() ;
+	public Hashtable<Vertex<E>,List<Pair<Integer,Vertex<E>>>> getAdjacencyList() ;
 	
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 9 (INTERFACE)
 	
-	public List<E> getEdgeList() ;
+	public List<Edge<E>> getEdgeList() ;
 
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 10 (INTERFACE)
 	
-	public List<E> getEdgeList(E vertex) ;
+	public List<Edge<E>> getEdgeList(int vertexId) ;
 
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 11 (INTERFACE)
 	
-	public Hashtable<E,E> getVertexList() ;
+	public Collection<Vertex<E>> getVertices() ;
 
 	//------------------------------------------------------------------------------------
 	
 	// METHOD 12 (INTERFACE)
 	
-	public List<E> getAdjacentVertices(E vertex) ;
+	public List<Vertex<E>> getAdjacentVertices(int vertexId) ;
 
 	//------------------------------------------------------------------------------------
 	
