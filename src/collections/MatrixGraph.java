@@ -122,10 +122,18 @@ public class MatrixGraph<E> implements Graph<E> {
 			return false;
 		}
 		
+		
+		
+		
 		if(adjMatrix.get(vertexId1).remove(vertexId2) == null) {
 			return false;
 		}
 			
+		//At this point it will remove it 100% of the times if the graph is not directed
+		if(!isDirected) {
+			adjMatrix.get(vertexId2).remove(vertexId1);
+		}
+		
 		return true;
 	}
 	
