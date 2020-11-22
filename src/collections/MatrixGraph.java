@@ -8,6 +8,7 @@ package collections;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 import javax.naming.directory.InvalidAttributesException;
@@ -62,6 +63,10 @@ public class MatrixGraph<E> implements Graph<E> {
 	
 	@Override
 	public boolean addEdge(int vertexId1, int vertexId2, int weight) throws InvalidAttributesException, IllegalArgumentException {
+		if(vertexId1 < 0 || vertexId2 < 0) {
+			throw new IllegalArgumentException("Id can not be negative");
+		}	
+		
 		if(weight < 0) {
 			throw new IllegalArgumentException("Weight can not be negative");
 		}
@@ -120,10 +125,7 @@ public class MatrixGraph<E> implements Graph<E> {
 		
 		if(vertices.get(vertexId1) == null || vertices.get(vertexId1) == null) {
 			return false;
-		}
-		
-		
-		
+		}	
 		
 		if(adjMatrix.get(vertexId1).remove(vertexId2) == null) {
 			return false;
@@ -148,34 +150,29 @@ public class MatrixGraph<E> implements Graph<E> {
 
 	@Override
 	public Hashtable<Vertex<E>,List<Pair<Integer,Vertex<E>>>> getAdjacencyList() {
-		List<Pair<Integer,Vertex<E>>> adjacentVerticesList;
+		List<Pair<Integer,Vertex<E>>> adjacentVerticesList = new ArrayList<>() ;
 		Hashtable<Vertex<E>,List<Pair<Integer,Vertex<E>>>> adjList = new Hashtable<>();
-				
-		Object[] verticesIds = vertices.values().toArray();
+					
+		Enumeration<Integer> ids1 = vertices.keys();
 		
-		for(Object obj : verticesIds) {
+		while(ids1.hasMoreElements()) {
 			
-			adjacentVerticesList = new ArrayList<>();
+			int id1 = ids1.nextElement();
 			
-			int vertexId1 = (Integer) obj;
+			Hashtable<Integer,Integer> row = adjMatrix.get(id1);
 			
-			Vertex<E> vertex1 = vertices.get(vertexId1);
+			Enumeration<Integer> ids2 = row.keys();
+					
 			
-			for (Object obj2 : verticesIds) {
+			while(ids2.hasMoreElements()) {
 				
-				int vertexId2 = (Integer) obj2;
+				int id2 = ids2.nextElement();				
+				Vertex<E> v2 = vertices.get(id2);
+				int weight = row.get(id2);
 				
-				Integer weight = adjMatrix.get(vertexId1).get(vertexId2);
-				
-				Vertex<E> vertex2 = vertices.get(vertexId2);
-				
-				if(weight != null) {
-					adjacentVerticesList.add(new Pair<Integer,Vertex<E>>(weight,vertex2));
-				}				
-				
-			}	
+				adjacentVerticesList.add(new Pair<Integer,Vertex<E>>(weight,v2));			
+			}			
 			
-			adjList.put(vertex1, adjacentVerticesList);
 		}
 		
 		return adjList;
@@ -185,16 +182,70 @@ public class MatrixGraph<E> implements Graph<E> {
 
 	@Override
 	public List<Edge<E>> getEdgeList() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Edge<E>> edgeList = new ArrayList<>();
+		
+		Enumeration<Integer> ids1 = vertices.keys();
+		
+		while(ids1.hasMoreElements()) {
+			
+			int id1 = ids1.nextElement();
+			
+			Hashtable<Integer,Integer> row = adjMatrix.get(id1);
+			
+			Enumeration<Integer> ids2 = row.keys();
+					
+			
+			while(ids2.hasMoreElements()) {
+				int id2 = ids2.nextElement();
+				
+				Vertex<E> v1 = vertices.get(id1);
+				Vertex<E> v2 = vertices.get(id2);
+				int weight = row.get(id2);
+				
+				edgeList.add(new Edge<E>(v1, v2, weight));
+			}
+			
+			
+		}
+		
+		
+		return edgeList;
 	}
 	
 	//------------------------------------------------------------------------------------
 
 	@Override
 	public List<Edge<E>> getEdgeList(int vertexId) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Vertex<E> v1 = vertices.get(vertexId);
+		
+		if(vertexId < 0) {
+			throw new IllegalArgumentException("Id can not be negative");
+		}
+		
+		if(v1 == null) {
+			return null;
+		}		
+		
+		List<Edge<E>> edgeList = new ArrayList<>();
+		
+		Hashtable<Integer,Integer> row = adjMatrix.get(vertexId);
+		
+		Enumeration<Integer> ids2 = row.keys();
+				
+		while(ids2.hasMoreElements()) {
+			
+			int id2 = ids2.nextElement();			
+			Vertex<E> v2 = vertices.get(id2);
+			
+			int weight = row.get(id2);
+			
+			edgeList.add(new Edge<E>(v1,v2,weight));
+			
+		}	
+		
+		return edgeList;
 	}
 
 	//------------------------------------------------------------------------------------
@@ -208,8 +259,33 @@ public class MatrixGraph<E> implements Graph<E> {
 	
 	@Override
 	public List<Vertex<E>> getAdjacentVertices(int vertexId) {
-		// TODO Auto-generated method stub
-		return null;
+				
+		if(vertexId < 0) {
+			throw new IllegalArgumentException("Id can not be negative");
+		}
+					
+		Vertex<E> v1 = vertices.get(vertexId);
+		
+		if(v1 == null) {
+			return null;
+		}
+		
+		List<Vertex<E>> verticesList = new ArrayList<>();
+		
+		Hashtable<Integer,Integer> row = adjMatrix.get(vertexId);
+		
+		Enumeration<Integer> ids2 = row.keys();
+				
+		while(ids2.hasMoreElements()) {
+			
+			int id2 = ids2.nextElement();			
+			Vertex<E> v2 = vertices.get(id2);
+			
+			verticesList.add(v2);
+			
+		}	
+		
+		return verticesList;
 	}
 
 	//------------------------------------------------------------------------------------
