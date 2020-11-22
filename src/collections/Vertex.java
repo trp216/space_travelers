@@ -38,5 +38,7 @@ public class Vertex<E> {
 	public void setId(int id) { this.id = id; }	
 	
 	//------------------------------------------------------	
+	//Equals method
 	
+	public boolean equals(Vertex<E> anotherVertex) { return id == anotherVertex.id;} 
 }

@@ -49,10 +49,8 @@ public class MatrixGraph<E> implements Graph<E> {
 			
 			vertices.put(vertexId, new Vertex<E>(element,vertexId));
 			
-			if(adjMatrix.get(vertexId) == null) {
-				adjMatrix.put(vertexId, new Hashtable<>());
-			}	
-			
+			adjMatrix.put(vertexId, new Hashtable<>());
+						
 			return true;
 		}	
 		
@@ -107,12 +105,24 @@ public class MatrixGraph<E> implements Graph<E> {
 	@Override
 	public boolean removeVertex(int vertexId) {
 		
-		if(vertices.get(vertexId) == null) {
+		if(vertexId < 0) {
+			throw new IllegalArgumentException("Id can not be negative");
+		}
+		
+		Vertex<E> v =  vertices.get(vertexId);
+		
+		if(v == null) {
 			return false;
 		}
 		
 		if(adjMatrix.remove(vertexId) == null) {
 			return false;
+		}		
+		
+		Enumeration<Hashtable<Integer,Integer>> rows = adjMatrix.elements();
+		
+		while (rows.hasMoreElements()) {
+			rows.nextElement().remove(vertexId);					
 		}		
 		
 		return true;
@@ -122,6 +132,10 @@ public class MatrixGraph<E> implements Graph<E> {
 
 	@Override
 	public boolean removeEdge(int vertexId1, int vertexId2) {
+		
+		if(vertexId1 < 0 || vertexId2 < 0) {
+			throw new IllegalArgumentException("Id can not be negative");
+		}	
 		
 		if(vertices.get(vertexId1) == null || vertices.get(vertexId1) == null) {
 			return false;
@@ -286,6 +300,16 @@ public class MatrixGraph<E> implements Graph<E> {
 		}	
 		
 		return verticesList;
+	}
+
+	@Override
+	public boolean isDirected() {
+		return isDirected;
+	}
+
+	@Override
+	public boolean isWeighted() {
+		return isWeighted;
 	}
 
 	//------------------------------------------------------------------------------------

@@ -89,5 +89,15 @@ public interface Graph<E> {
 	public List<Vertex<E>> getAdjacentVertices(int vertexId) ;
 
 	//------------------------------------------------------------------------------------
+	// METHOD 13 (INTERFACE)
 	
+	public boolean isDirected() ;
+
+	//------------------------------------------------------------------------------------
+	// METHOD 14 (INTERFACE)
+		
+	public boolean isWeighted() ;
+
+	//------------------------------------------------------------------------------------
+		
 }

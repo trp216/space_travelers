@@ -1,92 +1,305 @@
 package collections;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
+import javax.naming.directory.InvalidAttributesException;
+
 import utilities.Pair;
 
-public class AdjacencyListGraph<V extends Vertex> implements Graph<V>{
+public class AdjacencyListGraph<E> implements Graph<E>{
 	
-	Hashtable<V, List<Pair<Integer, V>>>  adList;
+	private Hashtable<Integer,Vertex<E>> vertices;
+	
+	private Hashtable<Vertex<E>,List<Pair<Integer,Vertex<E>>>>  adjList;
+	
+	private boolean isDirected;
+	
+	private boolean isWeighted;
+	
+	public AdjacencyListGraph(boolean isDirected, boolean isWeighted) {
+		
+		this.isDirected = isDirected;
+		this.isWeighted = isWeighted;
+		
+		adjList = new Hashtable<>();
+				
+		vertices = new Hashtable<>();
+	}
 	
 	@Override
-	public boolean addVertex(V vertex) {
-		boolean added = false;
-		
-		//agregar if no se ha agregado el vertice antes
-		if(adList.get(vertex)==null){
-			adList.put(vertex, new ArrayList<Pair<Integer,V>>());
-			added = true;
+	public boolean addVertex(E element, int vertexId) throws IllegalArgumentException {
+		if(vertexId < 0) {
+			throw new IllegalArgumentException("Id can not be negative");
 		}
 		
-		return added;
-	}
-
-	@Override
-	public boolean addEdge(V v1, V v2, int weight) {
-		// TODO Auto-generated method stub
+		if (vertices.get(vertexId) == null) {
+			
+			Vertex<E> newVertex = new Vertex<>(element,vertexId);
+			
+			vertices.put(vertexId, newVertex);			
+			adjList.put(newVertex,new ArrayList<>());
+					
+			return true;
+		}	
+		
 		return false;
 	}
 
 	@Override
-	public boolean addEdge(V v1, V v2) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addEdge(int vertexId1, int vertexId2, int weight)
+			throws InvalidAttributesException, IllegalArgumentException {
+		if(vertexId1 < 0 || vertexId2 < 0) {
+			throw new IllegalArgumentException("Id can not be negative");
+		}	
+		
+		if(weight < 0) {
+			throw new IllegalArgumentException("Weight can not be negative");
+		}
+		
+		if(!isWeighted && weight != 1) {
+			throw new InvalidAttributesException("The operation is only valid on weighted MatrixGraph");
+		}	
+		
+		Vertex<E> v1 =  vertices.get(vertexId1);
+		Vertex<E> v2 =  vertices.get(vertexId2);
+		
+		if(v1 == null || v2 == null) {
+			return false;
+		}
+		
+		
+		adjList.get(v1).add(new Pair<Integer,Vertex<E>>(weight,v2));
+		if(!isDirected) {
+			adjList.get(v2).add(new Pair<Integer,Vertex<E>>(weight,v1));
+		}
+		
+		return true;
+	}
+
+	@Override
+	public boolean addEdge(int vertexId1, int vertexId2) throws InvalidAttributesException, IllegalArgumentException {
+		return addEdge(vertexId1,vertexId2,1);
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return vertices.isEmpty();
 	}
 
 	@Override
-	public boolean removeVertex(V vertex) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean removeVertex(int vertexId) {
+		if(vertexId < 0) {
+			throw new IllegalArgumentException("Id can not be negative");
+		}
+		
+		Vertex<E> v =  vertices.get(vertexId);
+		
+		if(v == null) {
+			return false;
+		}
+		
+		if(adjList.remove(v) == null) {
+			return false;
+		}		
+		
+		Enumeration<List<Pair<Integer,Vertex<E>>>> lists = adjList.elements();
+		
+		while (lists.hasMoreElements()) {
+			List<Pair<Integer,Vertex<E>>> list = lists.nextElement();
+			
+			boolean check = false;
+			
+			for (int i = 0; i < list.size() && !check; i++) {
+				Pair<Integer,Vertex<E>> p = list.get(i);
+				
+				Vertex<E> v1 = p.getValue();
+				
+				if(v == v1) {
+					list.remove(i);					
+					check = true;
+				}				
+			}			
+			
+		}		
+		return true;
 	}
 
 	@Override
-	public boolean removeEdge(V v1, V v2) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean removeEdge(int vertexId1, int vertexId2) {
+		if(vertexId1 < 0 || vertexId2 < 0) {
+			throw new IllegalArgumentException("Id can not be negative");
+		}	
+		
+		if(vertices.get(vertexId1) == null || vertices.get(vertexId1) == null) {
+			return false;
+		}	
+		
+		Vertex<E> v1 =  vertices.get(vertexId1);
+		Vertex<E> v2 =  vertices.get(vertexId2);
+		
+		List<Pair<Integer,Vertex<E>>> v1List = adjList.get(v1);
+		boolean removed = false;
+		
+		
+		for (int i = 0; i < v1List.size() && !removed ; i++) {
+			
+			if(v1List.get(i).getValue() == v2) {
+				v1List.remove(i);
+				removed = true;
+			}			
+			
+		}		
+			
+		//At this point it will remove it 100% of the times if the graph is not directed
+		if(!isDirected) {
+			List<Pair<Integer,Vertex<E>>> v2List = adjList.get(v2);
+			removed = false;
+						
+			for (int i = 0; i < v2List.size() && !removed ; i++) {
+				
+				if(v2List.get(i).getValue() == v1) {
+					v2List.remove(i);
+					removed = true;
+				}			
+				
+			}
+		}
+		
+		return true;
 	}
 
 	@Override
-	public List<List<V>> getWeightMatrix() {
-		// TODO Auto-generated method stub
-		return null;
+	public Hashtable<Integer, Hashtable<Integer, Integer>> getWeightMatrix() {
+		Hashtable<Integer,Hashtable<Integer,Integer>> adjMatrix = new Hashtable<>();
+		
+		Enumeration<Vertex<E>> allVertices = vertices.elements(); 
+		
+		while(allVertices.hasMoreElements()) {
+			
+			Vertex<E> v1 = allVertices.nextElement();
+			
+			List<Pair<Integer,Vertex<E>>> v1List = adjList.get(v1);
+			
+			adjMatrix.put(v1.getId(),new Hashtable<Integer,Integer>());
+			
+			for (Pair<Integer, Vertex<E>> p : v1List) {
+				
+				int v2Id = p.getValue().getId();
+				
+				int weight = p.getKey();
+				
+				adjMatrix.get(v1.getId()).put(v2Id, weight);				
+				
+			}
+			
+			
+		}	
+		
+		return adjMatrix;
 	}
 
 	@Override
-	public Hashtable<V, List<Pair<Integer, V>>> getAdjacencyList() {
-		// TODO Auto-generated method stub
-		return adList;
+	public Hashtable<Vertex<E>, List<Pair<Integer, Vertex<E>>>> getAdjacencyList() {
+		return adjList;
 	}
 
 	@Override
-	public List<V> getEdgeList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Edge<E>> getEdgeList() {
+		List<Edge<E>> edgeList = new ArrayList<>();
+		
+		Enumeration<Vertex<E>> vertices1 = vertices.elements();
+		
+		while(vertices1.hasMoreElements()) {
+			
+			Vertex<E> v1 = vertices1.nextElement();
+			
+			List<Pair<Integer,Vertex<E>>> v1List = adjList.get(v1);
+			
+			for(Pair<Integer,Vertex<E>> p : v1List) {
+								
+				Vertex<E> v2 = p.getValue();
+				int weight = p.getKey();
+				
+				edgeList.add(new Edge<E>(v1, v2, weight));
+			}
+			
+			
+		}
+		return edgeList;
 	}
 
 	@Override
-	public List<V> getEdgeList(V vertex) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Edge<E>> getEdgeList(int vertexId) {
+		Vertex<E> v1 = vertices.get(vertexId);
+		
+		if(vertexId < 0) {
+			throw new IllegalArgumentException("Id can not be negative");
+		}
+		
+		if(v1 == null) {
+			return null;
+		}
+		
+		List<Edge<E>> edgeList = new ArrayList<>();
+		
+		List<Pair<Integer,Vertex<E>>> v1List = adjList.get(v1);
+		
+		for(Pair<Integer,Vertex<E>> p : v1List) {
+							
+			Vertex<E> v2 = p.getValue();
+			int weight = p.getKey();
+			
+			edgeList.add(new Edge<E>(v1, v2, weight));
+		}
+		
+		return edgeList;
 	}
 
 	@Override
-	public Hashtable<V, V> getVertexList() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<Vertex<E>> getVertices() {
+		return vertices.values();
 	}
 
 	@Override
-	public List<V> getAdjacentVertices(V vertex) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Vertex<E>> getAdjacentVertices(int vertexId) {
+				
+		if(vertexId < 0) {
+			throw new IllegalArgumentException("Id can not be negative");
+		}
+		
+		Vertex<E> v1 = vertices.get(vertexId);
+		
+		if(v1 == null) {
+			return null;
+		}
+		
+		List<Vertex<E>> verticesList = new ArrayList<>();
+		
+		List<Pair<Integer,Vertex<E>>> v1List = adjList.get(v1);
+		
+		for(Pair<Integer,Vertex<E>> p : v1List) {
+							
+			Vertex<E> v2 = p.getValue();
+			
+			verticesList.add(v2);
+		}
+		
+		return verticesList;
 	}
 
+	@Override
+	public boolean isDirected() {
+		return isDirected;
+	}
+
+	@Override
+	public boolean isWeighted() {
+		return isWeighted;
+	}
+	
+	
 }
