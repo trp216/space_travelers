@@ -4,6 +4,10 @@
  * DIAZ - MARTINEZ - RODAS
  */
 
+/*
+ * Kruskal algorithm taken from https://youtu.be/RIayaaOCllU
+ */
+
 package collections;
 
 import java.util.ArrayDeque;
@@ -130,7 +134,7 @@ public class GraphAlgorithms {
 	
 	// DIJKSTRA METHOD
 	
-	public <E> int dijkstra(Graph<E> graph, int sourceVertexId, int endVertexId) {
+	public static <E> int dijkstra(Graph<E> graph, int sourceVertexId, int endVertexId) {
 		
 		//<vertex,distance>
 		Hashtable<Vertex<E>,Integer> dist = dijkstra(graph,sourceVertexId);
@@ -146,7 +150,7 @@ public class GraphAlgorithms {
 	
 	// RETURN E DIJKSTRA METHOD
 	
-	public <E> Hashtable<Vertex<E>,Integer> dijkstra(Graph<E> graph, int sourceVertexId) {
+	public static <E> Hashtable<Vertex<E>,Integer> dijkstra(Graph<E> graph, int sourceVertexId) {
 		
 		//<Vertex,List<Pair<weight,vertex>>
 		Hashtable<Vertex<E>, List<Pair<Integer, Vertex<E>>>> adjacencyList = graph.getAdjacencyList();
@@ -214,26 +218,143 @@ public class GraphAlgorithms {
 		
 	}
 		
-	/*
+	
 	
 	//------------------------------------------------------------------------------------
 		
 	public <E> List<List<Integer>> floydWarshall(Graph<E> graph) {
-		return null;		
+		double dist[][] = graph.getWeightMatrix();							//arreglar luego
+		int V = dist.length;
+		int i, j, k;
+
+		for (k = 0; k < V; k++) {
+
+			for (i = 0; i < V; i++) {
+
+				for (j = 0; j < V; j++) {
+
+					if (dist[i][k] + dist[k][j] < dist[i][j])
+						dist[i][j] = dist[i][k] + dist[k][j];
+				}
+			}
+		}
+
+		return dist;		
 	}
 		
 	//------------------------------------------------------------------------------------
 		
-	public <E> Graph<E> prim(Graph<V> graph, V vertex) {
-		return null;		
-	}
+	public <V> Hashtable<Integer,Hashtable<Integer,Integer>> prim(Graph<V> graph, V vertex) {
+		Hashtable<Integer,Hashtable<Integer,Integer>> wm = graph.getWeightMatrix();
 		
+		int[] mst = new int[wm.size()];	
+		int[] weight = new int[wm.size()];	
+		boolean[] inMst = new boolean[wm.size()];
+		for (int i = 0; i < wm.size(); i++) {
+			weight[i] = Integer.MAX_VALUE;
+			inMst[i] = false;
+		}		
+
+		
+		weight[0] = 0; 
+		mst[0] = -1;			
+
+		for (int i = 0; i < wm.size()-1; i++) {
+			int u = minVertex(weight, inMst, wm.size()); 
+			inMst[u] = true;
+			for (int j = 0; j < wm.size(); j++) {
+				if(wm.get(u).get(j) != 0 && inMst[j] == false && wm.get(u).get(j) < weight[j]){
+					mst[j] = u;
+					weight[j] = (int) wm.get(u).get(j);
+				}
+			}
+		}	
+		return wm;
+	}
+	
+	private int minVertex(int[] weight, boolean[] inMst, int vertices){
+		int minValue = Integer.MAX_VALUE;
+		int minVertex = -1;
+		for (int i = 0; i < vertices; i++) {
+			if(inMst[i] == false && weight[i] < minValue){
+				minValue = weight[i];
+				minVertex = i;
+			}
+		}
+		return minVertex;
+	}
+			
 	//------------------------------------------------------------------------------------
 		
-	public <V> Graph<V> kruskal(Graph<V> graph, V vertex) {
-		return null;		
+	public static <V> double[][] kruskal(Graph<V> graph, int vertexid) {
+		int inf = Integer.MAX_VALUE;
+		UnionFind<Integer> set = new UnionFind<>();
+		
+		Hashtable<Integer,Hashtable<Integer,Integer>> wm = graph.getWeightMatrix();
+		
+		double[][] MST = new double[wm.size()][wm.size()];
+
+		for (int i = 0; i < graph.getWeightMatrix().size(); i++)
+			set.makeSet(i);
+		class obj {
+			int A;
+			int B;
+			double P;
+
+			obj(int a, int b, double weight) {
+				A = a;
+				B = b;
+				P = weight;
+			}
+
+			int getA() {
+				return A;
+			}
+
+			int getB() {
+				return B;
+			}
+
+			double getP() {
+				return P;
+			}
+		}
+		ArrayList<obj> aristas = new ArrayList<>();
+		for (int i = 0; i < wm.size(); i++) {
+			for (int j = 0; j < wm.size(); j++) {
+				double weight = wm.get(i).get(j); 
+				if (weight > 0 && weight < inf) {
+					obj o = new obj(i, j, weight);
+					aristas.add(o);
+				}
+			}
+		}
+
+		Comparator<obj> comparator = new Comparator<obj>() {
+
+			public int compare(obj a, obj b) {
+				if (a.getP() > b.getP())
+					return 1;
+				else if (a.getP() < b.getP())
+					return -1;
+				else
+					return 0;
+			}
+		};
+
+		aristas.sort(comparator);
+		for (int i = 0; i < aristas.size(); i++) {
+			obj arista = aristas.get(i);
+			if (set.findSet(arista.getA()) != set.findSet(arista.getB())) {
+				set.union(arista.getA(), arista.getB());
+				MST[arista.getA()][arista.getB()] = arista.getP();
+				MST[arista.getB()][arista.getA()] = arista.getP();
+			}
+		}
+	
+		return MST;
 	}
-	*/
+	
 	
 	//------------------------------------------------------------------------------------
 	
