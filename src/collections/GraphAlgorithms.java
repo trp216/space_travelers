@@ -7,6 +7,7 @@
 package collections;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.List;
@@ -19,72 +20,42 @@ public class GraphAlgorithms {
 
 	//------------------------------------------------------------------------------------
 	
-	public static <V extends Vertex> List<V> BFS(Graph<V> graph, V vertex) {
-		Hashtable<V, List<Pair<Integer, V>>> adjacencyList = graph.getAdjacencyList();
+	public static <E> E DFS(Graph<E> graph, int vertexId) {
+		Hashtable<Vertex<E>, List<Pair<Integer, Vertex<E>>>> adjacencyList = graph.getAdjacencyList();
+		Hashtable<Integer,Vertex<E>> vertices = graph.getVertices();
 		
-		//More efficient than Stack
-		Queue<V> queue = new ArrayDeque<V>();
+		List<E> traversal = new ArrayList<>();
 		
-		queue.offer(graph.getVertexList().get(vertex));
+		//More efficient than Linked List Queue
+		ArrayDeque<Vertex<E>> stack = new ArrayDeque<>();
 		
-		int N = adjacencyList.size();
-		
-		Hashtable<V,Boolean> visitedNodes = new Hashtable<V,Boolean>(N);
-		
-		visitedNodes.put(vertex, true);
-		
-		while(!queue.isEmpty()){
-			
-			V node = queue.poll();
-			
-			for (Pair<Integer,V> p: adjacencyList.get(node)) {
-								
-				V adjacentNode = p.getValue();
-				
-				if(!visitedNodes.containsKey(adjacentNode)) {					
-					visitedNodes.put(adjacentNode, true);					
-					queue.offer(adjacentNode);
-										
-				}			
-				
-			}
-			
-		}
-		
-		return null;		
-	}
-	
-	//------------------------------------------------------------------------------------
-	
-	public static <V extends Vertex> V DFS(Graph<V> graph, V vertex) {
-		
-		Hashtable<V,List<Pair<Integer,V>>> adjacencyList = graph.getAdjacencyList();
-				
-		//More efficient than Stack
-		ArrayDeque<V> stack = new ArrayDeque<V>();
-		
-		stack.push(graph.getVertexList().get(vertex));
+		stack.push(vertices.get(vertexId));
 		
 		int N = adjacencyList.size();
 		
-		Hashtable<V,Boolean> visitedNodes = new Hashtable<V,Boolean>(N);
+		Hashtable<Vertex<E>,Boolean> visitedNodes = new Hashtable<>(N);
 		
-		visitedNodes.put(vertex, true);
+		visitedNodes.put(vertices.get(vertexId), true);
+		
+		traversal.add(vertices.get(vertexId).getElement());
 		
 		while(!stack.isEmpty()){
 			
-			V node = stack.pop();
+			Vertex<E> vertex = stack.pop();
 			
-			for (Pair<Integer,V> p: adjacencyList.get(node)) {
+			for (Pair<Integer, Vertex<E>> p: adjacencyList.get(vertex)) {
 								
-				V adjacentNode = p.getValue();
+				Vertex<E> adjacentVertex = p.getValue();
 				
-				if(!visitedNodes.containsKey(adjacentNode)) {					
-					visitedNodes.put(adjacentNode, true);					
-					stack.push(adjacentNode);
+				if(!visitedNodes.containsKey(adjacentVertex)) {		
 					
-					if(adjacentNode.equals(vertex)) {
-						return adjacentNode;
+					visitedNodes.put(adjacentVertex, true);					
+					stack.push(adjacentVertex);
+					
+					traversal.add(adjacentVertex.getElement());		
+					
+					if(adjacentVertex.getId() == vertexId) {
+						return adjacentVertex.getElement();
 					}
 					
 				}			
@@ -98,51 +69,106 @@ public class GraphAlgorithms {
 	
 	//------------------------------------------------------------------------------------
 	
-	public <V extends Vertex> int dijkstra(Graph<V> graph, V sourceVertex, V endVertex) {
+	public static <E> List<E> BFS(Graph<E> graph, int vertexId) {
 		
-		Hashtable<V,Integer> dist = dijkstra(graph,sourceVertex);
+		Hashtable<Vertex<E>, List<Pair<Integer, Vertex<E>>>> adjacencyList = graph.getAdjacencyList();
+		Hashtable<Integer,Vertex<E>> vertices = graph.getVertices();
 		
-		return dist.get(endVertex);				
+		List<E> traversal = new ArrayList<>();
+		
+		//More efficient than Stack
+		Queue<Vertex<E>> queue = new ArrayDeque<>();
+		
+		queue.offer(vertices.get(vertexId));
+		
+		int N = adjacencyList.size();
+		
+		Hashtable<Vertex<E>,Boolean> visitedNodes = new Hashtable<>(N);
+		
+		visitedNodes.put(vertices.get(vertexId), true);
+		
+		traversal.add(vertices.get(vertexId).getElement());
+		
+		while(!queue.isEmpty()){
+			
+			Vertex<E> vertex = queue.poll();
+			
+			for (Pair<Integer, Vertex<E>> p: adjacencyList.get(vertex)) {
+								
+				Vertex<E> adjacentVertex = p.getValue();
+				
+				if(!visitedNodes.containsKey(adjacentVertex)) {		
+					
+					visitedNodes.put(adjacentVertex, true);					
+					queue.offer(adjacentVertex);
+					
+					traversal.add(adjacentVertex.getElement());						
+					
+				}			
+				
+			}
+			
+		}
+		
+		return traversal;		
 	}
 	
 	//------------------------------------------------------------------------------------
 	
-	public <V extends Vertex> Hashtable<V,Integer> dijkstra(Graph<V> graph, V sourceVertex) {
+	public <E> int dijkstra(Graph<E> graph, int sourceVertexId, int endVertexId) {
 		
-		Hashtable<V, List<Pair<Integer,V>>> adjacencyList = graph.getAdjacencyList();
-		Hashtable<V,Integer> dist = new Hashtable<>();
-		Hashtable<V,V> vertices = graph.getVertexList();
+		//<vertex,distance>
+		Hashtable<Vertex<E>,Integer> dist = dijkstra(graph,sourceVertexId);
 		
-		Collection<V> aloneVertices = vertices.values();
+		//<id,vertex>
+		Hashtable<Integer, Vertex<E>> vertices = graph.getVertices();
 		
-		for (V vertex : aloneVertices) {
+		return dist.get(vertices.get(endVertexId));				
+	}
+	
+	//------------------------------------------------------------------------------------
+	
+	public <E> Hashtable<Vertex<E>,Integer> dijkstra(Graph<E> graph, int sourceVertexId) {
+		
+		//<Vertex,List<Pair<weight,vertex>>
+		Hashtable<Vertex<E>, List<Pair<Integer, Vertex<E>>>> adjacencyList = graph.getAdjacencyList();
+		
+		//<Vertex,distance>
+		Hashtable<Vertex<E>,Integer> dist = new Hashtable<>();
+		
+		//<id,vertex>
+		Hashtable<Integer,Vertex<E>> vertices = graph.getVertices();
+		
+		Collection<Vertex<E>> aloneVertices = vertices.values();
+		
+		for (Vertex<E> vertex : aloneVertices) {
 			dist.put(vertex, 1000000000);
 		}
 				
-		PriorityQueue<Pair<Integer,V>> pq = new PriorityQueue<Pair<Integer,V>>(10, 
-			      new Comparator< Pair<Integer,V> >() {
-	        public int compare(Pair<Integer,V> i, Pair<Integer,V> j) {
+		PriorityQueue<Pair<Integer,Vertex<E>>> pq = new PriorityQueue<Pair<Integer,Vertex<E>>>(10, 
+			      new Comparator< Pair<Integer,Vertex<E>> >() {
+	        public int compare(Pair<Integer,Vertex<E>> i, Pair<Integer,Vertex<E>> j) {
 	          return i.getKey().compareTo(j.getKey());
 	        }
 	      }
 	    );
 		
-		pq.offer(new Pair<Integer,V>(0,sourceVertex));
+		pq.offer(new Pair<Integer,Vertex<E>>(0,vertices.get(sourceVertexId)));
 		
 		while (!pq.isEmpty()) { 
-			Pair<Integer,V> top = pq.poll();
+			Pair<Integer,Vertex<E>> top = pq.poll();
 			
 			int distance = top.getKey();
 			
-			V vertex = top.getValue();
+			Vertex<E> vertex = top.getValue();
 			
 			if (distance > dist.get(vertex)) continue;
 			
-			List<Pair<Integer,V>> adjacentVertices = adjacencyList.get(vertex);
+			List<Pair<Integer,Vertex<E>>> adjacentVertices = adjacencyList.get(vertex);
 			
-			for (Pair<Integer, V> p : adjacentVertices) {
+			for (Pair<Integer, Vertex<E>> p : adjacentVertices) {
 							
-				V adjacentVertex = p.getValue();
+				Vertex<E> adjacentVertex = p.getValue();
 				
 				int weight = p.getKey();
 		        
@@ -150,7 +176,7 @@ public class GraphAlgorithms {
 		        	
 		        	dist.replace(adjacentVertex, dist.get(vertex) + weight);  
 		        	
-		        	pq.offer(new Pair<Integer,V>(dist.get(adjacentVertex), adjacentVertex)); 
+		        	pq.offer(new Pair<Integer,Vertex<E>>(dist.get(adjacentVertex), adjacentVertex)); 
 		            
 		        } 
 			} 
@@ -163,13 +189,13 @@ public class GraphAlgorithms {
 	
 	//------------------------------------------------------------------------------------
 		
-	public <V> List<List<Integer>> floydWarshall(Graph<V> graph) {
+	public <E> List<List<Integer>> floydWarshall(Graph<E> graph) {
 		return null;		
 	}
 		
 	//------------------------------------------------------------------------------------
 		
-	public <V> Graph<V> prim(Graph<V> graph, V vertex) {
+	public <E> Graph<E> prim(Graph<V> graph, V vertex) {
 		return null;		
 	}
 		

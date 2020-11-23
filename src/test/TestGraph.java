@@ -8,6 +8,8 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import javax.naming.directory.InvalidAttributesException;
+
 import org.junit.jupiter.api.Test;
 
 import collections.MatrixGraph;
@@ -26,7 +28,7 @@ class TestGraph {
 
 	void setup1() {
 		
-		graph = new MatrixGraph<Integer>();
+		graph = new MatrixGraph<Integer>(false, true);
 		
 	}
 	
@@ -34,13 +36,13 @@ class TestGraph {
 	
 	// SETUP2
 
-	void setup2() {
+	void setup2() throws InvalidAttributesException, IllegalArgumentException {
 		
 		setup1();
 
 		for(int i = 0;i<=20;i++) {
 			
-			graph.addVertex(i);
+			graph.addVertex(i,i);
 			
 		}
 
@@ -76,7 +78,7 @@ class TestGraph {
 
 		for(int i=1;i<=1000;i++){
 			
-			graph.addVertex(i);
+			graph.addVertex(i,i);
 			
 		}
 		
@@ -91,9 +93,9 @@ class TestGraph {
 		
 		setup1();
 
-		assertTrue(graph.addVertex(21));
+		assertTrue(graph.addVertex(21,21));
 		
-		assertTrue(graph.getVertexList().contains(21));
+		assertTrue(graph.getVertices().contains(21));
 		
 	}
 	
@@ -102,13 +104,13 @@ class TestGraph {
 	// TEST ADD VERTEX 2
 
 	@Test
-	public void testAddVertex2() {
+	public void testAddVertex2() throws InvalidAttributesException, IllegalArgumentException {
 		
 		setup2();
 
-		assertTrue(graph.addVertex(64));
+		assertTrue(graph.addVertex(64,64));
 		
-		assertTrue(graph.getVertexList().contains(64));
+		assertTrue(graph.getVertices().contains(64));
 		
 	}
 	
@@ -123,7 +125,7 @@ class TestGraph {
 
 		for(int i = 0;i<=1000;i++) {
 			
-			assertTrue(graph.addVertex(i));
+			assertTrue(graph.addVertex(i,i));
 			
 		}
 
@@ -134,7 +136,7 @@ class TestGraph {
 	// TEST ADD EDGE 1
 
 	@Test
-	public void testAddEdge1() {
+	public void testAddEdge1() throws InvalidAttributesException, IllegalArgumentException {
 		
 		setup2();
 		
@@ -153,7 +155,7 @@ class TestGraph {
 	// TEST ADD EDGE 2
 
 	@Test
-	public void testAddEdge2() {
+	public void testAddEdge2() throws InvalidAttributesException, IllegalArgumentException {
 		
 		setup2();
 		
@@ -166,7 +168,7 @@ class TestGraph {
 	// TEST ADD EDGE 3
 
 	@Test
-	public void testAddEdge3() {
+	public void testAddEdge3() throws InvalidAttributesException, IllegalArgumentException {
 		
 		setup3();
 		
@@ -192,7 +194,7 @@ class TestGraph {
 	// TEST IS EMPTY 2
 	
 	@Test
-	public void testIsEmpty2() {
+	public void testIsEmpty2() throws InvalidAttributesException, IllegalArgumentException {
 		
 		setup2();
 		
@@ -231,7 +233,7 @@ class TestGraph {
 	// TEST REMOVE VERTEX 2
 	
 	@Test
-	public void testRemoveVertex2() {
+	public void testRemoveVertex2() throws InvalidAttributesException, IllegalArgumentException {
 		
 		setup2();
 		
@@ -257,7 +259,7 @@ class TestGraph {
 	// TEST REMOVE EDGE 1
 	
 	@Test
-	public void testRemoveEdge1() {
+	public void testRemoveEdge1() throws InvalidAttributesException, IllegalArgumentException {
 		
 		setup2();
 		
@@ -269,7 +271,7 @@ class TestGraph {
 	
 	// TEST REMOVE EDGE 2
 	
-	public void testRemoveEdge2() {
+	public void testRemoveEdge2() throws InvalidAttributesException, IllegalArgumentException {
 		
 		setup2();
 		

@@ -5,8 +5,6 @@
  */
 
 package collections;
-
-import java.util.Collection;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -80,7 +78,7 @@ public interface Graph<E> {
 	
 	// METHOD 11 (INTERFACE)
 	
-	public Collection<Vertex<E>> getVertices() ;
+	public Hashtable<Integer,Vertex<E>> getVertices() ;
 
 	//------------------------------------------------------------------------------------
 	

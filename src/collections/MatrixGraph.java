@@ -7,7 +7,6 @@
 package collections;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
@@ -265,8 +264,8 @@ public class MatrixGraph<E> implements Graph<E> {
 	//------------------------------------------------------------------------------------
 	
 	@Override
-	public Collection<Vertex<E>> getVertices()  {				
-		return vertices.values();
+	public Hashtable<Integer,Vertex<E>> getVertices()  {				
+		return vertices;
 	}	
 	
 	//------------------------------------------------------------------------------------
