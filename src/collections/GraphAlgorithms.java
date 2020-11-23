@@ -20,8 +20,12 @@ public class GraphAlgorithms {
 
 	//------------------------------------------------------------------------------------
 	
+	// DFS METHOD
+	
 	public static <E> E DFS(Graph<E> graph, int vertexId) {
+		
 		Hashtable<Vertex<E>, List<Pair<Integer, Vertex<E>>>> adjacencyList = graph.getAdjacencyList();
+		
 		Hashtable<Integer,Vertex<E>> vertices = graph.getVertices();
 		
 		List<E> traversal = new ArrayList<>();
@@ -49,13 +53,16 @@ public class GraphAlgorithms {
 				
 				if(!visitedNodes.containsKey(adjacentVertex)) {		
 					
-					visitedNodes.put(adjacentVertex, true);					
+					visitedNodes.put(adjacentVertex, true);	
+					
 					stack.push(adjacentVertex);
 					
 					traversal.add(adjacentVertex.getElement());		
 					
 					if(adjacentVertex.getId() == vertexId) {
+						
 						return adjacentVertex.getElement();
+						
 					}
 					
 				}			
@@ -64,14 +71,18 @@ public class GraphAlgorithms {
 			
 		}
 		
-		return null;		
+		return null;
+		
 	}
 	
 	//------------------------------------------------------------------------------------
 	
+	// BFS METHOD
+	
 	public static <E> List<E> BFS(Graph<E> graph, int vertexId) {
 		
 		Hashtable<Vertex<E>, List<Pair<Integer, Vertex<E>>>> adjacencyList = graph.getAdjacencyList();
+		
 		Hashtable<Integer,Vertex<E>> vertices = graph.getVertices();
 		
 		List<E> traversal = new ArrayList<>();
@@ -99,7 +110,8 @@ public class GraphAlgorithms {
 				
 				if(!visitedNodes.containsKey(adjacentVertex)) {		
 					
-					visitedNodes.put(adjacentVertex, true);					
+					visitedNodes.put(adjacentVertex, true);
+					
 					queue.offer(adjacentVertex);
 					
 					traversal.add(adjacentVertex.getElement());						
@@ -110,10 +122,13 @@ public class GraphAlgorithms {
 			
 		}
 		
-		return traversal;		
+		return traversal;	
+		
 	}
 	
 	//------------------------------------------------------------------------------------
+	
+	// DIJKSTRA METHOD
 	
 	public <E> int dijkstra(Graph<E> graph, int sourceVertexId, int endVertexId) {
 		
@@ -123,10 +138,13 @@ public class GraphAlgorithms {
 		//<id,vertex>
 		Hashtable<Integer, Vertex<E>> vertices = graph.getVertices();
 		
-		return dist.get(vertices.get(endVertexId));				
+		return dist.get(vertices.get(endVertexId));	
+		
 	}
 	
 	//------------------------------------------------------------------------------------
+	
+	// RETURN E DIJKSTRA METHOD
 	
 	public <E> Hashtable<Vertex<E>,Integer> dijkstra(Graph<E> graph, int sourceVertexId) {
 		
@@ -142,20 +160,28 @@ public class GraphAlgorithms {
 		Collection<Vertex<E>> aloneVertices = vertices.values();
 		
 		for (Vertex<E> vertex : aloneVertices) {
+			
 			dist.put(vertex, 1000000000);
+			
 		}
 				
 		PriorityQueue<Pair<Integer,Vertex<E>>> pq = new PriorityQueue<Pair<Integer,Vertex<E>>>(10, 
-			      new Comparator< Pair<Integer,Vertex<E>> >() {
+		new Comparator< Pair<Integer,Vertex<E>> >() {
+			
 	        public int compare(Pair<Integer,Vertex<E>> i, Pair<Integer,Vertex<E>> j) {
+	        	
 	          return i.getKey().compareTo(j.getKey());
+	          
 	        }
+	        
 	      }
+		
 	    );
 		
 		pq.offer(new Pair<Integer,Vertex<E>>(0,vertices.get(sourceVertexId)));
 		
 		while (!pq.isEmpty()) { 
+			
 			Pair<Integer,Vertex<E>> top = pq.poll();
 			
 			int distance = top.getKey();
@@ -179,10 +205,13 @@ public class GraphAlgorithms {
 		        	pq.offer(new Pair<Integer,Vertex<E>>(dist.get(adjacentVertex), adjacentVertex)); 
 		            
 		        } 
+		        
 			} 
+			
 		}
 		
 		return dist;
+		
 	}
 		
 	/*
@@ -205,5 +234,7 @@ public class GraphAlgorithms {
 		return null;		
 	}
 	*/
+	
+	//------------------------------------------------------------------------------------
 	
 }
