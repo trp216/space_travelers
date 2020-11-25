@@ -99,21 +99,21 @@ public class UnionFind<E> {
 
 	// Get set method
 
-	public ArrayList<E> getSet(E elemento) {		
+	public ArrayList<E> getSet(E element) {		
 
-		E representative = findSet(elemento); 
+		E representative = findSet(element); 
 
 		if(representative != null) { 
 
 			Set<E> s = sets.get(representative).keySet();
 
-			ArrayList<E> elementos = new ArrayList<>();
+			ArrayList<E> elements = new ArrayList<>();
 
 			for(E key  : s)
 
-				elementos.add(key);	
+				elements.add(key);	
 
-			return elementos;	
+			return elements;	
 
 		} else
 
@@ -125,21 +125,21 @@ public class UnionFind<E> {
 	
 	// Union method
 	
-	public boolean union(E conjunto1, E conjunto2) {		
+	public boolean union(E set1, E set2) {		
 		
-		E c1 = findSet(conjunto1);
+		E c1 = findSet(set1);
 		
-		E c2 = findSet(conjunto2);		
+		E c2 = findSet(set2);		
 		
 		if(c1 != null && c2 != null) {			
 			
 			HashMap <E,E> mainSet = sets.get(c1);
 			
-			Set<E> elementos = sets.get(c2).keySet();		
+			Set<E> elements = sets.get(c2).keySet();		
 			
 			sets.remove(c2);			
 			
-			for(E e : elementos)
+			for(E e : elements)
 			
 				mainSet.put(e, c1);		
 			
