@@ -15,28 +15,23 @@ public class UnionFind<E> {
 
 	//------------------------------------------------------------------------------------
 
-	// ATRIBUTO DE LA CLASE UNION FIND
+	// Attributes of class UnionFind
 
-	private HashMap<E,HashMap<E,E>> conjuntos;
+	private HashMap<E,HashMap<E,E>> sets;
 
 	//------------------------------------------------------------------------------------
 
-	// METODO CONSTRUCTOR DE LA CLASE UNION FIND
+	// Constructor of class UnionFind
 
 	public UnionFind(){	
 
-		conjuntos = new HashMap<E,HashMap<E,E>>();
+		sets = new HashMap<E,HashMap<E,E>>();
 
 	}
 
 	//------------------------------------------------------------------------------------
 
-	// METODO MAKE SET
-
-	/**
-	 * CREA UN CONJUNTO DISYUNTO
-	 * @PARAM element ELEMENTO QUE REPRESENTARA EL CONJUNTO
-	 */
+	// Make set method
 
 	public boolean makeSet(E element){	
 
@@ -46,7 +41,7 @@ public class UnionFind<E> {
 
 			map.put(element, element);
 
-			conjuntos.put(element, map);
+			sets.put(element, map);
 
 			return true;
 
@@ -60,29 +55,23 @@ public class UnionFind<E> {
 
 	//------------------------------------------------------------------------------------
 
-	// METODO FIND SET
-
-	/**
-	 * BUSCA EL REPRESENTANTE DEL CONJUNTO AL QUE PERTENECE EL ELEMENTO
-	 * @param element
-	 * @return EL REPRESENTANTE DE UN CONJUNTO O NULL SI NO PERTENECE A NINGUN CONJUNTO
-	 */
+	// Find set method
 
 	public E findSet(E element){	
 
-		if(conjuntos.get(element) == null) {	
+		if(sets.get(element) == null) {	
 
-			E representante = null;
+			E representative = null;
 
 			boolean found = false;	
 
-			for(Map.Entry<E,HashMap<E,E>> entry : conjuntos.entrySet()) {				
+			for(Map.Entry<E,HashMap<E,E>> entry : sets.entrySet()) {				
 
 				if(!found) {
 
 					if(entry.getValue().containsKey(element)) {
 
-						representante = entry.getKey();	
+						representative = entry.getKey();	
 
 						found = true;
 
@@ -96,7 +85,7 @@ public class UnionFind<E> {
 
 			}	
 
-			return representante;
+			return representative;
 
 		}else { 
 
@@ -108,25 +97,19 @@ public class UnionFind<E> {
 
 	//------------------------------------------------------------------------------------
 
-	// METODO GET SET
-
-	/**
-	 * RETORNA LOS ELEMENTOS DE UN CONJUNTO
-	 * @param ELEMENTO DE UN CONJUNTo
-	 * @RETURN LOS ELEMENTOS DEL CONJUNTO O NULL SI NO HAY CONJUNTO
-	 */
+	// Get set method
 
 	public ArrayList<E> getSet(E elemento) {		
 
-		E representante = findSet(elemento); 
+		E representative = findSet(elemento); 
 
-		if(representante != null) { 
+		if(representative != null) { 
 
-			Set<E> conjunto = conjuntos.get(representante).keySet();
+			Set<E> s = sets.get(representative).keySet();
 
 			ArrayList<E> elementos = new ArrayList<>();
 
-			for(E key  : conjunto)
+			for(E key  : s)
 
 				elementos.add(key);	
 
@@ -140,14 +123,7 @@ public class UnionFind<E> {
 
 	//------------------------------------------------------------------------------------
 	
-	// METODO UNION DE LA CLASE UNION FIND
-	
-	/**
-	 * UNE METE TODOS LOS ELEMENTOS DEL CONJUNTO 2 AL CONJUNTO 1
-	 * @param CONJUNTO 1
-	 * @param CONJUNTO 2
-	 * @return TRUE SI SE UNIERON LOS CONJUNTOS	 
-	 */
+	// Union method
 	
 	public boolean union(E conjunto1, E conjunto2) {		
 		
@@ -157,15 +133,15 @@ public class UnionFind<E> {
 		
 		if(c1 != null && c2 != null) {			
 			
-			HashMap <E,E> conjuntoPrincipal = conjuntos.get(c1);
+			HashMap <E,E> mainSet = sets.get(c1);
 			
-			Set<E> elementos = conjuntos.get(c2).keySet();		
+			Set<E> elementos = sets.get(c2).keySet();		
 			
-			conjuntos.remove(c2);			
+			sets.remove(c2);			
 			
 			for(E e : elementos)
 			
-				conjuntoPrincipal.put(e, c1);		
+				mainSet.put(e, c1);		
 			
 			return true;
 
@@ -177,10 +153,10 @@ public class UnionFind<E> {
 
 	//------------------------------------------------------------------------------------
 	
-	// METODO SIZE DE LA CLASE UNION FIND
+	// Size method
 
 	public int size() {
-		return conjuntos.size();
+		return sets.size();
 	}
 
 	//------------------------------------------------------------------------------------
