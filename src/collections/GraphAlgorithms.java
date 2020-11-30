@@ -17,6 +17,9 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
+
+import com.sun.org.apache.xpath.internal.FoundIndex;
+
 import java.util.Comparator;
 import utilities.Pair;
 
@@ -83,16 +86,19 @@ public class GraphAlgorithms {
 
 	// BFS METHOD
 
-	public static <E> List<E> BFS(Graph<E> graph, int vertexId) {
+	public static <E> List<E> BFS(Graph<E> graph, int vertexId) throws Exception {
 
 		Hashtable<Vertex<E>, List<Pair<Integer, Vertex<E>>>> adjacencyList = graph.getAdjacencyList();
-
 		Hashtable<Integer,Vertex<E>> vertices = graph.getVertices();
 
 		List<E> traversal = new ArrayList<>();
 
 		//More efficient than Stack
 		Queue<Vertex<E>> queue = new ArrayDeque<>();
+		
+		Vertex<E> vertex = vertices.get(vertexId);
+		
+		if (vertex == null) { throw new Exception("Vertex not found"); }
 
 		queue.offer(vertices.get(vertexId));
 
@@ -106,7 +112,7 @@ public class GraphAlgorithms {
 
 		while(!queue.isEmpty()){
 
-			Vertex<E> vertex = queue.poll();
+			vertex = queue.poll();
 
 			for (Pair<Integer, Vertex<E>> p: adjacencyList.get(vertex)) {
 
