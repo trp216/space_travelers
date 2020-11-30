@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="525.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <tabs>
+    <Tab fx:id="welcome" text="Welcome">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="525.0">
+               <children>
+                  <ImageView fitHeight="525.0" fitWidth="584.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@welcome.gif" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="187.0" layoutY="43.0" text="¡Hi! My name is Leyna " textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="133.0" layoutY="88.0" text="I'm the Artificial intelligence of this ship" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="125.0" layoutY="422.0" text="¡I hope you enjoy the whole experience!" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab fx:id="addSystem" text="Add system">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="299.0" fitWidth="611.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@add.gif" />
+                     </image>
+                  </ImageView>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2f2f2f" height="233.0" layoutY="293.0" stroke="TRANSPARENT" strokeType="INSIDE" width="525.0" />
+                  <Label layoutX="123.0" layoutY="210.0" text="Name:" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="123.0" layoutY="262.0" text="Fecha descubrimiento:" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="123.0" layoutY="299.0" text="Coordenadas:" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="120.0" layoutY="337.0" text="Civilizaciones:" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="120.0" layoutY="392.0" text="Planetas:" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="120.0" layoutY="436.0" text="Extrellas:" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab fx:id="editSystem" text="Edit system">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+         </content>
+      </Tab>
+      <Tab fx:id="searchSystem" text="Search system">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+         </content>
+      </Tab>
+      <Tab fx:id="navegation" text="Navegation">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+         </content>
+      </Tab>
+      <Tab fx:id="universe" text="Universe">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+         </content>
+      </Tab>
+  </tabs>
+</TabPane>
