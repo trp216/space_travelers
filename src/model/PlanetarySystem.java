@@ -22,6 +22,8 @@ public class PlanetarySystem {
 	private LocalDate discoveryDate;
 	
 	private String coordinates;
+	
+	private int id;
 
 	private ArrayList<Pair<String,Integer>> civilizations; //where the integer is its type and the string is its name
 
@@ -33,8 +35,9 @@ public class PlanetarySystem {
 	
 	//Constructor of class PlanetarySystem
 
-	public PlanetarySystem(String name, LocalDate discoveryDate, String coordinates) {
+	public PlanetarySystem(String name, int id, LocalDate discoveryDate, String coordinates) {
 		this.name = name;
+		this.id = id;
 		this.discoveryDate = discoveryDate;
 		this.coordinates = coordinates;
 		
@@ -49,6 +52,10 @@ public class PlanetarySystem {
 
 	public String getName() {
 		return name;
+	}
+
+	public int getId() {
+		return id;
 	}
 	
 	public LocalDate getDiscoveryDate() {
@@ -97,6 +104,10 @@ public class PlanetarySystem {
 
 	public void setStars(ArrayList<String> stars) {
 		this.stars = stars;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 		
 	//------------------------------------------------------------------------------------

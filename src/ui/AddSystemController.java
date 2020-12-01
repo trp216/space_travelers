@@ -167,5 +167,32 @@ public class AddSystemController {
 	}
 
 	//------------------------------------------------------------------------------------
+	
+	// METODO INITILIAZE
+	
+	@FXML
+	void initialize() {
+		
+		civilizationsText.setDisable(true);
+		
+		planetsText.setDisable(true);
+		
+		startsText.setDisable(true);
+		
+		t1.setDisable(true);
+		
+		t2.setDisable(true);
+		
+		t3.setDisable(true);
+		
+		civilizationButton.setDisable(true);
+		
+		planetButton.setDisable(true);
+		
+		startButton.setDisable(true);
+		
+	}
+	
+	//------------------------------------------------------------------------------------
 
 }

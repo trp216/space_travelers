@@ -7,6 +7,8 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
@@ -20,34 +22,48 @@
   <tabs>
     <Tab fx:id="welcome" text="Welcome">
       <content>
-        <AnchorPane fx:id="welcomeAP" minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="525.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="525.0">
                <children>
                   <ImageView fitHeight="525.0" fitWidth="584.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@welcome.gif" />
                      </image>
                   </ImageView>
-                  <Label layoutX="187.0" layoutY="43.0" text="¡Hi! My name is Leyna " textFill="WHITE">
+                  <Label layoutX="54.0" layoutY="33.0" text="¡Hi! My name is Leyna, I'm the Artificial intelligence of this ship " textFill="WHITE">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="133.0" layoutY="88.0" text="I'm the Artificial intelligence of this ship" textFill="WHITE">
+                  <Label layoutX="125.0" layoutY="476.0" text="¡I hope you enjoy the whole experience!" textFill="WHITE">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="125.0" layoutY="422.0" text="¡I hope you enjoy the whole experience!" textFill="WHITE">
+                  <Label layoutX="65.0" layoutY="84.0" text="To start, please select the type of network you want to use" textFill="WHITE">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Label>
+                  <RadioButton fx:id="tipo1" layoutX="151.0" layoutY="400.0" mnemonicParsing="false" text="Adjacent list" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="12.0" />
+                     </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="tipoGrafo" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="tipo2" layoutX="274.0" layoutY="400.0" mnemonicParsing="false" text="Weight Matrix" textFill="WHITE" toggleGroup="$tipoGrafo">
+                     <font>
+                        <Font name="Century Gothic" size="12.0" />
+                     </font>
+                  </RadioButton>
+                  <Button fx:id="tipoGrafoButton" layoutX="225.0" layoutY="433.0" mnemonicParsing="false" onAction="#selectGrafo" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Select" />
                </children></AnchorPane>
       </content>
     </Tab>
     <Tab fx:id="addSystemTab" text="Add system">
       <content>
-        <AnchorPane fx:id="addSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <ImageView fitHeight="299.0" fitWidth="611.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -111,22 +127,140 @@
     </Tab>
       <Tab fx:id="editSystem" text="Edit system">
          <content>
-            <AnchorPane fx:id="editSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="526.0" stroke="BLACK" strokeType="INSIDE" width="525.0" />
+                  <ImageView fitHeight="102.0" fitWidth="189.0" layoutX="172.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@edit.gif" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="112.0" layoutY="37.0" text="ID" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="idEditText" layoutX="43.0" layoutY="68.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
+                  <Button fx:id="searchAndEditButton" layoutX="369.0" layoutY="55.0" mnemonicParsing="false" onAction="#searchAndEdit" style="-fx-background-color: yellow; -fx-border-color: white;" text="Search and edit" />
+                  <Line endX="427.03533935546875" layoutX="99.0" layoutY="117.0" startX="-100.0" stroke="#00fffb" />
+                  <CheckBox fx:id="nameEditCB" layoutX="65.0" layoutY="131.0" mnemonicParsing="false" onAction="#validationNameEdit" text="Name" textFill="WHITE" />
+                  <CheckBox fx:id="discoveryDateEditCB" layoutX="145.0" layoutY="131.0" mnemonicParsing="false" onAction="#validationDiscoveryDateEdit" text="Discovery date" textFill="WHITE" />
+                  <CheckBox fx:id="coordinatesEditCB" layoutX="271.0" layoutY="131.0" mnemonicParsing="false" onAction="#validationCoordinatesEdit" text="Coordinates" textFill="WHITE" />
+                  <CheckBox fx:id="civilizationsEditCB" layoutX="377.0" layoutY="131.0" mnemonicParsing="false" onAction="#validationCivilizationsEdit" text="Civilizations" textFill="WHITE" />
+                  <CheckBox fx:id="planetsEditCB" layoutX="176.0" layoutY="167.0" mnemonicParsing="false" onAction="#validationPlanetsEdit" text="Planets" textFill="WHITE" />
+                  <CheckBox fx:id="startsEditCB" layoutX="299.0" layoutY="167.0" mnemonicParsing="false" onAction="#validationStartsEdit" text="Starts" textFill="WHITE" />
+                  <Line endX="427.03533935546875" layoutX="99.0" layoutY="200.0" startX="-100.0" stroke="#00fffb" />
+                  <Label layoutX="39.0" layoutY="222.0" text="Name" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="350.0" layoutY="231.0" text="Discovery date" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="18.0" layoutY="285.0" text="Coordinates" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="nameEditText" layoutX="112.0" layoutY="218.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
+                  <DatePicker fx:id="discoveryDateEdit" layoutX="314.0" layoutY="268.0" />
+                  <TextField fx:id="coordinatesEditText" layoutX="112.0" layoutY="281.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
+                  <TableView fx:id="tableCivilizations" layoutX="40.0" layoutY="337.0" prefHeight="118.0" prefWidth="120.0">
+                    <columns>
+                      <TableColumn fx:id="civilizationsColumn" prefWidth="119.0" text="Civilizations" />
+                    </columns>
+                  </TableView>
+                  <TableView fx:id="tablePlanets" layoutX="201.0" layoutY="337.0" prefHeight="118.0" prefWidth="120.0">
+                     <columns>
+                        <TableColumn fx:id="planetsColumn" prefWidth="119.0" text="Planets" />
+                     </columns>
+                  </TableView>
+                  <TableView fx:id="tableStarts" layoutX="367.0" layoutY="337.0" prefHeight="118.0" prefWidth="120.0">
+                     <columns>
+                        <TableColumn fx:id="startsColumn" prefWidth="119.0" text="Starts" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="editButton" layoutX="225.0" layoutY="473.0" mnemonicParsing="false" onAction="#edit" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Edit" />
+               </children></AnchorPane>
          </content>
       </Tab>
       <Tab fx:id="searchSystem" text="Search system">
          <content>
-            <AnchorPane fx:id="searchSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="525.0" stroke="BLACK" strokeType="INSIDE" width="525.0" />
+                  <ImageView fitHeight="139.0" fitWidth="222.0" layoutX="342.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@search.gif" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="114.0" layoutY="37.0" text="ID" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="idSearchText" layoutX="45.0" layoutY="70.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
+                  <Button fx:id="searchButton" layoutX="94.0" layoutY="124.0" mnemonicParsing="false" onAction="#search" style="-fx-background-color: yellow; -fx-border-color: white;" text="Search" />
+                  <Label layoutX="85.0" layoutY="196.0" text="Name:" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="55.0" layoutY="309.0" text="Discovery date:" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="65.0" layoutY="252.0" text="Coordinates:" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Line endX="427.03533935546875" layoutX="99.0" layoutY="169.0" startX="-100.0" stroke="#00fffb" />
+                  <Label fx:id="nameLabel" layoutX="190.0" layoutY="196.0" text="....." textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="coordinatesLabel" layoutX="190.0" layoutY="252.0" text="....." textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="discoveryDateLabel" layoutX="190.0" layoutY="309.0" text="....." textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="tableCivilizationsSearch" layoutX="350.0" layoutY="204.0" prefHeight="118.0" prefWidth="120.0">
+                     <columns>
+                        <TableColumn fx:id="civilizationsSearchColumn" prefWidth="119.0" text="Civilizations" />
+                     </columns>
+                  </TableView>
+                  <TableView fx:id="tablePlanetsSearch" layoutX="72.0" layoutY="376.0" prefHeight="118.0" prefWidth="120.0">
+                     <columns>
+                        <TableColumn fx:id="planetsSearchColumn" prefWidth="119.0" text="Planets" />
+                     </columns>
+                  </TableView>
+                  <TableView fx:id="tableStartsSearch" layoutX="350.0" layoutY="376.0" prefHeight="118.0" prefWidth="120.0">
+                     <columns>
+                        <TableColumn fx:id="startsSearchColumn" prefWidth="119.0" text="Starts" />
+                     </columns>
+                  </TableView>
+               </children></AnchorPane>
          </content>
       </Tab>
       <Tab fx:id="navegation" text="Navegation">
          <content>
-            <AnchorPane fx:id="navegationAP" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
          </content>
       </Tab>
       <Tab fx:id="universe" text="Universe">
          <content>
-            <AnchorPane fx:id="universeAP" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
          </content>
       </Tab>
   </tabs>
