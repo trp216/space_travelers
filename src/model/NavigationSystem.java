@@ -63,7 +63,7 @@ public class NavigationSystem {
 				
 				double id = Math.random()*27001;
 				
-				PlanetarySystem nps = new PlanetarySystem(sname, (int)id, discoveryDate, coordinate);
+				PlanetarySystem nps = new PlanetarySystem(sname, (int)id, discoveryDate, (coordinate+""));
 				n--;
 			}
 
@@ -91,6 +91,16 @@ public class NavigationSystem {
 	@SuppressWarnings("unchecked")
 	public int calculateDistance(int idPS1, int idPS2) {
 		return GraphAlgorithms.dijkstra(systems, search(idPS1).getId(), search(idPS2).getId());
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void addPlanetarySystem(String n, LocalDate ld, int coordinates) {
+		
+		int id = (int)Math.random()*(Integer.MAX_VALUE-27001) + 27001;
+		
+		PlanetarySystem nps = new PlanetarySystem(n, id, ld, (coordinates+""));
+		
+		systems.addVertex(nps, id);
 	}
 
 	//------------------------------------------------------------------------------------
