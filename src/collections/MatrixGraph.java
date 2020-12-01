@@ -158,6 +158,8 @@ public class MatrixGraph<E> implements Graph<E> {
 			
 		}		
 		
+		vertices.remove(vertexId);
+		
 		Enumeration<Hashtable<Integer,Integer>> rows = adjMatrix.elements();
 		
 		while (rows.hasMoreElements()) {

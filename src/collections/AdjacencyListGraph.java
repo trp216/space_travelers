@@ -158,12 +158,14 @@ public class AdjacencyListGraph<E> implements Graph<E>{
 			return false;
 			
 		}
-		
+				
 		if(adjList.remove(v) == null) {
 			
 			return false;
 			
 		}		
+		
+		vertices.remove(vertexId);
 		
 		Enumeration<List<Pair<Integer,Vertex<E>>>> lists = adjList.elements();
 		
@@ -178,7 +180,7 @@ public class AdjacencyListGraph<E> implements Graph<E>{
 				Pair<Integer,Vertex<E>> p = list.get(i);
 				
 				Vertex<E> v1 = p.getValue();
-				
+								
 				if(v == v1) {
 					
 					list.remove(i);	
@@ -234,6 +236,10 @@ public class AdjacencyListGraph<E> implements Graph<E>{
 			
 		}		
 			
+		if(!removed) {
+			return false;
+		}
+		
 		//At this point it will remove it 100% of the times if the graph is not directed
 		if(!isDirected) {
 			
