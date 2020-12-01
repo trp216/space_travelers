@@ -6,8 +6,12 @@
 
 package ui;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
+import javafx.scene.control.ToggleGroup;
 
 public class PrincipalController {
 	
@@ -60,7 +64,30 @@ public class PrincipalController {
 
 	@FXML
 	private Tab universe;
+	
+	// ***********************************************
+	
+    @FXML
+    private ToggleGroup tipoGrafo;
+	
+    @FXML
+    private RadioButton tipo1;
 
+    @FXML
+    private RadioButton tipo2;
+    
+    @FXML
+    private Button tipoGrafoButton;
+
+	//------------------------------------------------------------------------------------
+    
+    // METODO SELECT GRAFO
+    
+    @FXML
+    void selectGrafo(ActionEvent event) {
+
+    }
+	
 	//------------------------------------------------------------------------------------
 
 }

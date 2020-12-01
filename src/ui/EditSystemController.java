@@ -35,7 +35,7 @@ public class EditSystemController {
 	 */
 
 	@FXML
-	private TextField nameEditSAE;
+	private TextField idEditText;
 
 	@FXML
 	private Button searchAndEditButton;

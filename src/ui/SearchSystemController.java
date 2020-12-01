@@ -31,7 +31,7 @@ public class SearchSystemController {
 	// POSIBLES ACCIONES DE JAVA FX PARA LA TERCERA PANTALLA
 
 	@FXML
-	private TextField nameSearchEdit;
+	private TextField idSearchEdit;
 
 	@FXML
 	private Button searchButton;

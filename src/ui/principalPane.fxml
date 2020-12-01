@@ -29,21 +29,35 @@
                         <Image url="@welcome.gif" />
                      </image>
                   </ImageView>
-                  <Label layoutX="187.0" layoutY="43.0" text="¡Hi! My name is Leyna " textFill="WHITE">
+                  <Label layoutX="54.0" layoutY="33.0" text="¡Hi! My name is Leyna, I'm the Artificial intelligence of this ship " textFill="WHITE">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="133.0" layoutY="88.0" text="I'm the Artificial intelligence of this ship" textFill="WHITE">
+                  <Label layoutX="125.0" layoutY="476.0" text="¡I hope you enjoy the whole experience!" textFill="WHITE">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="125.0" layoutY="422.0" text="¡I hope you enjoy the whole experience!" textFill="WHITE">
+                  <Label layoutX="65.0" layoutY="84.0" text="To start, please select the type of network you want to use" textFill="WHITE">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Label>
+                  <RadioButton fx:id="tipo1" layoutX="151.0" layoutY="400.0" mnemonicParsing="false" text="Adjacent list" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="12.0" />
+                     </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="tipoGrafo" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="tipo2" layoutX="274.0" layoutY="400.0" mnemonicParsing="false" text="Weight Matrix" textFill="WHITE" toggleGroup="$tipoGrafo">
+                     <font>
+                        <Font name="Century Gothic" size="12.0" />
+                     </font>
+                  </RadioButton>
+                  <Button fx:id="tipoGrafoButton" layoutX="225.0" layoutY="433.0" mnemonicParsing="false" onAction="#selectGrafo" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Select" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -121,12 +135,12 @@
                         <Image url="@edit.gif" />
                      </image>
                   </ImageView>
-                  <Label layoutX="97.0" layoutY="35.0" text="Name" textFill="WHITE">
+                  <Label layoutX="112.0" layoutY="37.0" text="ID" textFill="WHITE">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="nameEditSAD" layoutX="43.0" layoutY="68.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
+                  <TextField fx:id="idEditText" layoutX="43.0" layoutY="68.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
                   <Button fx:id="searchAndEditButton" layoutX="369.0" layoutY="55.0" mnemonicParsing="false" onAction="#searchAndEdit" style="-fx-background-color: yellow; -fx-border-color: white;" text="Search and edit" />
                   <Line endX="427.03533935546875" layoutX="99.0" layoutY="117.0" startX="-100.0" stroke="#00fffb" />
                   <CheckBox fx:id="nameEditCB" layoutX="65.0" layoutY="131.0" mnemonicParsing="false" onAction="#validationNameEdit" text="Name" textFill="WHITE" />
@@ -183,12 +197,12 @@
                         <Image url="@search.gif" />
                      </image>
                   </ImageView>
-                  <Label layoutX="99.0" layoutY="37.0" text="Name" textFill="WHITE">
+                  <Label layoutX="114.0" layoutY="37.0" text="ID" textFill="WHITE">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="nameSearchText" layoutX="45.0" layoutY="70.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
+                  <TextField fx:id="idSearchText" layoutX="45.0" layoutY="70.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
                   <Button fx:id="searchButton" layoutX="94.0" layoutY="124.0" mnemonicParsing="false" onAction="#search" style="-fx-background-color: yellow; -fx-border-color: white;" text="Search" />
                   <Label layoutX="85.0" layoutY="196.0" text="Name:" textFill="WHITE">
                      <font>
