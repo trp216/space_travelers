@@ -17,6 +17,7 @@ import collections.AdjacencyListGraph;
 import collections.Graph;
 import collections.GraphAlgorithms;
 import collections.MatrixGraph;
+import utilities.Pair;
 
 public class NavigationSystem {
 
@@ -118,13 +119,21 @@ public class NavigationSystem {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void addPlanetarySystem(String n, LocalDate ld, int coordinates) {
+	public void addPlanetarySystem(String n, LocalDate ld, int coordinates,ArrayList<Pair<String,Integer>> c, ArrayList<String> p,ArrayList<String> s) {
 		
 		int id = (int)Math.random()*(Integer.MAX_VALUE-27001) + 27001;
 		
 		PlanetarySystem nps = new PlanetarySystem(n, id, ld, (coordinates+""));
 		
+		nps.setCivilizations(c);
+		nps.setPlanets(p);
+		nps.setStars(s);
+		
 		systems.addVertex(nps, id);
+	}
+	
+	public ArrayList<PlanetarySystem> closestSystems(int id) throws Exception{
+		return (ArrayList<PlanetarySystem>) GraphAlgorithms.BFS(systems, id);
 	}
 
 	//------------------------------------------------------------------------------------
