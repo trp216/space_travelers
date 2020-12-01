@@ -10,9 +10,9 @@ public class UniverseController {
 	
 	//------------------------------------------------------------------------------------
 	
+	// METODO CONSTRUCTOR DE LA CLASE UNIVERSE CONTROLLER
+	
 	public UniverseController() {
-		
-		// METODO CONTRUCTOR
 
 		// TODO VA A AQUI
 		
@@ -20,7 +20,7 @@ public class UniverseController {
 	
 	//------------------------------------------------------------------------------------
 	
-	// POSIBLES ACCIONES DE JAVA FX PARA LA SEGUNDA PANTALLA
+	// POSIBLES ACCIONES DE JAVA FX
 	
 	
 	

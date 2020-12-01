@@ -17,6 +17,8 @@ public class PrincipalController {
 	
 	//------------------------------------------------------------------------------------
 	
+	// RELACIONES CON LAS OTRAS CONTROLADORAS
+	
 	private AddSystemController controladoraAgregar;
 	
 	private EditSystemController controladoraEditar;
@@ -28,6 +30,8 @@ public class PrincipalController {
 	private UniverseController controladoraUniverso;
 	
 	//------------------------------------------------------------------------------------
+	
+	// METODO CONSTRUCTOR DE LA CLASE PRINCIPAL CONTROLLER
 
 	public PrincipalController() {
 
@@ -67,6 +71,8 @@ public class PrincipalController {
 	
 	// ***********************************************
 	
+	// PRIMERA PANTALLA DEL SISTEMA
+	
     @FXML
     private ToggleGroup tipoGrafo;
 	
@@ -85,6 +91,8 @@ public class PrincipalController {
     
     @FXML
     void selectGrafo(ActionEvent event) {
+    	
+    	
 
     }
 	

@@ -17,10 +17,10 @@ import javafx.scene.control.TextField;
 public class SearchSystemController {
 
 	//------------------------------------------------------------------------------------
+	
+	// METODO CONSTRUCTOR DE LA CLASE SEARCH SYSTEM CONTROLLER
 
 	public SearchSystemController() {
-
-		// METODO CONTRUCTOR
 
 		// TODO VA A AQUI
 
@@ -28,7 +28,7 @@ public class SearchSystemController {
 
 	//------------------------------------------------------------------------------------
 
-	// POSIBLES ACCIONES DE JAVA FX PARA LA TERCERA PANTALLA
+	// POSIBLES ACCIONES DE JAVA FX
 
 	@FXML
 	private TextField idSearchEdit;
@@ -71,10 +71,14 @@ public class SearchSystemController {
 
 	@FXML
 	void search(ActionEvent event) {
+		
+		
 
 	}
 
 	//------------------------------------------------------------------------------------
+	
+	// METODO INITIALIZE
 	
 	@FXML
 	void initialize() {

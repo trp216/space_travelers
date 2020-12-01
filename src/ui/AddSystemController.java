@@ -109,6 +109,8 @@ public class AddSystemController {
 
 	@FXML
 	void validationCivilizations(ActionEvent event) {
+		
+		
 
 	}
 
@@ -118,6 +120,8 @@ public class AddSystemController {
 
 	@FXML
 	void validationPlanets(ActionEvent event) {
+		
+		
 
 	}
 
@@ -127,6 +131,8 @@ public class AddSystemController {
 
 	@FXML
 	void validationStars(ActionEvent event) {
+		
+		
 
 	}
 
@@ -136,6 +142,8 @@ public class AddSystemController {
 
 	@FXML
 	void addCivilization(ActionEvent event) {
+		
+		
 
 	}
 	
@@ -145,6 +153,8 @@ public class AddSystemController {
 
 	@FXML
 	void addPlanet(ActionEvent event) {
+		
+		
 
 	}
 	
@@ -154,6 +164,8 @@ public class AddSystemController {
 
 	@FXML
 	void addStart(ActionEvent event) {
+		
+		
 
 	}
 	
@@ -163,6 +175,8 @@ public class AddSystemController {
 
 	@FXML
 	void addSystem(ActionEvent event) {
+		
+		
 
 	}
 

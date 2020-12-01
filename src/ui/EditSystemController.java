@@ -18,10 +18,10 @@ import javafx.scene.control.TextField;
 public class EditSystemController {
 
 	//------------------------------------------------------------------------------------
+	
+	// METODO CONSTRUCTOR DE LA CLASE EDIT SYSTEM CONTROLLER
 
 	public EditSystemController() {
-
-		// METODO CONTRUCTOR
 
 		// TODO VA A AQUI
 
@@ -30,7 +30,7 @@ public class EditSystemController {
 	//------------------------------------------------------------------------------------
 
 	/*
-	 * POSIBLES ACCIONES DE JAVA FX PARA LA TERCERA PANTALLA
+	 * POSIBLES ACCIONES DE JAVA FX
 	 * ESTA ES LA PARTE DE ARRIBA DE LA VENTANA
 	 */
 
@@ -103,6 +103,9 @@ public class EditSystemController {
 
 	@FXML
 	private Button editButton;
+	
+	@FXML
+	private Button removeButton;
 
 	//------------------------------------------------------------------------------------
 
@@ -111,6 +114,8 @@ public class EditSystemController {
 	@FXML
 	void searchAndEdit(ActionEvent event) {
 
+		
+		
 	}
 
 	//------------------------------------------------------------------------------------
@@ -120,6 +125,8 @@ public class EditSystemController {
 	@FXML
 	void validationNameEdit(ActionEvent event) {
 
+		
+		
 	}
 
 	//------------------------------------------------------------------------------------
@@ -129,6 +136,8 @@ public class EditSystemController {
 	@FXML
 	void validationCoordinatesEdit(ActionEvent event) {
 
+		
+		
 	}
 
 	//------------------------------------------------------------------------------------
@@ -138,6 +147,8 @@ public class EditSystemController {
 	@FXML
 	void validationDiscoveryDateEdit(ActionEvent event) {
 
+		
+		
 	}
 
 	//------------------------------------------------------------------------------------
@@ -147,6 +158,8 @@ public class EditSystemController {
 	@FXML
 	void validationCivilizationsEdit(ActionEvent event) {
 
+		
+		
 	}
 
 	//------------------------------------------------------------------------------------
@@ -156,6 +169,8 @@ public class EditSystemController {
 	@FXML
 	void validationPlanets(ActionEvent event) {
 
+		
+		
 	}
 
 	//------------------------------------------------------------------------------------
@@ -165,6 +180,8 @@ public class EditSystemController {
 	@FXML
 	void validationStars(ActionEvent event) {
 
+		
+		
 	}
 
 	//------------------------------------------------------------------------------------
@@ -174,9 +191,24 @@ public class EditSystemController {
 	@FXML
 	void edit(ActionEvent event) {
 
+		
+		
+	}
+	
+	//------------------------------------------------------------------------------------
+	
+	// METODO PARA REMOVER FINAL
+	
+	@FXML
+	void remove(ActionEvent event) {
+
+		
+		
 	}
 
 	//------------------------------------------------------------------------------------
+	
+	// METODO INITIALIZE
 	
 	@FXML
 	void initialize() {

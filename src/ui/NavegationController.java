@@ -10,17 +10,17 @@ public class NavegationController {
 	
 	//------------------------------------------------------------------------------------
 	
+	// METODO CONSTRUCTOR DE LA CLASE NAVEGATION CONTROLLER
+	
 	public NavegationController() {
 		
-		// METODO CONTRUCTOR
-
 		// TODO VA A AQUI
 		
 	}
 	
 	//------------------------------------------------------------------------------------
 	
-	// POSIBLES ACCIONES DE JAVA FX PARA LA CUARTA PANTALLA
+	// POSIBLES ACCIONES DE JAVA FX
 	
 	
 	

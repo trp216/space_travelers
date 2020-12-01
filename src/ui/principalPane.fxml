@@ -61,7 +61,27 @@
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab fx:id="addSystemTab" text="Add system">
+      <Tab fx:id="welcome1" text="Generate">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="525.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" height="527.0" stroke="BLACK" strokeType="INSIDE" width="525.0" />
+                  <ImageView fitHeight="217.0" fitWidth="268.0" layoutX="129.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@generate.gif" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="92.0" layoutY="191.0" text="Type the number of systems you want to generate" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="numberElementsGenerate" layoutX="187.0" layoutY="250.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
+                  <Button fx:id="generateButton" layoutX="230.0" layoutY="337.0" mnemonicParsing="false" onAction="#generate" style="-fx-background-color: yellow; -fx-border-color: white;" text="Generate" />
+               </children></AnchorPane>
+         </content>
+      </Tab>
+    <Tab fx:id="addSystemTab" text="Add">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -125,7 +145,7 @@
                </children></AnchorPane>
       </content>
     </Tab>
-      <Tab fx:id="editSystem" text="Edit system">
+      <Tab fx:id="editSystem" text="Edit">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -183,11 +203,12 @@
                         <TableColumn fx:id="startsColumn" prefWidth="119.0" text="Starts" />
                      </columns>
                   </TableView>
-                  <Button fx:id="editButton" layoutX="225.0" layoutY="473.0" mnemonicParsing="false" onAction="#edit" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Edit" />
+                  <Button fx:id="editButton" layoutX="180.0" layoutY="482.0" mnemonicParsing="false" onAction="#edit" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Edit" />
+                  <Button fx:id="removeButton" layoutX="270.0" layoutY="482.0" mnemonicParsing="false" onAction="#remove" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Remove" />
                </children></AnchorPane>
          </content>
       </Tab>
-      <Tab fx:id="searchSystem" text="Search system">
+      <Tab fx:id="searchSystem" text="Search">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
