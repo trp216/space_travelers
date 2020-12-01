@@ -135,6 +135,10 @@ public class NavigationSystem {
 	public ArrayList<PlanetarySystem> closestSystems(int id) throws Exception{
 		return (ArrayList<PlanetarySystem>) GraphAlgorithms.BFS(systems, id);
 	}
+	
+	public boolean removePlanetarySystem(int id) {
+		return systems.removeVertex(id);
+	}
 
 	//------------------------------------------------------------------------------------
 
