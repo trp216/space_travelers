@@ -7,7 +7,11 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Random;
+
+import javax.naming.directory.InvalidAttributesException;
 
 import collections.AdjacencyListGraph;
 import collections.Graph;
@@ -29,6 +33,8 @@ public class NavigationSystem {
 	private PlanetarySystem currentSystem;
 	
 	private Graph systems;
+	
+	//private ArrayList<PlanetarySystem> arraySystems;
 
 	//------------------------------------------------------------------------------------
 
@@ -37,7 +43,7 @@ public class NavigationSystem {
 	public NavigationSystem(String name) {
 		this.name = name;
 		
-		ga = new GraphAlgorithms();
+		//arraySystems = new ArrayList<PlanetarySystem>();
 	}
 
 	//------------------------------------------------------------------------------------
@@ -47,7 +53,7 @@ public class NavigationSystem {
 	public void generateSystems(int n) {
 
 		Hashtable<Integer,Boolean> c = new Hashtable<Integer,Boolean>();
-
+		Hashtable<Integer,PlanetarySystem> ids = new Hashtable<Integer,PlanetarySystem>();
 		//this is for generating names in the format char + number
 		for(int i = 65;i<=90 && n>0;i++) {
 			char x = (char) i;
@@ -61,15 +67,33 @@ public class NavigationSystem {
 				}
 				c.put(coordinate, true);
 				
-				double id = Math.random()*27001;
+				int id = (int)Math.random()*27001;
+				while(ids.contains(id)) {
+					id = (int)Math.random()*27001;
+				}
+				
 				
 				PlanetarySystem nps = new PlanetarySystem(sname, (int)id, discoveryDate, (coordinate+""));
+				ids.put(id, nps);
 				n--;
 			}
 
 		}
-
-
+		generateWeights(ids);
+	}
+	
+	public void generateWeights(Hashtable<Integer,PlanetarySystem> ht) throws InvalidAttributesException, IllegalArgumentException {
+		int weight = (int)Math.random()*100001;
+		Random random = new Random();
+		int s1 = random.nextInt(ht.size());
+		int s2 = random.nextInt(ht.size());
+		if(s1!=s2 || systems.getAdjacentVertices(s1).get(s2)!=null) {
+			systems.addEdge(s1, s2, weight);
+		}
+		else {
+			s1 = random.nextInt(ht.size());
+			s2 = random.nextInt(ht.size());
+		}
 	}
 	
 	public void graphSelected(boolean adj) {
