@@ -15,7 +15,7 @@ public class PlanetarySystem {
 	
 	//------------------------------------------------------------------------------------
 
-	// Attributes of the PlanetarySystem class
+	// ATTRIBUTES OF THE CLASS PLANETARY SYSTEM
 	
 	private String name;
 	
@@ -24,8 +24,10 @@ public class PlanetarySystem {
 	private String coordinates;
 	
 	private int id;
+	
+	// CIVILIZATIONS HAVE TWO ATTRIBUTES: STRING (NAME) AND INTEGER THE TYPE OF GALAXY
 
-	private ArrayList<Pair<String,Integer>> civilizations; //where the integer is its type and the string is its name
+	private ArrayList<Pair<String,Integer>> civilizations; 
 
 	private ArrayList<String> planets;
 	
@@ -33,22 +35,29 @@ public class PlanetarySystem {
 	
 	//------------------------------------------------------------------------------------
 	
-	//Constructor of class PlanetarySystem
+	// CONSTRUCTOR METHOD OF THE CLASS PLANETARY SYSTEM
 
 	public PlanetarySystem(String name, int id, LocalDate discoveryDate, String coordinates) {
+		
 		this.name = name;
+		
 		this.id = id;
+		
 		this.discoveryDate = discoveryDate;
+		
 		this.coordinates = coordinates;
 		
 		civilizations = new ArrayList<Pair<String,Integer>>();
+		
 		planets = new ArrayList<String>();
+		
 		stars = new ArrayList<String>();
+		
 	}
 	
 	//------------------------------------------------------------------------------------
 	
-	//Getters of class PlanetarySystem
+	// GET'S METHOD OF THE CLASS PLANETARY SYSTEM
 
 	public String getName() {
 		return name;
@@ -84,7 +93,7 @@ public class PlanetarySystem {
 	
 	//------------------------------------------------------------------------------------
 	
-	//Setters of class PlanetarySystem
+	// SET'S METHOD OF THE CLASS PLANETARY SYSTEM
 	
 	public void setDiscoveryDate(LocalDate discoveryDate) {
 		this.discoveryDate = discoveryDate;
@@ -112,6 +121,36 @@ public class PlanetarySystem {
 		
 	//------------------------------------------------------------------------------------
 	
+	// ADD METHOD IN THE ARRAYLIST OF CIVILIZATIONS
 	
-
+	public void addCivilization(String name, Integer number) {
+		
+		Pair<String, Integer> pair = new Pair<String, Integer>(name, number);
+		
+		civilizations.add(pair);
+		
+	}
+	
+	//------------------------------------------------------------------------------------
+	
+	// ADD METHOD IN THE ARRAYLIST OF PLANETS
+	
+	public void addplanet (String name) {
+		
+		planets.add(name);
+		
+	}
+	
+	//------------------------------------------------------------------------------------
+	
+	// ADD METHOD IN THE ARRAYLIST OF STARTS
+	
+	public void addStart(String name) {
+		
+		stars.add(name);
+		
+	}
+	
+	//------------------------------------------------------------------------------------
+	
 }
