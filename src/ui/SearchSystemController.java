@@ -13,16 +13,21 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import model.NavigationSystem;
 
 public class SearchSystemController {
+	
+	//------------------------------------------------------------------------------------
+	
+	private NavigationSystem ns;
 
 	//------------------------------------------------------------------------------------
 	
 	// METODO CONSTRUCTOR DE LA CLASE SEARCH SYSTEM CONTROLLER
 
-	public SearchSystemController() {
+	public SearchSystemController(NavigationSystem ns) {
 
-		// TODO VA A AQUI
+		this.ns = ns;
 
 	}
 

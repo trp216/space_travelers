@@ -6,15 +6,21 @@
 
 package ui;
 
+import model.NavigationSystem;
+
 public class UniverseController {
+		
+	//------------------------------------------------------------------------------------
+	
+	private NavigationSystem ns;
 	
 	//------------------------------------------------------------------------------------
 	
 	// METODO CONSTRUCTOR DE LA CLASE UNIVERSE CONTROLLER
 	
-	public UniverseController() {
+	public UniverseController(NavigationSystem ns) {
 
-		// TODO VA A AQUI
+		this.ns = ns;
 		
 	}
 	

@@ -11,10 +11,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.NavigationSystem;
 
 public class Main extends Application {
 	
 	//------------------------------------------------------------------------------------
+	
+	private NavigationSystem ns;
 	
 	// RELACION CON LA CLASE PRINCIPAL CONTROLADORA
 	
@@ -24,7 +27,9 @@ public class Main extends Application {
 	
 	public Main() {
 		
-		controladora = new PrincipalController();
+		ns = new NavigationSystem("Space Travelers");
+		
+		controladora = new PrincipalController(ns);
 		
 	}
 	

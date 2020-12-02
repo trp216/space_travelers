@@ -34,11 +34,13 @@ public class AddSystemController {
 
 	// METODO CONSTRUCTOR DE LA CLASE ADD SYSTEM CONTROLLER
 
-	public AddSystemController() {
+	public AddSystemController(NavigationSystem navegationSystem) {
 
-		// TODO VA A AQUI
+		this.navegationSystem = navegationSystem;
 
 	}
+	
+	
 
 	//------------------------------------------------------------------------------------
 
@@ -254,7 +256,7 @@ public class AddSystemController {
 
 		} catch(InsufficientInformationException e1) {
 
-			mensajeDatosInsuficientes();
+			missingDataAlert();
 
 		}
 
@@ -289,7 +291,7 @@ public class AddSystemController {
 
 		} catch(InsufficientInformationException e1) {
 
-			mensajeDatosInsuficientes();
+			missingDataAlert();
 
 		}
 
@@ -324,7 +326,7 @@ public class AddSystemController {
 
 		} catch(InsufficientInformationException e1) {
 
-			mensajeDatosInsuficientes();
+			missingDataAlert();
 
 		}
 
@@ -355,7 +357,8 @@ public class AddSystemController {
 
 			} else {
 
-				navegationSystem.addPlanetarySystem(name, date, coordinates);
+				navegationSystem.addPlanetarySystem(name, date, coordinates,planetarySystem.getCivilizations(),
+						planetarySystem.getPlanets(),planetarySystem.getStars());
 
 				nameText.setText("");
 
@@ -407,7 +410,7 @@ public class AddSystemController {
 
 				// *******************************************
 
-				planetarySystem.addStart(name);
+				planetarySystem.addStars(name);
 
 				startsText.setText("");
 
@@ -419,7 +422,7 @@ public class AddSystemController {
 
 		} catch(InsufficientInformationException e1) {
 
-			mensajeDatosInsuficientes();
+			missingDataAlert();
 
 		} catch(InsufficientPlanetsAndStars e2) {
 
@@ -434,12 +437,12 @@ public class AddSystemController {
 	// MENSAJE DE DATOS INSUFICIENTES
 
 	@FXML
-	void mensajeDatosInsuficientes() {
+	void missingDataAlert() {
 
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Sorry");
-		alert.setHeaderText("We can't add to the system");
-		alert.setContentText("Check if the data is well digitized");
+		alert.setHeaderText("We couldn't add the planetary system");
+		alert.setContentText("Please check fot empty fields and fill them");
 
 		alert.showAndWait();
 

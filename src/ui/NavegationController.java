@@ -6,15 +6,21 @@
 
 package ui;
 
+import model.NavigationSystem;
+
 public class NavegationController {
+	
+	//------------------------------------------------------------------------------------
+	
+	private NavigationSystem ns;
 	
 	//------------------------------------------------------------------------------------
 	
 	// METODO CONSTRUCTOR DE LA CLASE NAVEGATION CONTROLLER
 	
-	public NavegationController() {
+	public NavegationController(NavigationSystem ns) {
 		
-		// TODO VA A AQUI
+		this.ns = ns;
 		
 	}
 	

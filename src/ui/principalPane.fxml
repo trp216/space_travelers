@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="525.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="525.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
     <Tab fx:id="welcome" text="Welcome">
       <content>
@@ -168,7 +168,7 @@
                   <CheckBox fx:id="coordinatesEditCB" layoutX="271.0" layoutY="131.0" mnemonicParsing="false" onAction="#validationCoordinatesEdit" text="Coordinates" textFill="WHITE" />
                   <CheckBox fx:id="civilizationsEditCB" layoutX="377.0" layoutY="131.0" mnemonicParsing="false" onAction="#validationCivilizationsEdit" text="Civilizations" textFill="WHITE" />
                   <CheckBox fx:id="planetsEditCB" layoutX="176.0" layoutY="167.0" mnemonicParsing="false" onAction="#validationPlanetsEdit" text="Planets" textFill="WHITE" />
-                  <CheckBox fx:id="startsEditCB" layoutX="299.0" layoutY="167.0" mnemonicParsing="false" onAction="#validationStartsEdit" text="Starts" textFill="WHITE" />
+                  <CheckBox fx:id="startsEditCB" layoutX="299.0" layoutY="167.0" mnemonicParsing="false" onAction="#validationStartsEdit" text="Stars" textFill="WHITE" />
                   <Line endX="427.03533935546875" layoutX="99.0" layoutY="200.0" startX="-100.0" stroke="#00fffb" />
                   <Label layoutX="39.0" layoutY="222.0" text="Name" textFill="WHITE">
                      <font>
@@ -188,7 +188,7 @@
                   <TextField fx:id="nameEditText" layoutX="112.0" layoutY="218.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
                   <DatePicker fx:id="discoveryDateEdit" layoutX="314.0" layoutY="268.0" />
                   <TextField fx:id="coordinatesEditText" layoutX="112.0" layoutY="281.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
-                  <TableView fx:id="tableCivilizations" layoutX="40.0" layoutY="337.0" prefHeight="118.0" prefWidth="120.0">
+                  <TableView fx:id="tableCivilizations" layoutX="42.0" layoutY="337.0" prefHeight="118.0" prefWidth="120.0">
                     <columns>
                       <TableColumn fx:id="civilizationsColumn" prefWidth="119.0" text="Civilizations" />
                     </columns>
@@ -200,7 +200,7 @@
                   </TableView>
                   <TableView fx:id="tableStarts" layoutX="367.0" layoutY="337.0" prefHeight="118.0" prefWidth="120.0">
                      <columns>
-                        <TableColumn fx:id="startsColumn" prefWidth="119.0" text="Starts" />
+                        <TableColumn fx:id="startsColumn" prefWidth="119.0" text="Stars" />
                      </columns>
                   </TableView>
                   <Button fx:id="editButton" layoutX="180.0" layoutY="482.0" mnemonicParsing="false" onAction="#edit" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Edit" />

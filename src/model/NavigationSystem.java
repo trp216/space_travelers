@@ -144,7 +144,9 @@ public class NavigationSystem {
 	@SuppressWarnings("unchecked")
 	public PlanetarySystem search(int id) {
 		
-		return (PlanetarySystem) GraphAlgorithms.DFS(systems, id);
+		currentSystem = (PlanetarySystem) GraphAlgorithms.DFS(systems, id);
+		
+		return currentSystem;
 		
 	}
 	
@@ -164,11 +166,17 @@ public class NavigationSystem {
 	// METHOD ADD PLANETARY SYSTEM
 	
 	@SuppressWarnings("unchecked")
-	public void addPlanetarySystem(String n, LocalDate ld, int coordinates) {
+	public void addPlanetarySystem(String n, LocalDate ld, int coordinates, ArrayList<Pair<String,Integer>> civilizations, ArrayList<String> planets, ArrayList<String> stars) {
 		
 		int id = (int)Math.random()*(Integer.MAX_VALUE-27001) + 27001;
 		
 		PlanetarySystem nps = new PlanetarySystem(n, id, ld, (coordinates + ""));
+	
+		nps.setCivilizations(civilizations);
+		
+		nps.setPlanets(planets);
+		
+		nps.setStars(stars);
 		
 		systems.addVertex(nps, id);
 		
@@ -194,6 +202,18 @@ public class NavigationSystem {
 		
 	}
 
+	//------------------------------------------------------------------------------------
+
+	public PlanetarySystem getCurrentSystem() {
+		return currentSystem;
+	}
+	
+	//------------------------------------------------------------------------------------
+
+	public void setPlanetarySystem(PlanetarySystem currentSystem) {
+		this.currentSystem = currentSystem;
+	}
+	
 	//------------------------------------------------------------------------------------
 
 }

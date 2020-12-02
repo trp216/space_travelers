@@ -12,10 +12,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.ToggleGroup;
+import model.NavigationSystem;
 
 public class PrincipalController {
 	
 	//------------------------------------------------------------------------------------
+	
+	private NavigationSystem ns;
 	
 	// RELACIONES CON LAS OTRAS CONTROLADORAS
 	
@@ -33,17 +36,19 @@ public class PrincipalController {
 	
 	// METODO CONSTRUCTOR DE LA CLASE PRINCIPAL CONTROLLER
 
-	public PrincipalController() {
+	public PrincipalController(NavigationSystem ns) {
+		
+		this.ns = ns;
 
-		controladoraAgregar = new AddSystemController();
+		controladoraAgregar = new AddSystemController(ns);
 
-		controladoraEditar = new EditSystemController();
+		controladoraEditar = new EditSystemController(ns);
 
-		controladoraBuscar = new SearchSystemController();
+		controladoraBuscar = new SearchSystemController(ns);
 
-		controladoraNavegar = new NavegationController();
+		controladoraNavegar = new NavegationController(ns);
 
-		controladoraUniverso = new UniverseController();
+		controladoraUniverso = new UniverseController(ns);
 
 	}
 
