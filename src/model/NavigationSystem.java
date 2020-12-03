@@ -79,6 +79,8 @@ public class NavigationSystem {
 				}
 
 				PlanetarySystem nps = new PlanetarySystem(sname, (int) id, generateDiscoveryDate(), (coordinate + ""));
+				
+				systems.addVertex(nps, id);
 
 				ids.put(id, nps); // Saves the id. Also saves the object, just in case that we would like to use that hashtable later
 
