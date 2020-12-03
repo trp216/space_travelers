@@ -8,12 +8,14 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 import javax.naming.directory.InvalidAttributesException;
 import org.junit.jupiter.api.Test;
 import collections.AdjacencyListGraph;
+import collections.Edge;
 import collections.Vertex;
 import utilities.Pair;
 
@@ -559,5 +561,186 @@ class TestAjacencyListGraph {
 	}
 	
 	//------------------------------------------------------------------------------------
+	@Test
+	void testGetWeightMatrix1() {
+		setup1();
+		setup4();
+		
+		assertTrue(adjListGraphND.getWeightMatrix().isEmpty());
+		assertTrue(adjListGraphD.getWeightMatrix().isEmpty());
+	}
+	
+	@Test
+	void testGetWeightMatrix2() {
+		setup2();
+		setup5();
+				
+		Hashtable<Integer, Hashtable<Integer, Integer>> weightMatrixND = adjListGraphND.getWeightMatrix();
+		Hashtable<Integer, Hashtable<Integer, Integer>> weightMatrixD = adjListGraphD.getWeightMatrix();
+		
+		assertEquals(5,weightMatrixND.size());
+		assertEquals(5,weightMatrixD.size());
+		
+		Enumeration<Hashtable<Integer,Integer>> rows = weightMatrixND.elements();
+				
+		while(rows.hasMoreElements()) {
+			Hashtable<Integer,Integer> row = rows.nextElement();
+			assertTrue(row.isEmpty());
+		}
+		
+		rows = weightMatrixD.elements();
+		
+		while(rows.hasMoreElements()) {
+			Hashtable<Integer,Integer> row = rows.nextElement();
+			assertTrue(row.isEmpty());
+		}
+		
+	}	
+	
+	@Test
+	void testGetWeightMatrix3() throws InvalidAttributesException, IllegalArgumentException {
+		setup3();
+		setup6();
+		
+		Hashtable<Integer, Hashtable<Integer, Integer>> weightMatrixND = adjListGraphND.getWeightMatrix();
+		Hashtable<Integer, Hashtable<Integer, Integer>> weightMatrixD = adjListGraphD.getWeightMatrix();
+		
+		//ND
+		assertEquals(5,weightMatrixND.get(1).get(2));
+		assertEquals(6,weightMatrixND.get(1).get(3));
+		
+		assertEquals(5,weightMatrixND.get(2).get(1));
+		assertEquals(8,weightMatrixND.get(2).get(3));
+		assertEquals(9,weightMatrixND.get(2).get(5));
+		
+		assertEquals(6,weightMatrixND.get(3).get(1));
+		assertEquals(8,weightMatrixND.get(3).get(2));
+		assertEquals(1,weightMatrixND.get(3).get(5));
+		
+		assertEquals(4,weightMatrixND.get(4).get(5));
+		
+		assertEquals(9,weightMatrixND.get(5).get(2));
+		assertEquals(1,weightMatrixND.get(5).get(3));
+		assertEquals(4,weightMatrixND.get(5).get(4));
+		
+		//D
+		
+		assertEquals(5,weightMatrixD.get(1).get(2));
+		
+		assertEquals(8,weightMatrixD.get(2).get(3));
+		
+		
+		assertEquals(6,weightMatrixD.get(3).get(1));
+		
+		assertTrue(weightMatrixD.get(4).isEmpty());
+		
+		assertEquals(9,weightMatrixD.get(5).get(2));
+		assertEquals(1,weightMatrixD.get(5).get(3));
+		assertEquals(4,weightMatrixD.get(5).get(4));
+	}
+	
+	// ------------------------------------------------------------------------------------
+	
+	@Test
+	void testGetEdgeList1() {
+		setup1();
+		setup4();
+		
+		assertTrue(adjListGraphND.getEdgeList().isEmpty());
+		assertNull(adjListGraphND.getEdgeList(1));
+		assertTrue(adjListGraphD.getEdgeList().isEmpty());
+		assertNull(adjListGraphD.getEdgeList(1));
+		
+	}
+	
+	@Test
+	void testGetEdgeList2() {
+		setup2();
+		setup5();
+		
+		assertTrue(adjListGraphND.getEdgeList().isEmpty());
+		assertTrue(adjListGraphND.getEdgeList(1).isEmpty());
+		assertTrue(adjListGraphD.getEdgeList().isEmpty());
+		assertTrue(adjListGraphD.getEdgeList(1).isEmpty());
+		
+	}
+	
+	@Test
+	void testGetEdgeList3() throws InvalidAttributesException, IllegalArgumentException {
+		setup3();
+		setup6();
+		List<Edge<Integer>> edgesND1 = adjListGraphND.getEdgeList();
+		List<Edge<Integer>> edgesND2 = adjListGraphND.getEdgeList(1);
+		Hashtable<Integer,Vertex<Integer>> verticesND = adjListGraphND.getVertices();
+		
+		List<Edge<Integer>> edgesD1 = adjListGraphD.getEdgeList();
+		List<Edge<Integer>> edgesD2 = adjListGraphD.getEdgeList(1);
+		Hashtable<Integer,Vertex<Integer>> verticesD = adjListGraphD.getVertices();
+		
+		//NDI
+		assertTrue(edgesND1.contains(new Edge<Integer>(verticesND.get(1),verticesND.get(2),5)));
+		assertTrue(edgesND1.contains(new Edge<Integer>(verticesND.get(5),verticesND.get(4),4)));
+		assertTrue(edgesND1.contains(new Edge<Integer>(verticesND.get(2),verticesND.get(3),8)));
+		assertTrue(edgesND1.contains(new Edge<Integer>(verticesND.get(5),verticesND.get(3),1)));
+		assertTrue(edgesND1.contains(new Edge<Integer>(verticesND.get(5),verticesND.get(2),9)));
+		assertTrue(edgesND1.contains(new Edge<Integer>(verticesND.get(3),verticesND.get(1),6)));
+				
+		//NDII		
+		assertTrue(edgesND2.contains(new Edge<Integer>(verticesND.get(1),verticesND.get(2),5)));
+		assertTrue(edgesND2.contains(new Edge<Integer>(verticesND.get(1),verticesND.get(3),6)));
+				
+		//DI
+		
+		assertTrue(edgesD1.contains(new Edge<Integer>(verticesD.get(1),verticesD.get(2),5)));
+		assertTrue(edgesD1.contains(new Edge<Integer>(verticesD.get(5),verticesD.get(4),4)));
+		assertTrue(edgesD1.contains(new Edge<Integer>(verticesD.get(2),verticesD.get(3),8)));
+		assertTrue(edgesD1.contains(new Edge<Integer>(verticesD.get(5),verticesD.get(3),1)));
+		assertTrue(edgesD1.contains(new Edge<Integer>(verticesD.get(5),verticesD.get(2),9)));
+		assertTrue(edgesD1.contains(new Edge<Integer>(verticesD.get(3),verticesD.get(1),6)));
+				
+		
+		//DII
+		assertTrue(edgesD2.contains(new Edge<Integer>(verticesD.get(1),verticesD.get(2),5)));
+	}
+	
+	// ------------------------------------------------------------------------------------
+	@Test
+	void testGetAdjacentVertices1() {
+		setup1();
+		setup4();
+		
+		assertNull(adjListGraphND.getAdjacentVertices(1));
+		assertNull(adjListGraphD.getAdjacentVertices(1));
+		
+	}
+	
+	@Test
+	void testGetAdjacentVertices2() {
+		setup2();
+		setup5();
+		
+		assertTrue(adjListGraphND.getAdjacentVertices(1).isEmpty());
+		assertTrue(adjListGraphD.getAdjacentVertices(1).isEmpty());
+	}
+	
+	@Test
+	void testGetAdjacentVertices3() throws InvalidAttributesException, IllegalArgumentException {
+		setup3();
+		setup6();
+		
+		List<Vertex<Integer>> adjVerticesND = adjListGraphND.getAdjacentVertices(1);
+		List<Vertex<Integer>> adjVerticesD = adjListGraphD.getAdjacentVertices(1);
+		
+		assertTrue(adjVerticesND.contains(new Vertex<Integer>(3,3)));
+		assertTrue(adjVerticesND.contains(new Vertex<Integer>(2,2)));		
+		assertTrue(adjVerticesD.contains(new Vertex<Integer>(2,2)));
+		
+		adjVerticesND = (ArrayList<Vertex<Integer>>) adjListGraphND.getAdjacentVertices(99);
+		adjVerticesD = adjListGraphD.getAdjacentVertices(99);
+		
+		assertNull(adjVerticesND);
+		assertNull(adjVerticesD);
+	}
+	// ------------------------------------------------------------------------------------
 
 }

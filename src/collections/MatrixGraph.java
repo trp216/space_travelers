@@ -224,7 +224,7 @@ public class MatrixGraph<E> implements Graph<E> {
 	@Override
 	public Hashtable<Vertex<E>,List<Pair<Integer,Vertex<E>>>> getAdjacencyList() {
 		
-		List<Pair<Integer,Vertex<E>>> adjacentVerticesList = new ArrayList<>() ;
+		List<Pair<Integer,Vertex<E>>> adjacentVerticesList = new ArrayList<>();
 		
 		Hashtable<Vertex<E>,List<Pair<Integer,Vertex<E>>>> adjList = new Hashtable<>();
 					
@@ -236,8 +236,7 @@ public class MatrixGraph<E> implements Graph<E> {
 			
 			Hashtable<Integer,Integer> row = adjMatrix.get(id1);
 			
-			Enumeration<Integer> ids2 = row.keys();
-					
+			Enumeration<Integer> ids2 = row.keys();					
 			
 			while(ids2.hasMoreElements()) {
 				
@@ -249,7 +248,11 @@ public class MatrixGraph<E> implements Graph<E> {
 				
 				adjacentVerticesList.add(new Pair<Integer,Vertex<E>>(weight,v2));
 				
-			}			
+			}	
+			
+			adjList.put(vertices.get(id1), adjacentVerticesList);
+			
+			adjacentVerticesList = new ArrayList<>();
 			
 		}
 		

@@ -46,4 +46,11 @@ public class Pair<K, V>{
 	
 	//------------------------------------------------------------------------------------
 	
+	@SuppressWarnings("unchecked")
+	public boolean equals(Object anotherPair) {
+		Pair<K,V> aPair = (Pair<K, V>) anotherPair;
+		
+		return key.equals(aPair.key) && value.equals(aPair.value);
+		
+	}
 }

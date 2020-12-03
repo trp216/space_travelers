@@ -1,12 +1,20 @@
 package test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Set;
+
 import javax.naming.directory.InvalidAttributesException;
 import org.junit.jupiter.api.Test;
+
+import collections.Edge;
 import collections.MatrixGraph;
 import collections.Vertex;
+import utilities.Pair;
 
 class TestMatrixGraph {
 
@@ -459,6 +467,214 @@ class TestMatrixGraph {
 
 	}
 
+	// ------------------------------------------------------------------------------------
+	
+	@Test
+	void testGetAdjacencyList1() {
+		setup1();
+		setup4();
+		
+		Hashtable<Vertex<Integer>, List<Pair<Integer, Vertex<Integer>>>> adjListND = matrixGraphND.getAdjacencyList();
+		Hashtable<Vertex<Integer>, List<Pair<Integer, Vertex<Integer>>>> adjListD = matrixGraphD.getAdjacencyList();
+		
+		assertTrue(adjListND.isEmpty());
+		assertTrue(adjListD.isEmpty());	
+		
+	}
+	
+	@Test
+	void testGetAdjacencyList2() {
+		setup2();
+		setup5();
+		
+		Hashtable<Vertex<Integer>, List<Pair<Integer, Vertex<Integer>>>> adjListND = matrixGraphND.getAdjacencyList();
+		Hashtable<Vertex<Integer>, List<Pair<Integer, Vertex<Integer>>>> adjListD = matrixGraphD.getAdjacencyList();
+		
+		Set<Vertex<Integer>> verticesND = adjListND.keySet();		
+		Set<Vertex<Integer>> verticesD = adjListD.keySet();	
+		
+		for(Vertex<Integer> vertex : verticesND) {
+			assertTrue(adjListND.get(vertex).isEmpty());
+		}
+		
+		for(Vertex<Integer> vertex : verticesD) {
+			assertTrue(adjListD.get(vertex).isEmpty());
+		}
+		
+	}	
+	
+	@Test
+	void testGetAdjacencyList3() throws InvalidAttributesException, IllegalArgumentException {
+		setup3();
+		setup6();
+		
+		Hashtable<Vertex<Integer>, List<Pair<Integer, Vertex<Integer>>>> adjListND = matrixGraphND.getAdjacencyList();
+		Hashtable<Vertex<Integer>, List<Pair<Integer, Vertex<Integer>>>> adjListD = matrixGraphD.getAdjacencyList();
+		
+		Set<Vertex<Integer>> verticesND = adjListND.keySet();	
+		Set<Vertex<Integer>> verticesD = adjListD.keySet();	
+		
+		for (Vertex<Integer> vertex : verticesND) {
+			List<Pair<Integer, Vertex<Integer>>> list = adjListND.get(vertex);
+			
+			switch(vertex.getId()) {
+				case 1:
+					assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(5,new Vertex<Integer>(2,2))));
+					assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(6,new Vertex<Integer>(3,3))));
+					
+					break;
+				case 2:
+					assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(5,new Vertex<Integer>(1,1))));
+					assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(8,new Vertex<Integer>(3,3))));
+					assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(9,new Vertex<Integer>(5,5))));
+						
+					break;
+				case 3:
+					assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(8,new Vertex<Integer>(2,2))));
+					assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(1,new Vertex<Integer>(5,5))));
+					assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(6,new Vertex<Integer>(1,1))));
+					
+					break;
+				case 4:
+					assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(4,new Vertex<Integer>(5,5))));	
+					
+					break;
+				case 5:
+					assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(4,new Vertex<Integer>(4,4))));
+					assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(1,new Vertex<Integer>(3,3))));
+					assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(9,new Vertex<Integer>(2,2))));
+					
+					break;
+			}
+		}
+		
+		for (Vertex<Integer> vertex : verticesD) {
+			List<Pair<Integer, Vertex<Integer>>> list = adjListD.get(vertex);
+			switch(vertex.getId()) {
+			case 1:
+				assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(5,new Vertex<Integer>(2,2))));
+				break;
+			case 2:
+				assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(8,new Vertex<Integer>(3,3))));
+				break;
+			case 3:
+				assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(6,new Vertex<Integer>(1,1))));
+				break;
+			case 4:
+				assertTrue(list.isEmpty());	
+				break;
+			case 5:
+				assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(4,new Vertex<Integer>(4,4))));
+				assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(1,new Vertex<Integer>(3,3))));
+				assertTrue(list.contains(new Pair<Integer, Vertex<Integer>>(9,new Vertex<Integer>(2,2))));	
+				
+				break;
+			}
+		}		
+	}
+	
+	// ------------------------------------------------------------------------------------
+	
+	@Test
+	void testGetEdgeList1() {
+		setup1();
+		setup4();
+		
+		assertTrue(matrixGraphND.getEdgeList().isEmpty());
+		assertNull(matrixGraphND.getEdgeList(1));
+		assertTrue(matrixGraphD.getEdgeList().isEmpty());
+		assertNull(matrixGraphD.getEdgeList(1));
+		
+	}
+	
+	@Test
+	void testGetEdgeList2() {
+		setup2();
+		setup5();
+		
+		assertTrue(matrixGraphND.getEdgeList().isEmpty());
+		assertTrue(matrixGraphND.getEdgeList(1).isEmpty());
+		assertTrue(matrixGraphD.getEdgeList().isEmpty());
+		assertTrue(matrixGraphD.getEdgeList(1).isEmpty());
+		
+	}
+	
+	@Test
+	void testGetEdgeList3() throws InvalidAttributesException, IllegalArgumentException {
+		setup3();
+		setup6();
+		List<Edge<Integer>> edgesND1 = matrixGraphND.getEdgeList();
+		List<Edge<Integer>> edgesND2 = matrixGraphND.getEdgeList(1);
+		Hashtable<Integer,Vertex<Integer>> verticesND = matrixGraphND.getVertices();
+		
+		List<Edge<Integer>> edgesD1 = matrixGraphD.getEdgeList();
+		List<Edge<Integer>> edgesD2 = matrixGraphD.getEdgeList(1);
+		Hashtable<Integer,Vertex<Integer>> verticesD = matrixGraphD.getVertices();
+		
+		//NDI
+		assertTrue(edgesND1.contains(new Edge<Integer>(verticesND.get(1),verticesND.get(2),5)));
+		assertTrue(edgesND1.contains(new Edge<Integer>(verticesND.get(5),verticesND.get(4),4)));
+		assertTrue(edgesND1.contains(new Edge<Integer>(verticesND.get(2),verticesND.get(3),8)));
+		assertTrue(edgesND1.contains(new Edge<Integer>(verticesND.get(5),verticesND.get(3),1)));
+		assertTrue(edgesND1.contains(new Edge<Integer>(verticesND.get(5),verticesND.get(2),9)));
+		assertTrue(edgesND1.contains(new Edge<Integer>(verticesND.get(3),verticesND.get(1),6)));
+				
+		//NDII		
+		assertTrue(edgesND2.contains(new Edge<Integer>(verticesND.get(1),verticesND.get(2),5)));
+		assertTrue(edgesND2.contains(new Edge<Integer>(verticesND.get(1),verticesND.get(3),6)));
+				
+		//DI
+		
+		assertTrue(edgesD1.contains(new Edge<Integer>(verticesD.get(1),verticesD.get(2),5)));
+		assertTrue(edgesD1.contains(new Edge<Integer>(verticesD.get(5),verticesD.get(4),4)));
+		assertTrue(edgesD1.contains(new Edge<Integer>(verticesD.get(2),verticesD.get(3),8)));
+		assertTrue(edgesD1.contains(new Edge<Integer>(verticesD.get(5),verticesD.get(3),1)));
+		assertTrue(edgesD1.contains(new Edge<Integer>(verticesD.get(5),verticesD.get(2),9)));
+		assertTrue(edgesD1.contains(new Edge<Integer>(verticesD.get(3),verticesD.get(1),6)));
+				
+		
+		//DII
+		assertTrue(edgesD2.contains(new Edge<Integer>(verticesD.get(1),verticesD.get(2),5)));
+	}
+	
+	// ------------------------------------------------------------------------------------
+	@Test
+	void testGetAdjacentVertices1() {
+		setup1();
+		setup4();
+		
+		assertNull(matrixGraphND.getAdjacentVertices(1));
+		assertNull(matrixGraphD.getAdjacentVertices(1));
+		
+	}
+	
+	@Test
+	void testGetAdjacentVertices2() {
+		setup2();
+		setup5();
+		
+		assertTrue(matrixGraphND.getAdjacentVertices(1).isEmpty());
+		assertTrue(matrixGraphD.getAdjacentVertices(1).isEmpty());
+	}
+	
+	@Test
+	void testGetAdjacentVertices3() throws InvalidAttributesException, IllegalArgumentException {
+		setup3();
+		setup6();
+		
+		List<Vertex<Integer>> adjVerticesND = matrixGraphND.getAdjacentVertices(1);
+		List<Vertex<Integer>> adjVerticesD = matrixGraphD.getAdjacentVertices(1);
+		
+		assertTrue(adjVerticesND.contains(new Vertex<Integer>(3,3)));
+		assertTrue(adjVerticesND.contains(new Vertex<Integer>(2,2)));		
+		assertTrue(adjVerticesD.contains(new Vertex<Integer>(2,2)));
+		
+		adjVerticesND = (ArrayList<Vertex<Integer>>) matrixGraphND.getAdjacentVertices(99);
+		adjVerticesD = matrixGraphD.getAdjacentVertices(99);
+		
+		assertNull(adjVerticesND);
+		assertNull(adjVerticesD);
+	}
 	// ------------------------------------------------------------------------------------
 
 }

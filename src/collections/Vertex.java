@@ -6,7 +6,7 @@
 
 package collections;
 
-public class Vertex<E> {
+public class Vertex<E> extends Object{
 
 	//------------------------------------------------------------------------------------
 
@@ -48,8 +48,15 @@ public class Vertex<E> {
 	
 	// Equals method
 
-	public boolean equals(Vertex<E> anotherVertex) { return id == anotherVertex.id;} 
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean equals(Object anotherVertex) { return id == ((Vertex<E>)anotherVertex).id;} 
 	
 	//------------------------------------------------------------------------------------
-	
+	// To String method
+
+	public String toString() { return "<" + id + "," + element.toString() + ">";} 
+		
+	//------------------------------------------------------------------------------------
+		
 }
