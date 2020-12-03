@@ -145,7 +145,7 @@ public class PlanetarySystem {
 	
 	// ADD METHOD IN THE ARRAYLIST OF STARTS
 	
-	public void addStart(String name) {
+	public void addStars(String name) {
 		
 		stars.add(name);
 		
