@@ -7,6 +7,8 @@
 package ui;
 
 import exceptions.InsufficientInformationException;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -287,8 +289,65 @@ public class EditSystemController {
 
 		tableStarts.setDisable(true);
 
+		
+		//Listeners of changes in selected item of each table
+		tableCivilizations.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				
+				editCivilizationName(newValue);
+				
+			}
+			
+		});
+		
+		tablePlanets.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				editStarName(newValue);
+			}
+			
+		});
+		
+		tableStarts.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				editPlanetName(newValue);
+			}
+			
+		});
+		
+		
 	}
 
 	//------------------------------------------------------------------------------------
+	
+	@FXML
+	void validationPlanetsEdit(ActionEvent event) {
 
+	}
+	
+	//------------------------------------------------------------------------------------
+	
+    @FXML
+    void validationStartsEdit(ActionEvent event) {
+
+    }
+    
+    //------------------------------------------------------------------------------------
+    
+    void editCivilizationName(String oldName) {
+    	
+    }
+    
+    void editStarName(String oldName) {
+    	
+    }
+ 
+ 	void editPlanetName(String oldName) {
+ 	
+ 	}
 }

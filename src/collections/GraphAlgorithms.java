@@ -93,7 +93,7 @@ public class GraphAlgorithms {
 
 		List<E> traversal = new ArrayList<>();
 
-		//More efficient than Stack
+		//More efficient than Linked list queue
 		Queue<Vertex<E>> queue = new ArrayDeque<>();
 		
 		Vertex<E> vertex = vertices.get(vertexId);

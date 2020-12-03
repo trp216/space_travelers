@@ -2,6 +2,8 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import javax.naming.directory.InvalidAttributesException;
+
 import org.junit.jupiter.api.Test;
 
 import collections.AdjacencyListGraph;
@@ -31,8 +33,22 @@ class TestGraphAlgorithms {
 		}
 	}
 	
-	void setup3() {
+	void setup3() throws InvalidAttributesException, IllegalArgumentException {
+		setup2();
 		
+		adjListGraphND.addEdge(1,2,5);
+		adjListGraphND.addEdge(5,4,4);
+		adjListGraphND.addEdge(2,3,8);
+		adjListGraphND.addEdge(5,3,1);
+		adjListGraphND.addEdge(5,2,9);
+		adjListGraphND.addEdge(3,1,6);
+		
+		matrixGraphND.addEdge(1,2,5);
+		matrixGraphND.addEdge(5,4,4);
+		matrixGraphND.addEdge(2,3,8);
+		matrixGraphND.addEdge(5,3,1);
+		matrixGraphND.addEdge(5,2,9);
+		matrixGraphND.addEdge(3,1,6);		
 	}
 	
 	void setup4() {
@@ -52,8 +68,22 @@ class TestGraphAlgorithms {
 		}
 	}
 	
-	void setup6() {
+	void setup6() throws InvalidAttributesException, IllegalArgumentException {
+		setup5();
+
+		adjListGraphD.addEdge(1,2,5);
+		adjListGraphD.addEdge(5,4,4);
+		adjListGraphD.addEdge(2,3,8);
+		adjListGraphD.addEdge(5,3,1);
+		adjListGraphD.addEdge(5,2,9);
+		adjListGraphD.addEdge(3,1,6);
 		
+		matrixGraphD.addEdge(1,2,5);
+		matrixGraphD.addEdge(5,4,4);
+		matrixGraphD.addEdge(2,3,8);
+		matrixGraphD.addEdge(5,3,1);
+		matrixGraphD.addEdge(5,2,9);
+		matrixGraphD.addEdge(3,1,6);
 	}
 	
 	@Test

@@ -22,41 +22,45 @@ public class PrincipalController {
 
 	//------------------------------------------------------------------------------------
 
-	private NavigationSystem ns;
+	private NavigationSystem navSys;
 
 	// RELACIONES CON LAS OTRAS CONTROLADORAS
 	
-	private GenerateController controladoraGenerar;
+	private WelcomeController welcomeC;
+	
+	private GenerateController generateC;
 
-	private AddSystemController controladoraAgregar;
+	private AddSystemController addC;
 
-	private EditSystemController controladoraEditar;
+	private EditSystemController editC;
 
-	private SearchSystemController controladoraBuscar;
+	private SearchSystemController searchC;
 
-	private NavegationController controladoraNavegar;
+	private NavegationController navigationC;
 
-	private UniverseController controladoraUniverso;
+	private UniverseController universeC;
 
 	//------------------------------------------------------------------------------------
 
 	// METODO CONSTRUCTOR DE LA CLASE PRINCIPAL CONTROLLER
 
-	public PrincipalController(NavigationSystem ns) {
+	public PrincipalController(NavigationSystem navegationSystem) {
 
-		this.ns = ns;
+		navSys = navegationSystem;
 		
-		controladoraGenerar = new GenerateController(ns);
+		welcomeC = new WelcomeController(navSys);
+		
+		generateC = new GenerateController(navSys);
 
-		controladoraAgregar = new AddSystemController(ns);
+		addC = new AddSystemController(navSys);
 
-		controladoraEditar = new EditSystemController(ns);
+		editC = new EditSystemController(navSys);
 
-		controladoraBuscar = new SearchSystemController(ns);
+		searchC = new SearchSystemController(navSys);
 
-		controladoraNavegar = new NavegationController(ns);
+		navigationC = new NavegationController(navSys);
 
-		controladoraUniverso = new UniverseController(ns);
+		universeC = new UniverseController(navSys);
 
 	}
 
@@ -98,29 +102,13 @@ public class PrincipalController {
 	private Tab navegation;
 
 	@FXML
-	private AnchorPane navegationAP;
+	private AnchorPane navigationAP;
+	
+    @FXML
+    private Tab universe;
 
-	@FXML
-	private Tab universe;
-
-	@FXML
-	private AnchorPane universeAP;
-
-	// ***********************************************
-
-	// PRIMERA PANTALLA DEL SISTEMA
-
-	@FXML
-	private ToggleGroup tipoGrafo;
-
-	@FXML
-	private RadioButton tipo1;
-
-	@FXML
-	private RadioButton tipo2;
-
-	@FXML
-	private Button tipoGrafoButton;
+    @FXML
+    private AnchorPane universeAP;
 
 	//------------------------------------------------------------------------------------
 	
@@ -128,9 +116,9 @@ public class PrincipalController {
 
 	public void loadWelcome() throws IOException {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("pantallaBienvenida.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("welcomeScreen.fxml"));
 
-		fxmlLoader.setController(this);
+		fxmlLoader.setController(welcomeC);
 
 		welcomeAP.getChildren().add(fxmlLoader.load());
 
@@ -142,9 +130,9 @@ public class PrincipalController {
 
 	public void loadGenerate() throws IOException {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("pantallaGenerar.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("generateScreen.fxml"));
 
-		fxmlLoader.setController(controladoraGenerar);
+		fxmlLoader.setController(generateC);
 
 		generateAP.getChildren().add(fxmlLoader.load());
 
@@ -156,9 +144,9 @@ public class PrincipalController {
 
 	public void loadAdd() throws IOException {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("pantallaAgregar.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addScreen.fxml"));
 
-		fxmlLoader.setController(controladoraAgregar);
+		fxmlLoader.setController(addC);
 
 		addSystemAP.getChildren().add(fxmlLoader.load());
 
@@ -170,9 +158,9 @@ public class PrincipalController {
 
 	public void loadEdit() throws IOException {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("pantallaEditar.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editScreen.fxml"));
 
-		fxmlLoader.setController(controladoraEditar);
+		fxmlLoader.setController(editC);
 
 		editSystemAP.getChildren().add(fxmlLoader.load());
 
@@ -184,9 +172,9 @@ public class PrincipalController {
 
 	public void loadSearh() throws IOException {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("pantallaBuscar.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchScreen.fxml"));
 
-		fxmlLoader.setController(controladoraBuscar);
+		fxmlLoader.setController(searchC);
 
 		searchSystemAP.getChildren().add(fxmlLoader.load());
 
@@ -209,17 +197,6 @@ public class PrincipalController {
 	public void loadUniverse() throws IOException {
 
 		
-
-	}
-	
-	//------------------------------------------------------------------------------------
-
-	// METODO SELECT GRAFO
-
-	@FXML
-	void selectGrafo(ActionEvent event) {
-
-
 
 	}
 
