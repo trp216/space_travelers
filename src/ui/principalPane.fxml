@@ -268,7 +268,7 @@
                   </TableView>
                   <TableView fx:id="tableStartsSearch" layoutX="350.0" layoutY="376.0" prefHeight="118.0" prefWidth="120.0">
                      <columns>
-                        <TableColumn fx:id="startsSearchColumn" prefWidth="119.0" text="Starts" />
+                        <TableColumn fx:id="startsSearchColumn" prefWidth="119.0" text="Stars" />
                      </columns>
                   </TableView>
                </children></AnchorPane>
