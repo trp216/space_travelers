@@ -314,7 +314,7 @@ public class AddSystemController {
 
 			} else {
 
-				planetarySystem.addStart(name);
+				planetarySystem.addStars(name);
 
 				startsText.setText("");
 

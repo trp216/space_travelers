@@ -6,6 +6,8 @@
 
 package ui;
 
+import javax.naming.directory.InvalidAttributesException;
+
 import exceptions.InsufficientInformationException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,7 +48,7 @@ public class GenerateController {
 	// METODO GENERAR DE LA CLASE GENERATE CONTROLLER
 
 	@FXML
-	void generate(ActionEvent event) {
+	void generate(ActionEvent event) throws NumberFormatException, InvalidAttributesException, IllegalArgumentException {
 
 		try {
 			if(numberElementsGenerate.getText().equals("")) {
