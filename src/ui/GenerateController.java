@@ -51,14 +51,21 @@ public class GenerateController {
 	void generate(ActionEvent event) throws NumberFormatException, InvalidAttributesException, IllegalArgumentException {
 
 		try {
+			
 			if(numberElementsGenerate.getText().equals("")) {
+				
 				throw new InsufficientInformationException();
-			}
-			else {
+				
+			} else {
+				
 				ns.generateSystems(Integer.parseInt(numberElementsGenerate.getText()));
+				
 			}
-		}catch(InsufficientInformationException e) {
+			
+		} catch(InsufficientInformationException e) {
+			
 			insufficientDataAlert();
+			
 		}
 
 	}

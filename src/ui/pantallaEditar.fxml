@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="editSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="522.0" prefWidth="522.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="526.0" stroke="BLACK" strokeType="INSIDE" width="525.0" />
+      <ImageView fitHeight="102.0" fitWidth="189.0" layoutX="172.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@edit.gif" />
+         </image>
+      </ImageView>
+      <Label layoutX="112.0" layoutY="37.0" text="ID" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="idEditText" layoutX="43.0" layoutY="68.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
+      <Button fx:id="searchAndEditButton" layoutX="369.0" layoutY="55.0" mnemonicParsing="false" onAction="#searchAndEdit" style="-fx-background-color: yellow; -fx-border-color: white;" text="Search and edit" />
+      <Line endX="427.03533935546875" layoutX="99.0" layoutY="117.0" startX="-100.0" stroke="#00fffb" />
+      <CheckBox fx:id="nameEditCB" layoutX="65.0" layoutY="131.0" mnemonicParsing="false" onAction="#validationNameEdit" text="Name" textFill="WHITE" />
+      <CheckBox fx:id="discoveryDateEditCB" layoutX="145.0" layoutY="131.0" mnemonicParsing="false" onAction="#validationDiscoveryDateEdit" text="Discovery date" textFill="WHITE" />
+      <CheckBox fx:id="coordinatesEditCB" layoutX="271.0" layoutY="131.0" mnemonicParsing="false" onAction="#validationCoordinatesEdit" text="Coordinates" textFill="WHITE" />
+      <CheckBox fx:id="civilizationsEditCB" layoutX="377.0" layoutY="131.0" mnemonicParsing="false" onAction="#validationCivilizationsEdit" text="Civilizations" textFill="WHITE" />
+      <CheckBox fx:id="planetsEditCB" layoutX="176.0" layoutY="167.0" mnemonicParsing="false" onAction="#validationPlanetsEdit" text="Planets" textFill="WHITE" />
+      <CheckBox fx:id="startsEditCB" layoutX="299.0" layoutY="167.0" mnemonicParsing="false" onAction="#validationStartsEdit" text="Stars" textFill="WHITE" />
+      <Line endX="427.03533935546875" layoutX="99.0" layoutY="200.0" startX="-100.0" stroke="#00fffb" />
+      <Label layoutX="39.0" layoutY="222.0" text="Name" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="350.0" layoutY="231.0" text="Discovery date" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="18.0" layoutY="285.0" text="Coordinates" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="nameEditText" layoutX="112.0" layoutY="218.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
+      <DatePicker fx:id="discoveryDateEdit" layoutX="314.0" layoutY="268.0" />
+      <TextField fx:id="coordinatesEditText" layoutX="112.0" layoutY="281.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
+      <TableView fx:id="tableCivilizations" layoutX="42.0" layoutY="337.0" prefHeight="118.0" prefWidth="120.0">
+         <columns>
+            <TableColumn fx:id="civilizationsColumn" prefWidth="119.0" text="Civilizations" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tablePlanets" layoutX="201.0" layoutY="337.0" prefHeight="118.0" prefWidth="120.0">
+         <columns>
+            <TableColumn fx:id="planetsColumn" prefWidth="119.0" text="Planets" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tableStarts" layoutX="367.0" layoutY="337.0" prefHeight="118.0" prefWidth="120.0">
+         <columns>
+            <TableColumn fx:id="startsColumn" prefWidth="119.0" text="Stars" />
+         </columns>
+      </TableView>
+      <Button fx:id="editButton" layoutX="180.0" layoutY="482.0" mnemonicParsing="false" onAction="#edit" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Edit" />
+      <Button fx:id="removeButton" layoutX="270.0" layoutY="482.0" mnemonicParsing="false" onAction="#remove" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Remove" />
+   </children>
+</AnchorPane>

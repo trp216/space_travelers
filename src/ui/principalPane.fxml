@@ -18,11 +18,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="525.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="525.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <tabs>
     <Tab fx:id="welcome" text="Welcome">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="525.0">
+        <AnchorPane fx:id="welcomeAP" minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="525.0">
                <children>
                   <ImageView fitHeight="525.0" fitWidth="584.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -61,9 +61,9 @@
                </children></AnchorPane>
       </content>
     </Tab>
-      <Tab fx:id="welcome1" text="Generate">
+      <Tab fx:id="generateTab" text="Generate">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="525.0">
+            <AnchorPane fx:id="generateAP" minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="525.0">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" height="527.0" stroke="BLACK" strokeType="INSIDE" width="525.0" />
                   <ImageView fitHeight="217.0" fitWidth="268.0" layoutX="129.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
@@ -77,13 +77,13 @@
                      </font>
                   </Label>
                   <TextField fx:id="numberElementsGenerate" layoutX="187.0" layoutY="250.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
-                  <Button fx:id="generateButton" layoutX="230.0" layoutY="337.0" mnemonicParsing="false" onAction="#generate" style="-fx-background-color: yellow; -fx-border-color: white;" text="Generate" />
+                  <Button layoutX="230.0" layoutY="337.0" mnemonicParsing="false" style="-fx-background-color: yellow; -fx-border-color: white;" text="Generate" />
                </children></AnchorPane>
          </content>
       </Tab>
     <Tab fx:id="addSystemTab" text="Add">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+        <AnchorPane fx:id="addSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <ImageView fitHeight="299.0" fitWidth="611.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -124,18 +124,18 @@
                   <TextField fx:id="nameText" layoutX="57.0" layoutY="63.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
                   <DatePicker fx:id="discorveryDate" layoutX="298.0" layoutY="63.0" />
                   <TextField fx:id="coordinatesText" layoutX="190.0" layoutY="217.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
-                  <Button fx:id="systemButtton" layoutX="317.0" layoutY="471.0" mnemonicParsing="false" onAction="#addSystem" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Add" />
+                  <Button layoutX="317.0" layoutY="471.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Add" />
                   <Line endX="427.03533935546875" layoutX="101.0" layoutY="261.0" startX="-100.0" stroke="#00fffb" />
                   <Line endX="427.03533935546875" layoutX="100.0" layoutY="308.0" startX="-100.0" stroke="#00fffb" />
-                  <CheckBox fx:id="civilizationsCB" layoutX="47.0" layoutY="276.0" mnemonicParsing="false" onAction="#validationCivilizations" text="Civilizations" textFill="WHITE" />
-                  <CheckBox fx:id="planetsCB" layoutX="237.0" layoutY="276.0" mnemonicParsing="false" onAction="#validationPlanets" text="Planets" textFill="WHITE" />
-                  <CheckBox fx:id="startsCB" layoutX="422.0" layoutY="276.0" mnemonicParsing="false" onAction="#validationStars" text="Stars" textFill="WHITE" />
+                  <CheckBox layoutX="47.0" layoutY="276.0" mnemonicParsing="false" text="Civilizations" textFill="WHITE" />
+                  <CheckBox fx:id="planetsCB" layoutX="237.0" layoutY="276.0" mnemonicParsing="false" text="Planets" textFill="WHITE" />
+                  <CheckBox layoutX="422.0" layoutY="276.0" mnemonicParsing="false" text="Stars" textFill="WHITE" />
                   <TextField fx:id="civilizationsText" layoutX="35.0" layoutY="361.0" prefHeight="27.0" prefWidth="108.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
                   <TextField fx:id="planetsText" layoutX="209.0" layoutY="361.0" prefHeight="27.0" prefWidth="108.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
                   <TextField fx:id="startsText" layoutX="392.0" layoutY="361.0" prefHeight="27.0" prefWidth="108.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
-                  <Button fx:id="civilizationButton" layoutX="40.0" layoutY="471.0" mnemonicParsing="false" onAction="#addCivilization" style="-fx-background-color: yellow; -fx-border-color: white;" text="Add civilization" />
-                  <Button fx:id="planetButton" layoutX="225.0" layoutY="410.0" mnemonicParsing="false" onAction="#addPlanet" style="-fx-background-color: yellow; -fx-border-color: white;" text="Add planet" />
-                  <Button fx:id="startButton" layoutX="412.0" layoutY="410.0" mnemonicParsing="false" onAction="#addStart" style="-fx-background-color: yellow; -fx-border-color: white;" text="Add start" />
+                  <Button fx:id="civilizationButton" layoutX="40.0" layoutY="471.0" mnemonicParsing="false" style="-fx-background-color: yellow; -fx-border-color: white;" text="Add civilization" />
+                  <Button layoutX="225.0" layoutY="410.0" mnemonicParsing="false" style="-fx-background-color: yellow; -fx-border-color: white;" text="Add planet" />
+                  <Button fx:id="startButton" layoutX="412.0" layoutY="410.0" mnemonicParsing="false" style="-fx-background-color: yellow; -fx-border-color: white;" text="Add start" />
                   <RadioButton fx:id="t1" layoutX="24.0" layoutY="416.0" mnemonicParsing="false" text="T-1" textFill="WHITE">
                      <toggleGroup>
                         <ToggleGroup fx:id="tipo" />
@@ -147,7 +147,7 @@
     </Tab>
       <Tab fx:id="editSystem" text="Edit">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <AnchorPane fx:id="editSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" height="526.0" stroke="BLACK" strokeType="INSIDE" width="525.0" />
                   <ImageView fitHeight="102.0" fitWidth="189.0" layoutX="172.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -161,14 +161,14 @@
                      </font>
                   </Label>
                   <TextField fx:id="idEditText" layoutX="43.0" layoutY="68.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
-                  <Button fx:id="searchAndEditButton" layoutX="369.0" layoutY="55.0" mnemonicParsing="false" onAction="#searchAndEdit" style="-fx-background-color: yellow; -fx-border-color: white;" text="Search and edit" />
+                  <Button layoutX="369.0" layoutY="55.0" mnemonicParsing="false" style="-fx-background-color: yellow; -fx-border-color: white;" text="Search and edit" />
                   <Line endX="427.03533935546875" layoutX="99.0" layoutY="117.0" startX="-100.0" stroke="#00fffb" />
-                  <CheckBox fx:id="nameEditCB" layoutX="65.0" layoutY="131.0" mnemonicParsing="false" onAction="#validationNameEdit" text="Name" textFill="WHITE" />
-                  <CheckBox fx:id="discoveryDateEditCB" layoutX="145.0" layoutY="131.0" mnemonicParsing="false" onAction="#validationDiscoveryDateEdit" text="Discovery date" textFill="WHITE" />
-                  <CheckBox fx:id="coordinatesEditCB" layoutX="271.0" layoutY="131.0" mnemonicParsing="false" onAction="#validationCoordinatesEdit" text="Coordinates" textFill="WHITE" />
-                  <CheckBox fx:id="civilizationsEditCB" layoutX="377.0" layoutY="131.0" mnemonicParsing="false" onAction="#validationCivilizationsEdit" text="Civilizations" textFill="WHITE" />
-                  <CheckBox fx:id="planetsEditCB" layoutX="176.0" layoutY="167.0" mnemonicParsing="false" onAction="#validationPlanetsEdit" text="Planets" textFill="WHITE" />
-                  <CheckBox fx:id="startsEditCB" layoutX="299.0" layoutY="167.0" mnemonicParsing="false" onAction="#validationStartsEdit" text="Stars" textFill="WHITE" />
+                  <CheckBox layoutX="65.0" layoutY="131.0" mnemonicParsing="false" text="Name" textFill="WHITE" />
+                  <CheckBox fx:id="discoveryDateEditCB" layoutX="145.0" layoutY="131.0" mnemonicParsing="false" text="Discovery date" textFill="WHITE" />
+                  <CheckBox layoutX="271.0" layoutY="131.0" mnemonicParsing="false" text="Coordinates" textFill="WHITE" />
+                  <CheckBox fx:id="civilizationsEditCB" layoutX="377.0" layoutY="131.0" mnemonicParsing="false" text="Civilizations" textFill="WHITE" />
+                  <CheckBox layoutX="176.0" layoutY="167.0" mnemonicParsing="false" text="Planets" textFill="WHITE" />
+                  <CheckBox fx:id="startsEditCB" layoutX="299.0" layoutY="167.0" mnemonicParsing="false" text="Stars" textFill="WHITE" />
                   <Line endX="427.03533935546875" layoutX="99.0" layoutY="200.0" startX="-100.0" stroke="#00fffb" />
                   <Label layoutX="39.0" layoutY="222.0" text="Name" textFill="WHITE">
                      <font>
@@ -203,14 +203,14 @@
                         <TableColumn fx:id="startsColumn" prefWidth="119.0" text="Stars" />
                      </columns>
                   </TableView>
-                  <Button fx:id="editButton" layoutX="180.0" layoutY="482.0" mnemonicParsing="false" onAction="#edit" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Edit" />
-                  <Button fx:id="removeButton" layoutX="270.0" layoutY="482.0" mnemonicParsing="false" onAction="#remove" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Remove" />
+                  <Button layoutX="180.0" layoutY="482.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Edit" />
+                  <Button layoutX="270.0" layoutY="482.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Remove" />
                </children></AnchorPane>
          </content>
       </Tab>
       <Tab fx:id="searchSystem" text="Search">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <AnchorPane fx:id="searchSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" height="525.0" stroke="BLACK" strokeType="INSIDE" width="525.0" />
                   <ImageView fitHeight="139.0" fitWidth="222.0" layoutX="342.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -224,7 +224,7 @@
                      </font>
                   </Label>
                   <TextField fx:id="idSearchText" layoutX="45.0" layoutY="70.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
-                  <Button fx:id="searchButton" layoutX="94.0" layoutY="124.0" mnemonicParsing="false" onAction="#search" style="-fx-background-color: yellow; -fx-border-color: white;" text="Search" />
+                  <Button layoutX="94.0" layoutY="124.0" mnemonicParsing="false" style="-fx-background-color: yellow; -fx-border-color: white;" text="Search" />
                   <Label layoutX="85.0" layoutY="196.0" text="Name:" textFill="WHITE">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
