@@ -196,7 +196,15 @@ public class PrincipalController {
 
 	public void loadUniverse() throws IOException {
 
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("universeScreen.fxml"));
 		
+		fxmlLoader.setController(universeC);
+		
+		universeAP.getChildren().clear();
+		
+		universeAP.getChildren().add(fxmlLoader.load());
+		
+		universeC.updateTable();
 
 	}
 
