@@ -1,3 +1,9 @@
+/*
+ * ALGORITMOS Y ESTRUCTURAS DE DATOS
+ * TAREA INTEGRADORA 3
+ * DIAZ - MARTINEZ - RODAS
+ */
+
 package ui;
 
 import javafx.event.ActionEvent;
@@ -12,11 +18,21 @@ import model.NavigationSystem;
 
 public class WelcomeController {
 
+	//------------------------------------------------------------------------------------
+	
+	//Relations of class WelcomeController
+	
 	private NavigationSystem navSys;
+	
+	//------------------------------------------------------------------------------------
 
+	//Constructor of class WelcomeController
+	
 	public WelcomeController(NavigationSystem navigationSystem) {
 		navSys = navigationSystem;
 	}
+	
+	//------------------------------------------------------------------------------------
 
 	@FXML
 	private AnchorPane welcomeAP;
@@ -33,20 +49,40 @@ public class WelcomeController {
 	@FXML
 	private Button tipoGrafoButton;
 
+	//------------------------------------------------------------------------------------
+	
 	@FXML
 	void selectGrafo(ActionEvent event) {
 
 		if(tipo1.isSelected()) {
 			navSys.graphSelected(true);
+			success();
 		}
 		else if(tipo2.isSelected()) {
 			navSys.graphSelected(false);
+			success();
 		}
 		else {
 			insufficientDataAlert();
 		}
 
 	}
+	
+	//------------------------------------------------------------------------------------
+	
+	@FXML
+	void success() {
+
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Done");
+		alert.setHeaderText("The software has been configurated");
+		alert.setContentText("Please proceed to the generation tab");
+
+		alert.showAndWait();
+
+	}
+	
+	//------------------------------------------------------------------------------------
 	
 	@FXML
 	void insufficientDataAlert() {
@@ -59,9 +95,13 @@ public class WelcomeController {
 		alert.showAndWait();
 
 	}
+	
+	//------------------------------------------------------------------------------------
 
 	@FXML
-	void initializa() {
+	void initialize() {
 
 	}
+	
+	//------------------------------------------------------------------------------------
 }

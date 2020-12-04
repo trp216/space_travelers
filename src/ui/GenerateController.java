@@ -60,6 +60,8 @@ public class GenerateController {
 				
 				ns.generateSystems(Integer.parseInt(numberElementsGenerate.getText()));
 				
+				success();
+				
 			}
 			
 		} catch(InsufficientInformationException e) {
@@ -67,6 +69,20 @@ public class GenerateController {
 			insufficientDataAlert();
 			
 		}
+
+	}
+	
+	//------------------------------------------------------------------------------------
+	
+	@FXML
+	void success() {
+
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Done");
+		alert.setHeaderText("The software has been configurated");
+		alert.setContentText("The generation of the planetary systems has finished");
+
+		alert.showAndWait();
 
 	}
 
