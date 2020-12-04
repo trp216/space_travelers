@@ -7,7 +7,6 @@
 package ui;
 
 import java.util.ArrayList;
-
 import exceptions.InsufficientInformationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +22,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
 import model.NavigationSystem;
 import model.PlanetarySystem;
-import utilities.Pair;
 
 public class SearchSystemController {
 
@@ -90,13 +88,17 @@ public class SearchSystemController {
 		PlanetarySystem pn = null;
 
 		try {
+			
 			if(idSearchText.getText().equals("")) {
+				
 				throw new InsufficientInformationException();
-			}
-			else {
+				
+			} else {
+				
 				pn = ns.search(Integer.parseInt(idSearchText.getText()));
 
 				if(pn!=null) {
+					
 					enable();
 
 					//name
@@ -110,25 +112,35 @@ public class SearchSystemController {
 
 					//Planets
 					ObservableList<String> observableList1 = FXCollections.observableArrayList(pn.getPlanets());
+					
 					tablePlanetsSearch.setItems(observableList1);
+					
 					planetsSearchColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("planets"));
 
 					//Stars
 					ObservableList<String> observableList2 = FXCollections.observableArrayList(pn.getStars());
+					
 					tablePlanetsSearch.setItems(observableList2);
+					
 					planetsSearchColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("stars"));
 
 					//Civilizations
 					ArrayList<String> aux = new ArrayList<String>();
+					
 					for(int i = 0;i<aux.size();i++) {
+						
 						aux.add(pn.getCivilizations().get(i).getKey());
+						
 					}
+					
 					ObservableList<String> observableList3 = FXCollections.observableArrayList(aux);
+					
 					tablePlanetsSearch.setItems(observableList3);
+					
 					planetsSearchColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("planets"));
 
-				}
-				else {
+				} else {
+					
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Error");
 					alert.setHeaderText("Couldn't find your search");
@@ -136,15 +148,20 @@ public class SearchSystemController {
 
 					alert.showAndWait();
 				}
+				
 			}
 
-		}catch(InsufficientInformationException e) {
+		} catch(InsufficientInformationException e) {
+			
 			insufficientDataAlert();
+			
 		}
 
 	}
 
 	//------------------------------------------------------------------------------------
+	
+	// INSUFFIENT DATA ALERT JAVA
 
 	@FXML
 	void insufficientDataAlert() {
@@ -159,6 +176,8 @@ public class SearchSystemController {
 	}
 
 	//------------------------------------------------------------------------------------
+	
+	// ENABLE METHOD
 
 	@FXML
 	void enable() {

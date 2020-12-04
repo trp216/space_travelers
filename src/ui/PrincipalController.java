@@ -16,6 +16,8 @@ import model.NavigationSystem;
 public class PrincipalController {
 
 	//------------------------------------------------------------------------------------
+	
+	// RELACION CON LA CLASE PRINCIPAL DEL MODELO
 
 	private NavigationSystem navSys;
 

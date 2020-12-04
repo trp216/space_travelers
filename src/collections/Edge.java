@@ -52,14 +52,25 @@ public class Edge<E> {
 	
 	@SuppressWarnings("unchecked")
 	public boolean equals(Object anotherEdge) {
+		
 		Edge<E> aEdge = (Edge<E>)anotherEdge;
 		
 		return vertex1.equals(aEdge.vertex1)
+				
 				&& vertex2.equals(aEdge.vertex2)
+				
 				&& weight == aEdge.weight;
+		
 	}
 	
+	//------------------------------------------------------------------------------------
+	
 	public String toString() {
+		
 		return "{" + vertex1.toString() + ";" + vertex2.toString() + ";" + weight + "}";
+		
 	}
+	
+	//------------------------------------------------------------------------------------
+	
 }

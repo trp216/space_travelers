@@ -77,7 +77,7 @@ public class UnionFind<E> {
 
 					}
 
-				}else {
+				} else {
 
 					break;
 
@@ -156,7 +156,9 @@ public class UnionFind<E> {
 	// Size method
 
 	public int size() {
+		
 		return sets.size();
+		
 	}
 
 	//------------------------------------------------------------------------------------

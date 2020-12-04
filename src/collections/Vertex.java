@@ -53,6 +53,7 @@ public class Vertex<E> extends Object{
 	public boolean equals(Object anotherVertex) { return id == ((Vertex<E>)anotherVertex).id;} 
 	
 	//------------------------------------------------------------------------------------
+	
 	// To String method
 
 	public String toString() { return "<" + id + "," + element.toString() + ">";} 

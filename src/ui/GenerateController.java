@@ -74,6 +74,8 @@ public class GenerateController {
 	
 	//------------------------------------------------------------------------------------
 	
+	// SUCESS
+	
 	@FXML
 	void success() {
 
@@ -87,6 +89,8 @@ public class GenerateController {
 	}
 
 	//------------------------------------------------------------------------------------
+	
+	// INSUFFICIENT DATA ALERT
 
 	@FXML
 	void insufficientDataAlert() {

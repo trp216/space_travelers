@@ -123,6 +123,7 @@ public class NavigationSystem {
 		}
 
 		return discDate;
+		
 	}
 
 	//------------------------------------------------------------------------------------
@@ -156,6 +157,7 @@ public class NavigationSystem {
 				s2 = random.nextInt(ht.size());
 
 			}
+			
 		}
 
 	}
@@ -244,12 +246,16 @@ public class NavigationSystem {
 	}
 
 	//------------------------------------------------------------------------------------
+	
+	// GET CURRENT SYSTEM
 
 	public PlanetarySystem getCurrentSystem() {
 		return currentSystem;
 	}
 
 	//------------------------------------------------------------------------------------
+	
+	// SET PLANETARY SYSTEM
 
 	public void setPlanetarySystem(PlanetarySystem currentSystem) {
 		this.currentSystem = currentSystem;

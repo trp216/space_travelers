@@ -37,12 +37,13 @@ public class GraphAlgorithms {
 
 		List<E> traversal = new ArrayList<>();
 
-		//More efficient than Linked List Queue
+		// More efficient than Linked List Queue
 		ArrayDeque<Vertex<E>> stack = new ArrayDeque<>();
 		
 		Vertex<E> vertex = vertices.get(sourceVertexID);
 		
 		if (vertex == null) throw new Exception("Source vertex not found");
+		
 		if (vertices.get(objetiveVertexId) == null) throw new Exception("Objetive vertex not found");
 			
 		stack.push(vertex);
@@ -94,6 +95,7 @@ public class GraphAlgorithms {
 	public static <E> List<E> BFS(Graph<E> graph, int vertexId) throws Exception {
 
 		Hashtable<Vertex<E>, List<Pair<Integer, Vertex<E>>>> adjacencyList = graph.getAdjacencyList();
+		
 		Hashtable<Integer,Vertex<E>> vertices = graph.getVertices();
 
 		List<E> traversal = new ArrayList<>();
@@ -181,7 +183,7 @@ public class GraphAlgorithms {
 		}
 
 		PriorityQueue<Pair<Integer,Vertex<E>>> pq = new PriorityQueue<Pair<Integer,Vertex<E>>>(10, 
-				new Comparator< Pair<Integer,Vertex<E>> >() {
+		new Comparator< Pair<Integer,Vertex<E>> >() {
 
 			public int compare(Pair<Integer,Vertex<E>> i, Pair<Integer,Vertex<E>> j) {
 
@@ -191,7 +193,7 @@ public class GraphAlgorithms {
 
 		}
 
-				);
+		);
 
 		pq.offer(new Pair<Integer,Vertex<E>>(0,vertices.get(sourceVertexId)));
 
@@ -228,8 +230,6 @@ public class GraphAlgorithms {
 		return dist;
 
 	}
-
-
 
 	//------------------------------------------------------------------------------------
 

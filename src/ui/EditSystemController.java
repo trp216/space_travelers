@@ -26,8 +26,10 @@ public class EditSystemController {
 
 	//------------------------------------------------------------------------------------
 
+	// RELACION CON OTRAS CLASES
+
 	private NavigationSystem ns;
-	
+
 	//------------------------------------------------------------------------------------
 
 	// METODO CONSTRUCTOR DE LA CLASE EDIT SYSTEM CONTROLLER
@@ -124,27 +126,39 @@ public class EditSystemController {
 
 	@FXML
 	void searchAndEdit(ActionEvent event) {
+
 		try {
+
 			if(idEditText.getText().equals("")) {
+
 				throw new InsufficientInformationException();
-			}
-			else {
+
+			} else {
+
 				PlanetarySystem p = ns.search(Integer.parseInt(idEditText.getText()));
+
 				if(p!=null) {
+
 					editSelection();
+
+				} else {
+
 				}
-				else {
-					
-				}
+
 			}
+
 		}catch(InsufficientInformationException e) {
+
 			insufficientDataAlert();
+
 		}
 
 	}
-	
+
 	//------------------------------------------------------------------------------------
-	
+
+	// INSUFFICIENT DATA ALERT
+
 	@FXML
 	void insufficientDataAlert() {
 
@@ -156,9 +170,11 @@ public class EditSystemController {
 		alert.showAndWait();
 
 	}
-	
+
 	//------------------------------------------------------------------------------------
-	
+
+	// EDIT SELECTION
+
 	@FXML
 	void editSelection() {
 
@@ -190,7 +206,7 @@ public class EditSystemController {
 	void validationCoordinatesEdit(ActionEvent event) {
 
 		coordinatesEditText.setDisable(false);
-		
+
 		coordinatesEditText.setText(ns.getCurrentSystem().getCoordinates());
 
 	}
@@ -246,14 +262,23 @@ public class EditSystemController {
 	void edit(ActionEvent event) {
 
 		if(!nameEditText.getText().equals("")) {
+
 			ns.getCurrentSystem().setName(nameEditText.getText());
+
 		}
+
 		if(!coordinatesEditText.getText().equals("")){
+
 			ns.getCurrentSystem().setCoordinates(coordinatesEditText.getText());
+
 		}
+
 		if(discoveryDateEdit.getValue()!=null) {
+
 			ns.getCurrentSystem().setDiscoveryDate(discoveryDateEdit.getValue());
+
 		}
+
 	}
 
 	//------------------------------------------------------------------------------------
@@ -262,18 +287,25 @@ public class EditSystemController {
 
 	@FXML
 	void remove(ActionEvent event) {
-		
+
 		try {
+
 			if(idEditText.getText().equals("")) {
+
 				throw new InsufficientInformationException();
-			}
-			else {
+
+			} else {
+
 				ns.removePlanetarySystem(Integer.parseInt(idEditText.getText()));
+
 			}
+
 		}catch(InsufficientInformationException e) {
+
 			insufficientDataAlert();
+
 		}
-		
+
 	}
 
 	//------------------------------------------------------------------------------------
@@ -295,65 +327,86 @@ public class EditSystemController {
 
 		tableStarts.setDisable(true);
 
-		
+
 		//Listeners of changes in selected item of each table
 		tableCivilizations.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				
+
 				editCivilizationName(newValue);
-				
+
 			}
-			
+
 		});
-		
+
 		tablePlanets.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+
 				editStarName(newValue);
+
 			}
-			
+
 		});
-		
+
 		tableStarts.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+
 				editPlanetName(newValue);
+
 			}
-			
+
 		});
-		
-		
+
+
 	}
 
 	//------------------------------------------------------------------------------------
 	
+	// VALIDATION PLANETS EDIT
+
 	@FXML
 	void validationPlanetsEdit(ActionEvent event) {
 
 	}
-	
+
 	//------------------------------------------------------------------------------------
 	
-    @FXML
-    void validationStartsEdit(ActionEvent event) {
+	// VALIDATION STARTS EDIT
 
-    }
-    
-    //------------------------------------------------------------------------------------
-    
-    void editCivilizationName(String oldName) {
-    	
-    }
-    
-    void editStarName(String oldName) {
-    	
-    }
- 
- 	void editPlanetName(String oldName) {
- 	
- 	}
+	@FXML
+	void validationStartsEdit(ActionEvent event) {
+
+	}
+
+	//------------------------------------------------------------------------------------
+	
+	// EDIT CIVILIATION NAME
+
+	void editCivilizationName(String oldName) {
+
+	}
+
+	//------------------------------------------------------------------------------------
+	
+	// EDIT STAR NAME
+
+	void editStarName(String oldName) {
+
+	}
+
+	//------------------------------------------------------------------------------------
+	
+	// EDIT PLANET NAME
+
+	void editPlanetName(String oldName) {
+
+	}
+
+	//------------------------------------------------------------------------------------
+	
 }
