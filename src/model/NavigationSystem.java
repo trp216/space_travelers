@@ -79,7 +79,7 @@ public class NavigationSystem {
 				}
 
 				PlanetarySystem nps = new PlanetarySystem(sname, (int) id, generateDiscoveryDate(), (coordinate + ""));
-				
+
 				systems.addVertex(nps, id);
 
 				ids.put(id, nps); // Saves the id. Also saves the object, just in case that we would like to use that hashtable later
@@ -97,7 +97,7 @@ public class NavigationSystem {
 	//------------------------------------------------------------------------------------
 
 	public LocalDate generateDiscoveryDate() {
-		
+
 		SplittableRandom sr = new SplittableRandom();
 
 		double random = sr.nextDouble();
@@ -131,24 +131,31 @@ public class NavigationSystem {
 
 	public void generateWeights(Hashtable<Integer, PlanetarySystem> ht) throws InvalidAttributesException, IllegalArgumentException {
 
-		int weight = (int) Math.random() * 100001;
-
 		Random random = new Random();
 
-		int s1 = random.nextInt(ht.size());
+		int n = ht.size();
 
-		int s2 = random.nextInt(ht.size());
+		while(n<0) {
 
-		if(s1!= s2 && systems.getAdjacentVertices(s1).get(s2) != null) {
+			int weight = (int) Math.random() * 100001;
 
-			systems.addEdge(s1, s2, weight);
+			int s1 = random.nextInt(ht.size());
 
-		} else {
+			int s2 = random.nextInt(ht.size());
 
-			s1 = random.nextInt(ht.size());
+			if(s1!= s2 && systems.getAdjacentVertices(s1)!= null && systems.getAdjacentVertices(s1).get(s2) != null) {
 
-			s2 = random.nextInt(ht.size());
+				systems.addEdge(s1, s2, weight);
+				
+				n--;
 
+			} else {
+
+				s1 = random.nextInt(ht.size());
+
+				s2 = random.nextInt(ht.size());
+
+			}
 		}
 
 	}
