@@ -29,7 +29,7 @@ public class GraphAlgorithms {
 
 	// DFS METHOD
 
-	public static <E> E DFS(Graph<E> graph, int vertexId) {
+	public static <E> E DFS(Graph<E> graph, int sourceVertexID, int objetiveVertexId) throws Exception {
 
 		Hashtable<Vertex<E>, List<Pair<Integer, Vertex<E>>>> adjacencyList = graph.getAdjacencyList();
 
@@ -39,20 +39,24 @@ public class GraphAlgorithms {
 
 		//More efficient than Linked List Queue
 		ArrayDeque<Vertex<E>> stack = new ArrayDeque<>();
+		
+		Vertex<E> vertex = vertices.get(sourceVertexID);
+		
+		if (vertex == null) { throw new Exception("Vertex not found"); }
 
-		stack.push(vertices.get(vertexId));
+		stack.push(vertex);
 
 		int N = adjacencyList.size();
 
 		Hashtable<Vertex<E>,Boolean> visitedNodes = new Hashtable<>(N);
 
-		visitedNodes.put(vertices.get(vertexId), true);
+		visitedNodes.put(vertices.get(sourceVertexID), true);
 
-		traversal.add(vertices.get(vertexId).getElement());
+		traversal.add(vertices.get(sourceVertexID).getElement());
 
 		while(!stack.isEmpty()){
 
-			Vertex<E> vertex = stack.pop();
+			vertex = stack.pop();
 
 			for (Pair<Integer, Vertex<E>> p: adjacencyList.get(vertex)) {
 
@@ -66,7 +70,7 @@ public class GraphAlgorithms {
 
 					traversal.add(adjacentVertex.getElement());		
 
-					if(adjacentVertex.getId() == vertexId) {
+					if(adjacentVertex.getId() == objetiveVertexId) {
 
 						return adjacentVertex.getElement();
 
