@@ -7,14 +7,9 @@
 package ui;
 
 import java.io.IOException;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import model.NavigationSystem;
 
@@ -36,7 +31,7 @@ public class PrincipalController {
 
 	private SearchSystemController searchC;
 
-	private NavegationController navigationC;
+	private NavigationController navigationC;
 
 	private UniverseController universeC;
 
@@ -58,7 +53,7 @@ public class PrincipalController {
 
 		searchC = new SearchSystemController(navSys);
 
-		navigationC = new NavegationController(navSys);
+		navigationC = new NavigationController(navSys);
 
 		universeC = new UniverseController(navSys);
 
@@ -184,10 +179,15 @@ public class PrincipalController {
 	
 	// METODO PARA CARGAR LA VENTANA DE NAVEGAR
 
-	public void loadNavegation() throws IOException {
+	public void loadNavigation() throws IOException {
 
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("navigationsScreen.fxml"));
 		
-
+		fxmlLoader.setController(navigationC);
+		
+		navigationAP.getChildren().clear();
+		
+		navigationAP.getChildren().add(fxmlLoader.load());
 	}
 	
 	//------------------------------------------------------------------------------------
@@ -215,6 +215,9 @@ public class PrincipalController {
 		
 		loadSearh();
 		
+		loadNavigation();
+		
+		loadUniverse();
 	}
 	
 	//------------------------------------------------------------------------------------

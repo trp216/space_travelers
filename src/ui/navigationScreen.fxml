@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="524.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane dividerPositions="0.1965648854961832, 0.9236641221374046" orientation="VERTICAL" prefHeight="526.0" prefWidth="524.0" style="-fx-background-color: #2f2f2f;">
+         <items>
+            <GridPane alignment="CENTER" prefHeight="297.0" prefWidth="522.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <StackPane GridPane.columnIndex="1">
+                     <children>
+                        <Label fx:id="actualSystemLabel" text="&quot;Actual System name&quot;" textFill="WHITE">
+                           <font>
+                              <Font name="Century Gothic" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+                  <StackPane>
+                     <children>
+                        <Label text="From (current system):" textFill="WHITE">
+                           <font>
+                              <Font name="Century Gothic" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+                  <StackPane GridPane.rowIndex="1">
+                     <children>
+                        <Label text="To:" textFill="WHITE">
+                           <font>
+                              <Font name="Century Gothic" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+                  <StackPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <TextField fx:id="objetiveSystemTextField" promptText="System name" />
+                     </children>
+                  </StackPane>
+                  <StackPane GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#searchSystem" text="Search" />
+                     </children>
+                  </StackPane>
+               </children>
+            </GridPane>
+            <GridPane alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="286.0" minHeight="0.0" prefHeight="179.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="271.0" minHeight="0.0" prefHeight="196.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TableView fx:id="tableStartsSearch" prefHeight="118.0" prefWidth="120.0" GridPane.rowIndex="1">
+                     <columns>
+                        <TableColumn fx:id="starsColumn" prefWidth="240.0" text="Stars" />
+                     </columns>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </TableView>
+                  <TableView fx:id="tablePlanetsSearch" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <columns>
+                        <TableColumn fx:id="planetsColumn" prefWidth="240.0" text="Planets" />
+                     </columns>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </TableView>
+                  <VBox alignment="CENTER" GridPane.columnIndex="1">
+                     <children>
+                        <Label text="Civilizations" textFill="WHITE">
+                           <font>
+                              <Font name="Century Gothic" size="14.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tableCivilizationsSearch" prefHeight="181.0" prefWidth="255.0">
+                           <columns>
+                              <TableColumn fx:id="civilizationsNameColumn" prefWidth="120.0" text="Name" />
+                              <TableColumn fx:id="civilizationsTypeColumn" prefWidth="120.0" text="Type " />
+                           </columns>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </TableView>
+                     </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </VBox>
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <HBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <Label text="Name:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Century Gothic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="objetiveSystemName" text="..." textFill="WHITE">
+                                 <font>
+                                    <Font name="Century Gothic" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <Label text="Discovery date:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Century Gothic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="objetiveSystemDiscoveryDate" text="..." textFill="WHITE">
+                                 <font>
+                                    <Font name="Century Gothic" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <Label text="Coordinates:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Century Gothic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="objetiveSystemCoordinates" text="..." textFill="WHITE">
+                                 <font>
+                                    <Font name="Century Gothic" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="0.0" prefWidth="261.0" spacing="10.0">
+                           <children>
+                              <Label text="Id:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Century Gothic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="objetiveSystemId" alignment="CENTER" text="..." textFill="WHITE">
+                                 <font>
+                                    <Font name="Century Gothic" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="0.0" prefWidth="261.0" spacing="10.0">
+                           <children>
+                              <Label text="Distance:" textFill="WHITE">
+                                 <font>
+                                    <Font name="Century Gothic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="objetiveSystemDistance" alignment="CENTER" text="..." textFill="WHITE">
+                                 <font>
+                                    <Font name="Century Gothic" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </GridPane>
+            <StackPane prefHeight="105.0" prefWidth="522.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#changeCurrentSystem" text="Move" />
+               </children>
+            </StackPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
