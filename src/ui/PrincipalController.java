@@ -181,7 +181,7 @@ public class PrincipalController {
 
 	public void loadNavigation() throws IOException {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("navigationsScreen.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("navigationScreen.fxml"));
 		
 		fxmlLoader.setController(navigationC);
 		
