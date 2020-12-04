@@ -1,14 +1,9 @@
 package test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
-
 import javax.naming.directory.InvalidAttributesException;
-
 import org.junit.jupiter.api.Test;
-
-import collections.AdjacencyListGraph;
 import collections.Graph;
 import collections.GraphAlgorithms;
 import collections.MatrixGraph;
@@ -80,9 +75,13 @@ class TestGraphAlgorithms {
 		setup2();
 		setup5();
 		
-		assertEquals(1, GraphAlgorithms.BFS(graphND,1).get(0));
-		assertEquals(1, GraphAlgorithms.BFS(graphD,1).get(0));
+		List<Integer> traversalList = GraphAlgorithms.BFS(graphND, 1);		
+		assertEquals(1, traversalList.get(0));
+		assertEquals(1, traversalList.size());
 		
+		traversalList = GraphAlgorithms.BFS(graphD, 1);	
+		assertEquals(1, traversalList.get(0));
+		assertEquals(1, traversalList.size());
 	}
 	
 	@Test
