@@ -152,7 +152,7 @@ class TestGraphAlgorithms {
 		assertThrows(Exception.class, () -> GraphAlgorithms.DFS(graphND, 9, 1));
 		assertEquals(1, GraphAlgorithms.DFS(graphD, 5, 1));
 		assertNull(GraphAlgorithms.DFS(graphD, 1, 5));
-		assertNull(GraphAlgorithms.DFS(graphD,1,9));
+		assertThrows(Exception.class, () -> GraphAlgorithms.DFS(graphD,1,9));
 	}
 
 }

@@ -42,8 +42,9 @@ public class GraphAlgorithms {
 		
 		Vertex<E> vertex = vertices.get(sourceVertexID);
 		
-		if (vertex == null) { throw new Exception("Vertex not found"); }
-
+		if (vertex == null) throw new Exception("Source vertex not found");
+		if (vertices.get(objetiveVertexId) == null) throw new Exception("Objetive vertex not found");
+			
 		stack.push(vertex);
 
 		int N = adjacencyList.size();
