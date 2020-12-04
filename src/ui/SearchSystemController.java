@@ -46,7 +46,7 @@ public class SearchSystemController {
 	// POSIBLES ACCIONES DE JAVA FX
 
 	@FXML
-	private TextField idSearchEdit;
+	private TextField idSearchText;
 
 	@FXML
 	private Button searchButton;
@@ -90,43 +90,54 @@ public class SearchSystemController {
 		PlanetarySystem pn = null;
 
 		try {
-			if(idSearchEdit.getText().equals("")) {
+			if(idSearchText.getText().equals("")) {
 				throw new InsufficientInformationException();
 			}
 			else {
-				pn = ns.search(Integer.parseInt(idSearchEdit.getText()));
+				pn = ns.search(Integer.parseInt(idSearchText.getText()));
 
-				enable();
+				if(pn!=null) {
+					enable();
 
-				//name
-				nameLabel.setText(pn.getName());
-				
-				//Coordinates
-				coordinatesLabel.setText(pn.getCoordinates());
-				
-				//Discovery date
-				discoveryDateLabel.setText(pn.getDiscoveryDate().toString());
-				
-				//Planets
-				ObservableList<String> observableList1 = FXCollections.observableArrayList(pn.getPlanets());
-				tablePlanetsSearch.setItems(observableList1);
-				planetsSearchColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("planets"));
+					//name
+					nameLabel.setText(pn.getName());
 
-				//Stars
-				ObservableList<String> observableList2 = FXCollections.observableArrayList(pn.getStars());
-				tablePlanetsSearch.setItems(observableList2);
-				planetsSearchColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("stars"));
-				
-				//Civilizations
-				ArrayList<String> aux = new ArrayList<String>();
-				for(int i = 0;i<aux.size();i++) {
-					aux.add(pn.getCivilizations().get(i).getKey());
+					//Coordinates
+					coordinatesLabel.setText(pn.getCoordinates());
+
+					//Discovery date
+					discoveryDateLabel.setText(pn.getDiscoveryDate().toString());
+
+					//Planets
+					ObservableList<String> observableList1 = FXCollections.observableArrayList(pn.getPlanets());
+					tablePlanetsSearch.setItems(observableList1);
+					planetsSearchColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("planets"));
+
+					//Stars
+					ObservableList<String> observableList2 = FXCollections.observableArrayList(pn.getStars());
+					tablePlanetsSearch.setItems(observableList2);
+					planetsSearchColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("stars"));
+
+					//Civilizations
+					ArrayList<String> aux = new ArrayList<String>();
+					for(int i = 0;i<aux.size();i++) {
+						aux.add(pn.getCivilizations().get(i).getKey());
+					}
+					ObservableList<String> observableList3 = FXCollections.observableArrayList(aux);
+					tablePlanetsSearch.setItems(observableList3);
+					planetsSearchColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("planets"));
+
 				}
-				ObservableList<String> observableList3 = FXCollections.observableArrayList(aux);
-				tablePlanetsSearch.setItems(observableList3);
-				planetsSearchColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("planets"));
+				else {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.setHeaderText("Couldn't find your search");
+					alert.setContentText("It seems like the specified planetary system does not exist in the program");
 
+					alert.showAndWait();
+				}
 			}
+
 		}catch(InsufficientInformationException e) {
 			insufficientDataAlert();
 		}
