@@ -19,6 +19,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import model.NavigationSystem;
+import model.PlanetarySystem;
 import javafx.scene.control.Alert.AlertType;
 
 public class EditSystemController {
@@ -128,8 +129,13 @@ public class EditSystemController {
 				throw new InsufficientInformationException();
 			}
 			else {
-				ns.search(Integer.parseInt(idEditText.getText()));
-				editSelection();
+				PlanetarySystem p = ns.search(Integer.parseInt(idEditText.getText()));
+				if(p!=null) {
+					editSelection();
+				}
+				else {
+					
+				}
 			}
 		}catch(InsufficientInformationException e) {
 			insufficientDataAlert();
