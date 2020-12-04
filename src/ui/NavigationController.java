@@ -7,30 +7,40 @@
 package ui;
 
 import model.NavigationSystem;
+import model.PlanetarySystem;
+
+import java.io.IOException;
+
+import exceptions.InsufficientInformationException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class NavigationController{
-//------------------------------------------------------------------------------------
-	
-	private NavigationSystem ns;
-	
 	//------------------------------------------------------------------------------------
-	
-	// METODO CONSTRUCTOR DE LA CLASE NAVEGATION CONTROLLER
-	
-	public NavigationController(NavigationSystem ns) {
-		
-		this.ns = ns;
-		
-	}
-	
 
-	
+	private NavigationSystem ns;
+
+	//------------------------------------------------------------------------------------
+
+	// METODO CONSTRUCTOR DE LA CLASE NAVEGATION CONTROLLER
+
+	public NavigationController(NavigationSystem ns) {
+
+		this.ns = ns;
+
+	}
+
+
+
 	@FXML
 	private Label actualSystemLabel;
 
@@ -38,10 +48,10 @@ public class NavigationController{
 	private TextField objetiveSystemTextField;
 
 	@FXML
-	private TableView<?> tableStartsSearch;
+	private TableView<String> tableStartsSearch;
 
 	@FXML
-	private TableColumn<?, ?> starsColumn;
+	private TableColumn<PlanetarySystem, String> starsColumn;
 
 	@FXML
 	private TableView<?> tablePlanetsSearch;
@@ -75,12 +85,87 @@ public class NavigationController{
 
 	@FXML
 	void searchSystem(ActionEvent event) {
-	    	
+
+		try {
+			if(objetiveSystemTextField.getText().equals("")) {
+				throw new InsufficientInformationException();
+			}
+			else {
+				PlanetarySystem p = ns.search(Integer.parseInt(objetiveSystemTextField.getText()));
+				
+				if(p!=null) {
+					
+					objetiveSystemName.setText(p.getName());
+					
+					objetiveSystemDiscoveryDate.setText(p.getDiscoveryDate().toString());
+					
+					objetiveSystemCoordinates.setText(p.getCoordinates());
+					
+					objetiveSystemId.setText(p.getId() + "");
+					
+					objetiveSystemDistance.setText(ns.calculateDistance(ns.getCurrentSystem().getId(), p.getId()) + "");
+					
+					ObservableList<String> observableList = FXCollections.observableArrayList(p.getStars());
+			    	
+					tableStartsSearch.setItems(observableList); //
+					
+					starsColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("name")); //
+					
+			    	//agregar lo de las tablas
+					
+				}
+				else {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.setHeaderText("Couldn't find your search");
+					alert.setContentText("It seems like the specified planetary system does not exist in the program");
+
+					alert.showAndWait();
+				}
+			}
+		}catch(InsufficientInformationException e) {
+			insufficientDataAlert();
+		}
+
 	}
+
+	//------------------------------------------------------------------------------------
 	
 	@FXML
-    void changeCurrentSystem(ActionEvent event) {
+	public void initialize() {
+		
+		if(ns.getCurrentSystem()!=null) {
+			actualSystemLabel.setText(ns.getCurrentSystem().getName());
+		}
+		else {
+			//improvise a ver
+		}
+	}
+	
 
-    }
+	//------------------------------------------------------------------------------------
+
+	@FXML
+	void insufficientDataAlert() {
+
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Sorry");
+		alert.setHeaderText("Some necessary fields are empty");
+		alert.setContentText("Please fill the missing fields to continue with the operation");
+
+		alert.showAndWait();
+
+	}
+
+	//------------------------------------------------------------------------------------
+
+	@FXML
+	void changeCurrentSystem(ActionEvent event) {
+
+	}
+	
+	//------------------------------------------------------------------------------------
+	
+	
 }
 
