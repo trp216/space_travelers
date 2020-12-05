@@ -8,9 +8,12 @@ package ui;
 
 import java.time.LocalDate;
 
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.NavigationSystem;
 import model.PlanetarySystem;
 
@@ -46,7 +49,7 @@ public class UniverseController {
 	private TableColumn<PlanetarySystem, String> coordinatesColumn;
 
 	@FXML
-	private TableColumn<PlanetarySystem, String> idColumn;
+	private TableColumn<PlanetarySystem, Integer> idColumn;
 
 	@FXML
 	private TableColumn<PlanetarySystem, LocalDate> discoveryDateColumn;
@@ -59,16 +62,25 @@ public class UniverseController {
 
 	@FXML
 	private TableColumn<PlanetarySystem, Integer> planetNumberColumn;
-
-
+	
+	
 	//------------------------------------------------------------------------------------
 	
 	// UPDATE TABLE METHOD
-
-	public void updateTable() {
-
+	@FXML
+	void updateTable(ActionEvent event) {	
+		nameColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("name"));
+		coordinatesColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("coordinates"));
+		idColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,Integer>("id"));
+		discoveryDateColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,LocalDate>("discoveryDate"));
+		civilizationNumberColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,Integer>("civilizationsNumber"));
+		starsNumberColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,Integer>("starsNumber"));
+		planetNumberColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,Integer>("planetsNumber"));
+	
+		systemsTableView.getItems().clear();
+		systemsTableView.setItems(FXCollections.observableArrayList(navSys.getSystems()));
 	}
 
 	//------------------------------------------------------------------------------------
-
+	
 }

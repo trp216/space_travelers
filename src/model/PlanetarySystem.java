@@ -111,6 +111,18 @@ public class PlanetarySystem {
 		return stars;
 	}
 	
+	public int getPlanetsNumber() {
+		return planets.size();
+	}
+	
+	public int getCivilizationsNumber() {
+		return civilizations.size();
+	}
+	
+	public int getStarsNumber() {
+		return stars.size();
+	}
+	
 	//------------------------------------------------------------------------------------
 	
 	// SET'S METHOD OF THE CLASS PLANETARY SYSTEM

@@ -8,6 +8,7 @@ package model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Random;
 import java.util.Set;
@@ -327,6 +328,18 @@ public class NavigationSystem {
 	
 	public PlanetarySystem getCurrentLocationSystem() {
 		return currentLocationSystem;
+	}
+
+	public Collection<PlanetarySystem> getSystems() {
+		
+		Collection<Vertex<PlanetarySystem>> vertices = systems.getVertices().values();
+		Collection<PlanetarySystem> systems = new ArrayList<>();
+		
+		for (Vertex<PlanetarySystem> vertex : vertices) {
+			systems.add(vertex.getElement());
+		}
+		
+		return systems;
 	}
 
 	//------------------------------------------------------------------------------------

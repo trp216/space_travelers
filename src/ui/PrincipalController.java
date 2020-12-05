@@ -7,6 +7,8 @@
 package ui;
 
 import java.io.IOException;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
@@ -181,8 +183,6 @@ public class PrincipalController {
 		universeAP.getChildren().clear();
 		
 		universeAP.getChildren().add(fxmlLoader.load());
-		
-		universeC.updateTable();
 
 	}
 
