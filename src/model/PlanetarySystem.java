@@ -131,6 +131,12 @@ public class PlanetarySystem {
 		this.stars = stars;
 	}
 		
+	public void setCoordinates(int cX, int cY, int cZ) {
+		coordX = cX;
+		coordY = cY;
+		coordZ = cZ;
+	}
+	
 	//------------------------------------------------------------------------------------
 	
 	// ADD METHOD IN THE ARRAYLIST OF CIVILIZATIONS
@@ -147,7 +153,7 @@ public class PlanetarySystem {
 	
 	// ADD METHOD IN THE ARRAYLIST OF PLANETS
 	
-	public void addplanet (String name) {
+	public void addPlanet (String name) {
 		
 		planets.add(name);
 		

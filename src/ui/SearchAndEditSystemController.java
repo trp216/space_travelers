@@ -7,14 +7,8 @@
 package ui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import exceptions.InsufficientInformationException;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,7 +24,6 @@ import model.NavigationSystem;
 import model.PlanetarySystem;
 import utilities.Pair;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class SearchAndEditSystemController {
@@ -151,7 +144,7 @@ public class SearchAndEditSystemController {
 
 				PlanetarySystem ps = ns.search(Integer.parseInt(idEditText.getText()));
 
-				if(ps!=null) {
+				if(ps != null) {
 
 					editSelection();
 					
@@ -174,7 +167,6 @@ public class SearchAndEditSystemController {
 						pairs.add(new Pair<String,String>(planet,planet));
 					}
 					
-					@SuppressWarnings("unchecked")
 					ObservableList<Pair<String,String>> obsArrayList1 = FXCollections.observableArrayList(pairs);
 					
 					tablePlanets.setItems(obsArrayList1);	
@@ -192,9 +184,9 @@ public class SearchAndEditSystemController {
 					
 					ObservableList<Pair<String,String>> observableList2 = FXCollections.observableArrayList(pairs);
 					
-					tablePlanets.setItems(observableList2);
+					tableStarts.setItems(observableList2);
 					
-					planetsColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,String>,String>("value"));
+					startsColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,String>,String>("value"));
 					
 					//Civilizations
 					
@@ -251,7 +243,7 @@ public class SearchAndEditSystemController {
 	@FXML
 	void editSelection() {
 
-		Alert alert = new Alert(AlertType.ERROR);
+		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Instructions");
 		alert.setHeaderText("Make a selection");
 		alert.setContentText("Plase select the field of the planetary system that you want to edit");
@@ -266,9 +258,9 @@ public class SearchAndEditSystemController {
 	@FXML
 	void validationNameEdit(ActionEvent event) {
 
-		nameEditText.setDisable(false);
+		nameEditText.setDisable(!nameEditText.isDisable());
 		nameEditText.setText(ns.getCurrentSystem().getName());
-
+		
 	}
 
 	//------------------------------------------------------------------------------------
@@ -278,7 +270,7 @@ public class SearchAndEditSystemController {
 	@FXML
 	void validationCoordinatesEdit(ActionEvent event) {
 
-		coordinatesEditText.setDisable(false);
+		coordinatesEditText.setDisable(!coordinatesEditText.isDisable());
 
 		coordinatesEditText.setText(ns.getCurrentSystem().getCoordinates());
 
@@ -291,7 +283,9 @@ public class SearchAndEditSystemController {
 	@FXML
 	void validationDiscoveryDateEdit(ActionEvent event) {
 
-		discoveryDateEdit.setDisable(false);
+		discoveryDateEdit.setDisable(!discoveryDateEdit.isDisable());
+		
+		discoveryDateEdit.setValue(ns.getCurrentSystem().getDiscoveryDate());
 	}
 
 	//------------------------------------------------------------------------------------
@@ -301,7 +295,7 @@ public class SearchAndEditSystemController {
 	@FXML
 	void validationCivilizationsEdit(ActionEvent event) {
 
-		tableCivilizations.setDisable(false);
+		tableCivilizations.setDisable(!tableCivilizations.isDisable());
 
 	}
 
@@ -312,7 +306,7 @@ public class SearchAndEditSystemController {
 	@FXML
 	void validationPlanets(ActionEvent event) {
 
-		tablePlanets.setDisable(false);
+		tablePlanets.setDisable(!tablePlanets.isDisable());
 
 	}
 
@@ -323,7 +317,7 @@ public class SearchAndEditSystemController {
 	@FXML
 	void validationStars(ActionEvent event) {
 
-		tableStarts.setDisable(false);
+		tableStarts.setDisable(!tableStarts.isDisable());
 
 	}
 
@@ -342,7 +336,15 @@ public class SearchAndEditSystemController {
 
 		if(!coordinatesEditText.getText().equals("")){			
 			
-			ns.getCurrentSystem().setCoordinates(coordinatesEditText.getText());
+			String[] splitCoordinates = coordinatesEditText.getText().split(",");
+			
+			int coordX = Integer.parseInt(splitCoordinates[0]);
+			
+			int coordY = Integer.parseInt(splitCoordinates[1]);
+			
+			int coordZ = Integer.parseInt(splitCoordinates[2]);
+			
+			ns.getCurrentSystem().setCoordinates(coordX, coordY, coordZ);
 
 		}
 

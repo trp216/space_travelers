@@ -37,6 +37,8 @@ public class NavigationSystem {
 
 	// ATTRIBUTES AND RELATIONS OF THE CLASS NAVEGATION SYSTEM
 
+	private PlanetarySystem currentLocationSystem;
+	
 	private PlanetarySystem currentSystem;
 
 	private Graph<PlanetarySystem> systems;
@@ -58,7 +60,11 @@ public class NavigationSystem {
 		usedYCoordinates.put(0, 0);
 		usedZCoordinates.put(0, 0);
 		
-		currentSystem = solarSystem;		
+		solarSystem.addPlanet("Earth");
+		solarSystem.addStars("Sun");
+		solarSystem.addCivilization("Human", 2);
+		
+		currentLocationSystem = solarSystem;		
 
 		systemCount = 1;
 	}
@@ -212,7 +218,7 @@ public class NavigationSystem {
 
 		}
 		
-		systems.addVertex(currentSystem, currentSystem.getId());
+		systems.addVertex(currentLocationSystem, currentLocationSystem.getId());
 	}
 
 	//------------------------------------------------------------------------------------
@@ -221,7 +227,7 @@ public class NavigationSystem {
 
 	public PlanetarySystem search(int id) throws Exception {
 
-		currentSystem = (PlanetarySystem) GraphAlgorithms.DFS(systems, currentSystem.getId(),id);
+		currentSystem = (PlanetarySystem) GraphAlgorithms.DFS(systems, currentLocationSystem.getId(),id);
 
 		return currentSystem;
 

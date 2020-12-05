@@ -151,7 +151,7 @@ public class PrincipalController {
 
 	public void loadSearchAndEdit() throws IOException {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editScreen.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchAndEditScreen.fxml"));
 
 		fxmlLoader.setController(searchAndEditC);
 
