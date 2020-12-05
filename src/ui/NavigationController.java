@@ -8,7 +8,13 @@ package ui;
 
 import model.NavigationSystem;
 import model.PlanetarySystem;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import exceptions.InsufficientInformationException;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,9 +41,9 @@ public class NavigationController{
 		this.ns = ns;
 
 	}
-	
+
 	//------------------------------------------------------------------------------------
-	
+
 	// ACCIONES DE JAVA'FX
 
 	@FXML
@@ -47,10 +53,10 @@ public class NavigationController{
 	private TextField objetiveSystemTextField;
 
 	@FXML
-	private TableView<String> tableStartsSearch;
+	private TableView<List<StringProperty>> tableStartsSearch;
 
 	@FXML
-	private TableColumn<PlanetarySystem, String> starsColumn;
+	private TableColumn<List<StringProperty>, String> starsColumn;
 
 	@FXML
 	private TableView<?> tablePlanetsSearch;
@@ -81,46 +87,59 @@ public class NavigationController{
 
 	@FXML
 	private Label objetiveSystemDistance;
-	
+
 	//------------------------------------------------------------------------------------
-	
+
 	// SEARCH SYSTEM METHOD
 
 	@FXML
 	void searchSystem(ActionEvent event) {
 
 		try {
-			
+
 			if(objetiveSystemTextField.getText().equals("")) {
-				
+
 				throw new InsufficientInformationException();
-				
+
 			} else {
-				
+
 				PlanetarySystem p = ns.search(Integer.parseInt(objetiveSystemTextField.getText()));
-				
+
 				if(p!=null) {
-					
+
 					objetiveSystemName.setText(p.getName());
-					
+
 					objetiveSystemDiscoveryDate.setText(p.getDiscoveryDate().toString());
-					
+
 					objetiveSystemCoordinates.setText(p.getCoordinates());
-					
+
 					objetiveSystemId.setText(p.getId() + "");
-					
+
 					objetiveSystemDistance.setText(ns.calculateDistance(ns.getCurrentSystem().getId(), p.getId()) + "");
-					
+
 					ObservableList<String> observableList = FXCollections.observableArrayList(p.getStars());
-			    	
-					tableStartsSearch.setItems(observableList); //
-					
-					starsColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("name")); //
-					
-			    	//agregar lo de las tablas
-					
+
+					//					tableStartsSearch.setItems(observableList); //
+					//					
+					//					starsColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("name")); //
+
+					//agregar lo de las tablas
+
+					ArrayList<String> list = p.getStars();
+
+					ObservableList<List<StringProperty>> lists = FXCollections.observableArrayList();
+
+					for(int i = 0; i<list.size();i++) {
+
+						lists.add(i,new SimpleStringProperty(list.get(i)));
+
+					}
+
+					starsColumn = new TableColumn<>("Stars");
+					starsColumn.setCellValueFactory();
+
 				} else {
-					
+
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Error");
 					alert.setHeaderText("Couldn't find your search");
@@ -128,38 +147,38 @@ public class NavigationController{
 
 					alert.showAndWait();
 				}
-				
+
 			}
-			
+
 		}catch(InsufficientInformationException e) {
-			
+
 			insufficientDataAlert();
-			
+
 		}
 
 	}
 
 	//------------------------------------------------------------------------------------
-	
+
 	// INITIALIZE
-	
+
 	@FXML
 	public void initialize() {
-		
+
 		if(ns.getCurrentSystem()!=null) {
-			
+
 			actualSystemLabel.setText(ns.getCurrentSystem().getName());
-			
+
 		} else {
-			
+
 			//improvise a ver
-		
+
 		}
-		
+
 	}
-	
+
 	//------------------------------------------------------------------------------------
-	
+
 	// INSUFFICIENT DATA ALERT
 
 	@FXML
@@ -175,15 +194,15 @@ public class NavigationController{
 	}
 
 	//------------------------------------------------------------------------------------
-	
+
 	// CHANGE CURRENT SYSTEM
 
 	@FXML
 	void changeCurrentSystem(ActionEvent event) {
 
 	}
-	
+
 	//------------------------------------------------------------------------------------
-	
+
 }
 
