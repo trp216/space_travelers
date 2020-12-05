@@ -39,6 +39,10 @@ public class NavigationSystem {
 	public NavigationSystem(String name) {
 
 		this.name = name;
+		
+		PlanetarySystem solarSystem = new PlanetarySystem("Solar System", 1, LocalDate.of(1543, 1, 1), (int)Math.random()*Integer.MAX_VALUE+"");
+		
+		currentSystem = solarSystem;
 
 	}
 
@@ -70,11 +74,11 @@ public class NavigationSystem {
 
 				c.put(coordinate, true);
 
-				int id = (int) Math.random() * 27001;
+				int id = (int) Math.random() * 27000;
 
 				while(ids.contains(id)) { // checks if the id is repeated
 
-					id = (int) Math.random() * 27001;
+					id = (int) Math.random() * 27000;
 
 				}
 
@@ -91,8 +95,6 @@ public class NavigationSystem {
 		}
 
 		generateWeights(ids); //generates the edges in the graph
-		
-		getSystemFirstTime(ids); //puts a random system as the first
 
 	}
 
@@ -125,7 +127,7 @@ public class NavigationSystem {
 		}
 
 		return discDate;
-		
+
 	}
 
 	//------------------------------------------------------------------------------------
@@ -149,7 +151,7 @@ public class NavigationSystem {
 			if(s1!= s2 && systems.getAdjacentVertices(s1)!= null && systems.getAdjacentVertices(s1).get(s2) != null) {
 
 				systems.addEdge(s1, s2, weight);
-				
+
 				n--;
 
 			} else {
@@ -159,26 +161,9 @@ public class NavigationSystem {
 				s2 = random.nextInt(ht.size());
 
 			}
-			
+
 		}
 
-	}
-	
-	//------------------------------------------------------------------------------------
-	
-	private void getSystemFirstTime(Hashtable<Integer, PlanetarySystem> ht) {
-		
-		Random random = new Random();
-		
-		int s1 = random.nextInt(ht.size());
-		
-		while(ht.get(s1)==null) {
-			
-			s1 = random.nextInt(ht.size());
-		}
-		
-		currentSystem = ht.get(s1);
-		
 	}
 
 	//------------------------------------------------------------------------------------
@@ -196,6 +181,7 @@ public class NavigationSystem {
 			systems = new MatrixGraph<PlanetarySystem>(false, true);
 
 		}
+		
 
 	}
 
@@ -265,7 +251,7 @@ public class NavigationSystem {
 	}
 
 	//------------------------------------------------------------------------------------
-	
+
 	// GET CURRENT SYSTEM
 
 	public PlanetarySystem getCurrentSystem() {
@@ -273,7 +259,7 @@ public class NavigationSystem {
 	}
 
 	//------------------------------------------------------------------------------------
-	
+
 	// SET PLANETARY SYSTEM
 
 	public void setPlanetarySystem(PlanetarySystem currentSystem) {
