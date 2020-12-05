@@ -34,85 +34,31 @@ import javafx.util.converter.IntegerStringConverter;
 
 public class SearchAndEditSystemController {
 	
-	@FXML
-    private Button removeCivilizationButton;
+	//=====================================================================================================
+    //Relations
 
-    @FXML
-    private Button removePlanetButton;
-
-    @FXML
-    private Button removeStarButton;
-
-    @FXML
-    private Button addCivilizationButton;
-
-    @FXML
-    private TextField newCivilizationNameTextField;
-
-    @FXML
-    private Button addPlanetButton;
-
-    @FXML
-    private TextField newPlanetTextField;
-
-    @FXML
-    private Button addStarButton;
-
-    @FXML
-    private TextField newStarTextField;
-
-    @FXML
-    private RadioButton t1;
-
-    @FXML
-    private ToggleGroup tipo;
-
-    @FXML
-    private RadioButton t3;
-
-    @FXML
-    private RadioButton t2;
-	
-	//------------------------------------------------------------------------------------
-
-	// RELACION CON OTRAS CLASES
-
-	private NavigationSystem ns;
+	private NavigationSystem navSys;
 	
 	private ArrayList<Pair<String,Integer>> civilizationsTemp;
 
 	private ArrayList<String> planetsTemp;
 	
 	private ArrayList<String> starsTemp;
-	//------------------------------------------------------------------------------------
+	
+	//=====================================================================================================
+    //Constructor
 
-	// METODO CONSTRUCTOR DE LA CLASE EDIT SYSTEM CONTROLLER
+	public SearchAndEditSystemController(NavigationSystem navigationSystem) {
 
-	public SearchAndEditSystemController(NavigationSystem ns) {
-
-		this.ns = ns;
+		navSys = navigationSystem;
 		civilizationsTemp = new ArrayList<>();
 		planetsTemp = new ArrayList<>();
 		starsTemp = new ArrayList<>();
-	}
+	}	
 
-	//------------------------------------------------------------------------------------
-
-	/*
-	 * POSIBLES ACCIONES DE JAVA FX
-	 * ESTA ES LA PARTE DE ARRIBA DE LA VENTANA
-	 */
-
-	@FXML
-	private TextField idEditText;
-
-	@FXML
-	private Button searchAndEditButton;
-
-	// ***********************************************
-
-	// DIFERENTES CHECK BOX PARA VALIDAR EL SISTEMA
-
+	//=====================================================================================================
+    //Check boxes
+	
 	@FXML
 	private CheckBox nameEditCB;
 
@@ -129,11 +75,10 @@ public class SearchAndEditSystemController {
 	private CheckBox planetsEditCB;
 
 	@FXML
-	private CheckBox startsEditCB;
+	private CheckBox starsEditCB;
 
-	// ***********************************************
-
-	// SE EMPIEZA LA EDICION DE ALGUNOS TEXTOS Y FECHAS
+	//=====================================================================================================
+    //Fields and date pickers
 
 	@FXML
 	private TextField nameEditText;
@@ -142,11 +87,22 @@ public class SearchAndEditSystemController {
 	private TextField coordinatesEditText;
 
 	@FXML
+	private TextField idEditText;
+	
+	@FXML
+    private TextField newStarTextField;	
+
+    @FXML
+    private TextField newCivilizationNameTextField;
+
+    @FXML
+    private TextField newPlanetTextField;
+	
+	@FXML
 	private DatePicker discoveryDateEdit;
 
-	// ***********************************************
-
-	// TABLAS PARA VISUALIZAR Y EDITAR LA INFORMACION
+	//=====================================================================================================
+    //Tables
 
 	@FXML
 	private TableView<Pair<String,Integer>> tableCivilizations;
@@ -164,15 +120,14 @@ public class SearchAndEditSystemController {
 	private TableColumn<Pair<String,String>, String> planetsColumn;
 
 	@FXML
-	private TableView<Pair<String,String>> tableStarts;
+	private TableView<Pair<String,String>> tableStars;
 
 	@FXML
-	private TableColumn<Pair<String,String>, String> startsColumn;
+	private TableColumn<Pair<String,String>, String> starsColumn;
 
-	// ***********************************************
-
-	// BOTON FINAL PARA EDITAR
-
+	//=====================================================================================================
+    //Buttons and radio buttons
+  
 	@FXML
 	private Button saveButton;
 
@@ -181,294 +136,44 @@ public class SearchAndEditSystemController {
 	
 	@FXML
 	private Button resetButton;
-
-
-	//------------------------------------------------------------------------------------
-
-	// METODO PARA BUSCAR Y EDITAR UN SISTEMA
-
-	@FXML
-	void search(ActionEvent event) {
-
-		try {
-
-			if(idEditText.getText().equals("")) {
-
-				throw new InsufficientInformationException();
-
-			}
-			else {
-
-				PlanetarySystem ps = ns.search(Integer.parseInt(idEditText.getText()));
-
-				if(ps != null) {
-					
-					loadInformation(ps);					
-					editSelection();
-					updateValidationsAvailability(true);
-					updateButtonsAvailability(true, true, true);
-				}
-				else {
-					systemNotFoundAlert();
-				}
-
-			}
-
-		}
-		catch(InsufficientInformationException e) {
-			insufficientDataAlert();
-		}
-		catch(Exception ex) {
-			systemNotFoundAlert();
-		}
-
-	}
-
-	private void systemNotFoundAlert() {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("Couldn't find the system");
-		alert.setContentText("It seems like the specified planetary system does not exist in the program");
-
-		alert.showAndWait();
-	}
-
-	@SuppressWarnings("unchecked")
-	void loadInformation(PlanetarySystem ps) {
-		//name
-		nameEditText.setText(ps.getName());
-
-		//Coordinates
-		coordinatesEditText.setText(ps.getCoordinates());
-
-		//Discovery date
-		discoveryDateEdit.setValue(ps.getDiscoveryDate());
-
-		//Planets
-		
-		planetsTemp = (ArrayList<String>) ps.getPlanets().clone();
-		
-		ArrayList<Pair<String,String>> pairs = new ArrayList<>();
-		
-		for (String planet : planetsTemp) {
-			pairs.add(new Pair<String,String>(planet,planet));
-		}
-		
-		ObservableList<Pair<String,String>> obsArrayList1 = FXCollections.observableArrayList(pairs);
-		
-		tablePlanets.getItems().clear();
-		
-		tablePlanets.setItems(obsArrayList1);	
-		
-		planetsColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,String>,String>("value"));									
-
-		//Stars
-		starsTemp = (ArrayList<String>) ps.getStars().clone();
-		
-		pairs = new ArrayList<>();
-		
-		for (String star : starsTemp) {
-			pairs.add(new Pair<String,String>(star,star));
-		}
-		
-		ObservableList<Pair<String,String>> observableList2 = FXCollections.observableArrayList(pairs);
-		
-		tableStarts.getItems().clear();
-		
-		tableStarts.setItems(observableList2);
-		
-		startsColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,String>,String>("value"));
-		
-		//Civilizations
-		
-		civilizationsTemp = (ArrayList<Pair<String, Integer>>) ps.getCivilizations().clone();
-		
-		ObservableList<Pair<String,Integer>> observableList3 = FXCollections.observableArrayList(civilizationsTemp);
-		
-		tableCivilizations.getItems().clear();
-		
-		tableCivilizations.setItems(observableList3);
-		
-		civilNameColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,Integer>,String>("key"));
-		civilTypeColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,Integer>,Integer>("value"));
-
-	}
 	
-	//------------------------------------------------------------------------------------
+	@FXML
+	private Button searchAndEditButton;	
+	
+	@FXML
+    private Button removeCivilizationButton;
 
-	// INSUFFICIENT DATA ALERT
+    @FXML
+    private Button removePlanetButton;
+
+    @FXML
+    private Button removeStarButton;
+
+    @FXML
+    private Button addCivilizationButton;
+
+    @FXML
+    private Button addPlanetButton;
+
+    @FXML
+    private Button addStarButton;
+	
+	@FXML
+	private ToggleGroup tipo;
 
 	@FXML
-	void insufficientDataAlert() {
-
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Sorry");
-		alert.setHeaderText("Some necessary fields are empty or in wrong format");
-		alert.setContentText("Please fill or correct the necessary fields to continue with the operation");
-
-		alert.showAndWait();
-
-	}
-
-	//------------------------------------------------------------------------------------
-
-	// EDIT SELECTION
-
-	void editSelection() {
-
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Instructions");
-		alert.setHeaderText("Make a selection");
-		alert.setContentText("Plase select the field of the planetary system that you want to edit");
-
-		alert.showAndWait();
-
-	}
-	//------------------------------------------------------------------------------------
-
-	// METODO PARA VALIDAR EL NOMBRE (FUTURA EDICION)
+	private RadioButton t1;   
 
 	@FXML
-	void validationNameEdit(ActionEvent event) {
+	private RadioButton t3;
 
-		nameEditText.setDisable(!nameEditText.isDisable());
-		nameEditText.setText(ns.getCurrentSystem().getName());
+	@FXML
+	private RadioButton t2;
 		
-	}
-
-	//------------------------------------------------------------------------------------
-
-	// METODO PARA VALIDAR LAS COORDENADAS (FUTURA EDICION)
-
-	@FXML
-	void validationCoordinatesEdit(ActionEvent event) {
-
-		coordinatesEditText.setDisable(!coordinatesEditText.isDisable());
-
-		coordinatesEditText.setText(ns.getCurrentSystem().getCoordinates());
-
-	}
-
-	//------------------------------------------------------------------------------------
-
-	// METODO PARA VALIDAR LA FECHA DE DESCUBRIMIENTO (FUTURA EDICION)
-
-	@FXML
-	void validationDiscoveryDateEdit(ActionEvent event) {
-
-		discoveryDateEdit.setDisable(!discoveryDateEdit.isDisable());
-		
-		discoveryDateEdit.setValue(ns.getCurrentSystem().getDiscoveryDate());
-	}
-
-	//------------------------------------------------------------------------------------
-
-	// METODO PARA VALIDAR LAS CIVILIZACIONES (FUTURA EDICION)
-
-	@FXML
-	void validationCivilizationsEdit(ActionEvent event) {
-
-		updateCivilizationModificationAvailability(civilizationsEditCB.isSelected());
-
-	}
-
-	//------------------------------------------------------------------------------------
-
-	// METODO PARA VALIDAR LOS PLANETAS (FUTURA EDICION)
-
-	@FXML
-	void validationPlanetsEdit(ActionEvent event) {
-
-		updatePlanetsModificationAvailability(planetsEditCB.isSelected());
-
-	}
-
-	//------------------------------------------------------------------------------------
-
-	// METODO PARA VALIDAR LAS ESTRELLAS (FUTURA EDICION)
-
-	@FXML
-	void validationStartsEdit(ActionEvent event) {
-
-		updateStarsModificationAvailability(startsEditCB.isSelected());
-
-	}
-
-	//------------------------------------------------------------------------------------
-
-	// METODO PARA EDITAR FINAL
-
-	@FXML
-	void saveChanges(ActionEvent event) {
-		
-		String name = nameEditText.getText();			
-		String[] splitCoordinates = coordinatesEditText.getText().trim().split(",");		
-		LocalDate discDate = discoveryDateEdit.getValue();
-		PlanetarySystem currentSystem = ns.getCurrentSystem();
-			
-		if(name.isEmpty() 
-				|| splitCoordinates == null 
-				|| splitCoordinates.length != 3 
-				|| discDate == null 
-				|| civilizationsTemp.isEmpty()
-				|| planetsTemp.isEmpty()
-				|| starsTemp.isEmpty()) {
-				
-			insufficientDataAlert();
-				
-		}	
-		else {
-			currentSystem.setName(name);
-			
-			currentSystem.setDiscoveryDate(discoveryDateEdit.getValue());
-			
-			int coordX = Integer.parseInt(splitCoordinates[0]);			
-			int coordY = Integer.parseInt(splitCoordinates[1]);			
-			int coordZ = Integer.parseInt(splitCoordinates[2]);
-			
-			currentSystem.setCoordinates(coordX, coordY, coordZ);			
-			ns.updateEdges(currentSystem);
-			
-			currentSystem.setCivilizations(civilizationsTemp);
-			
-			currentSystem.setPlanets(planetsTemp);
-			
-			currentSystem.setStars(starsTemp);
-			
-			updateValidationsAvailability(false);
-			updateButtonsAvailability(false, false, false);
-			updateCivilizationModificationAvailability(false);
-	    	updateStarsModificationAvailability(false);
-	    	updatePlanetsModificationAvailability(false);
-	    	updateTextFieldsAndDatePickersAvailability(false);
-			clear();
-			saveSuccessfulAlert();
-		}		
-
-	}
-
-	//------------------------------------------------------------------------------------
-
-	// METODO PARA REMOVER FINAL
-
-	@FXML
-	void remove(ActionEvent event) {
-		
-		ns.removePlanetarySystem(Integer.parseInt(idEditText.getText()));
-		removeSuccessfulAlert();
-		clear();
-		updateButtonsAvailability(false, false, false);
-		updateValidationsAvailability(false);
-		updateCivilizationModificationAvailability(false);
-    	updateStarsModificationAvailability(false);
-    	updatePlanetsModificationAvailability(false);
-    	updateTextFieldsAndDatePickersAvailability(false);
-	}
-
-	//------------------------------------------------------------------------------------
-
-	// METODO INITIALIZE
-
+	
+	//=====================================================================================================
+    //Initialize method to set up tables
+  
 	@FXML
 	void initialize() {
 
@@ -548,8 +253,8 @@ public class SearchAndEditSystemController {
 		});
 		
 		//Set up of editable s table
-		startsColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-		startsColumn.setOnEditCommit(new EventHandler<CellEditEvent<Pair<String,String>,String>>(){
+		starsColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		starsColumn.setOnEditCommit(new EventHandler<CellEditEvent<Pair<String,String>,String>>(){
 			
 			@Override
 			public void handle(CellEditEvent<Pair<String, String>, String> event) {
@@ -571,13 +276,227 @@ public class SearchAndEditSystemController {
 
 	}
 
-	//------------------------------------------------------------------------------------
-    
+	//=====================================================================================================
+    //Main methods to update planetary system attributes or removing it completely
+  
+	@FXML
+	void search(ActionEvent event) {
+
+		try {
+
+			if(idEditText.getText().equals("")) {
+
+				throw new InsufficientInformationException();
+
+			}
+			else {
+
+				PlanetarySystem ps = navSys.search(Integer.parseInt(idEditText.getText()));
+
+				if(ps != null) {
+					
+					loadInformation(ps);					
+					editSelectionAlerts();
+					updateValidationsAvailability(true);
+					updateButtonsAvailability(true, true, true);
+				}
+				else {
+					systemNotFoundAlert();
+				}
+
+			}
+
+		}
+		catch(InsufficientInformationException e) {
+			insufficientDataAlert();
+		}
+		catch(Exception ex) {
+			systemNotFoundAlert();
+		}
+
+	}
+
+	@FXML
+	void remove(ActionEvent event) {
+		
+		navSys.removePlanetarySystem(Integer.parseInt(idEditText.getText()));
+		removeSuccessfulAlert();
+		clear();
+		updateButtonsAvailability(false, false, false);
+		updateValidationsAvailability(false);
+		updateCivilizationModificationAvailability(false);
+    	updateStarsModificationAvailability(false);
+    	updatePlanetsModificationAvailability(false);
+    	updateTextFieldsAndDatePickersAvailability(false);
+	}
+	
+	@FXML
+	void saveChanges(ActionEvent event) {
+		
+		String name = nameEditText.getText();			
+		String[] splitCoordinates = coordinatesEditText.getText().trim().split(",");		
+		LocalDate discDate = discoveryDateEdit.getValue();
+		PlanetarySystem currentSystem = navSys.getCurrentSystem();
+			
+		if(name.isEmpty() 
+				|| splitCoordinates == null 
+				|| splitCoordinates.length != 3 
+				|| discDate == null 
+				|| civilizationsTemp.isEmpty()
+				|| planetsTemp.isEmpty()
+				|| starsTemp.isEmpty()) {
+				
+			insufficientDataAlert();
+				
+		}	
+		else {
+			currentSystem.setName(name);
+			
+			currentSystem.setDiscoveryDate(discoveryDateEdit.getValue());
+			
+			int coordX = Integer.parseInt(splitCoordinates[0]);			
+			int coordY = Integer.parseInt(splitCoordinates[1]);			
+			int coordZ = Integer.parseInt(splitCoordinates[2]);
+			
+			currentSystem.setCoordinates(coordX, coordY, coordZ);			
+			navSys.updateEdges(currentSystem);
+			
+			currentSystem.setCivilizations(civilizationsTemp);
+			
+			currentSystem.setPlanets(planetsTemp);
+			
+			currentSystem.setStars(starsTemp);
+			
+			updateValidationsAvailability(false);
+			updateButtonsAvailability(false, false, false);
+			updateCivilizationModificationAvailability(false);
+	    	updateStarsModificationAvailability(false);
+	    	updatePlanetsModificationAvailability(false);
+	    	updateTextFieldsAndDatePickersAvailability(false);
+			clear();
+			saveSuccessfulAlert();
+		}		
+
+	}
+	
+	//=====================================================================================================
+    //Methods to update fields content
+  
+	@SuppressWarnings("unchecked")
+	void loadInformation(PlanetarySystem ps) {
+		//name
+		nameEditText.setText(ps.getName());
+
+		//Coordinates
+		coordinatesEditText.setText(ps.getCoordinates());
+
+		//Discovery date
+		discoveryDateEdit.setValue(ps.getDiscoveryDate());
+
+		//Planets
+		
+		planetsTemp = (ArrayList<String>) ps.getPlanets().clone();
+		
+		ArrayList<Pair<String,String>> pairs = new ArrayList<>();
+		
+		for (String planet : planetsTemp) {
+			pairs.add(new Pair<String,String>(planet,planet));
+		}
+		
+		ObservableList<Pair<String,String>> obsArrayList1 = FXCollections.observableArrayList(pairs);
+		
+		tablePlanets.getItems().clear();
+		
+		tablePlanets.setItems(obsArrayList1);	
+		
+		planetsColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,String>,String>("value"));									
+
+		//Stars
+		starsTemp = (ArrayList<String>) ps.getStars().clone();
+		
+		pairs = new ArrayList<>();
+		
+		for (String star : starsTemp) {
+			pairs.add(new Pair<String,String>(star,star));
+		}
+		
+		ObservableList<Pair<String,String>> observableList2 = FXCollections.observableArrayList(pairs);
+		
+		tableStars.getItems().clear();
+		
+		tableStars.setItems(observableList2);
+		
+		starsColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,String>,String>("value"));
+		
+		//Civilizations
+		
+		civilizationsTemp = (ArrayList<Pair<String, Integer>>) ps.getCivilizations().clone();
+		
+		ObservableList<Pair<String,Integer>> observableList3 = FXCollections.observableArrayList(civilizationsTemp);
+		
+		tableCivilizations.getItems().clear();
+		
+		tableCivilizations.setItems(observableList3);
+		
+		civilNameColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,Integer>,String>("key"));
+		civilTypeColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,Integer>,Integer>("value"));
+
+	}
+	
     @FXML
     void resetFields(ActionEvent event) {
-    	loadInformation(ns.getCurrentSystem());
+    	loadInformation(navSys.getCurrentSystem());
     }
     
+    //=====================================================================================================
+    //Methods to update availability of window elements
+  
+  	@FXML
+  	void validationNameEdit(ActionEvent event) {
+
+  		nameEditText.setDisable(!nameEditText.isDisable());
+  		nameEditText.setText(navSys.getCurrentSystem().getName());
+  		
+  	}
+
+  	@FXML
+  	void validationCoordinatesEdit(ActionEvent event) {
+
+  		coordinatesEditText.setDisable(!coordinatesEditText.isDisable());
+
+  		coordinatesEditText.setText(navSys.getCurrentSystem().getCoordinates());
+
+  	}
+
+  	@FXML
+  	void validationDiscoveryDateEdit(ActionEvent event) {
+
+  		discoveryDateEdit.setDisable(!discoveryDateEdit.isDisable());
+  		
+  		discoveryDateEdit.setValue(navSys.getCurrentSystem().getDiscoveryDate());
+  	}
+
+  	@FXML
+  	void validationCivilizationsEdit(ActionEvent event) {
+
+  		updateCivilizationModificationAvailability(civilizationsEditCB.isSelected());
+
+  	}
+
+  	@FXML
+  	void validationPlanetsEdit(ActionEvent event) {
+
+  		updatePlanetsModificationAvailability(planetsEditCB.isSelected());
+
+  	}
+
+  	@FXML
+  	void validationStartsEdit(ActionEvent event) {
+
+  		updateStarsModificationAvailability(starsEditCB.isSelected());
+
+  	}
+
     void updateTextFieldsAndDatePickersAvailability(boolean areEnable) {
     	nameEditText.setDisable(!areEnable);
     	discoveryDateEdit.setDisable(!areEnable);
@@ -590,7 +509,7 @@ public class SearchAndEditSystemController {
     	coordinatesEditCB.setDisable(!areEnable);
     	civilizationsEditCB.setDisable(!areEnable);
     	planetsEditCB.setDisable(!areEnable);
-    	startsEditCB.setDisable(!areEnable);
+    	starsEditCB.setDisable(!areEnable);
     }
     
     void updateButtonsAvailability(boolean saveIsEnable, boolean removeIsEnable, boolean resetIsEnable) {
@@ -610,17 +529,21 @@ public class SearchAndEditSystemController {
     }
     
     void updateStarsModificationAvailability(boolean isEnable) {
-    	tableStarts.setDisable(!isEnable);
+    	tableStars.setDisable(!isEnable);
     	newStarTextField.setDisable(!isEnable);
     	addStarButton.setDisable(!isEnable);
     	removeStarButton.setDisable(!isEnable);    	
     }
+    
     void updatePlanetsModificationAvailability(boolean isEnable) {
 		tablePlanets.setDisable(!isEnable);
     	newPlanetTextField.setDisable(!isEnable);
     	addPlanetButton.setDisable(!isEnable);
     	removePlanetButton.setDisable(!isEnable);
     }
+    
+    //=====================================================================================================
+    //Method to clear fields
     
     void clear() {
     	nameEditText.setText("");
@@ -629,7 +552,7 @@ public class SearchAndEditSystemController {
     	coordinatesEditText.setText("");
     	
     	tableCivilizations.getItems().clear();
-    	tableStarts.getItems().clear();
+    	tableStars.getItems().clear();
     	tablePlanets.getItems().clear();
     	
     	civilizationsTemp = new ArrayList<>();
@@ -648,23 +571,12 @@ public class SearchAndEditSystemController {
     	discoveryDateEditCB.setSelected(false);
     	coordinatesEditCB.setSelected(false);
     	planetsEditCB.setSelected(false);
-    	startsEditCB.setSelected(false);
+    	starsEditCB.setSelected(false);
     	
     }
     
-    void saveSuccessfulAlert() {
-    	Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Success!");
-		alert.setHeaderText("Changes saved successfully");
-		alert.showAndWait();
-    }
-    
-    void removeSuccessfulAlert() {
-    	Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Success!");
-		alert.setHeaderText("System removed successfully");
-		alert.showAndWait();
-    }
+    //=====================================================================================================
+    //Methods to add civilizations, planets and stars
     
     @FXML
     void addCivilization(ActionEvent event) {
@@ -771,8 +683,8 @@ public class SearchAndEditSystemController {
 					pairs.add(new Pair<String,String>(star,star));
 				}
 								
-				tableStarts.getItems().clear();
-				tableStarts.getItems().addAll(FXCollections.observableArrayList(pairs));
+				tableStars.getItems().clear();
+				tableStars.getItems().addAll(FXCollections.observableArrayList(pairs));
 				
 			}
 
@@ -784,8 +696,11 @@ public class SearchAndEditSystemController {
 		}
     }
     
+    //=====================================================================================================
+    //Methods to remove civilizations, planets and stars
+    
     @FXML
-    void removeSelectedCivilization(ActionEvent event) {
+    private void removeSelectedCivilization(ActionEvent event) {
     	Pair<String,Integer> removeCivil = tableCivilizations.getSelectionModel().getSelectedItem();
     	
     	if(removeCivil == null) {
@@ -799,7 +714,7 @@ public class SearchAndEditSystemController {
     }
 
     @FXML
-    void removeSelectedPlanet(ActionEvent event) {
+    private void removeSelectedPlanet(ActionEvent event) {
     	Pair<String, String> removePlanetPair = tablePlanets.getSelectionModel().getSelectedItem();
     	
     	if(removePlanetPair == null) {
@@ -813,8 +728,8 @@ public class SearchAndEditSystemController {
     }
 
     @FXML
-    void removeSelectedStar(ActionEvent event) {
-    	Pair<String, String> removeStarPair = tableStarts.getSelectionModel().getSelectedItem();
+    private void removeSelectedStar(ActionEvent event) {
+    	Pair<String, String> removeStarPair = tableStars.getSelectionModel().getSelectedItem();
     	
     	if(removeStarPair == null) {
     		elementNotSelectedAlert();
@@ -822,14 +737,55 @@ public class SearchAndEditSystemController {
     	else {
     		String removePlanet = removeStarPair.getKey();
     		starsTemp.remove(removePlanet);
-    		tableStarts.getItems().remove(removeStarPair);
+    		tableStars.getItems().remove(removeStarPair);
     	}
     }
     
-    void elementNotSelectedAlert() {
+    //=====================================================================================================
+    //Utility Alerts
+    
+    private void editSelectionAlerts() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Instructions");
+		alert.setHeaderText("Make a selection");
+		alert.setContentText("Plase select the field of the planetary system that you want to edit");
+		alert.showAndWait();
+	}
+    
+    private void elementNotSelectedAlert() {
     	Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("No selected element");
 		alert.setHeaderText("Please select an element");
+		alert.showAndWait();
+    }
+    
+	private void insufficientDataAlert() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Sorry");
+		alert.setHeaderText("Some necessary fields are empty or in wrong format");
+		alert.setContentText("Please fill or correct the necessary fields to continue with the operation");
+		alert.showAndWait();
+	}
+    
+	private void systemNotFoundAlert() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("Couldn't find the system");
+		alert.setContentText("It seems like the specified planetary system does not exist in the program");
+		alert.showAndWait();
+	}
+	   
+    private void saveSuccessfulAlert() {
+    	Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Success!");
+		alert.setHeaderText("Changes saved successfully");
+		alert.showAndWait();
+    }
+    
+    private void removeSuccessfulAlert() {
+    	Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Success!");
+		alert.setHeaderText("System removed successfully");
 		alert.showAndWait();
     }
 }

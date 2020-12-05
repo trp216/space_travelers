@@ -37,7 +37,7 @@
       <CheckBox fx:id="coordinatesEditCB" disable="true" layoutX="271.0" layoutY="85.0" mnemonicParsing="false" onAction="#validationCoordinatesEdit" text="Coordinates" textFill="WHITE" />
       <CheckBox fx:id="civilizationsEditCB" disable="true" layoutX="377.0" layoutY="85.0" mnemonicParsing="false" onAction="#validationCivilizationsEdit" text="Civilizations" textFill="WHITE" />
       <CheckBox fx:id="planetsEditCB" disable="true" layoutX="176.0" layoutY="121.0" mnemonicParsing="false" onAction="#validationPlanetsEdit" text="Planets" textFill="WHITE" />
-      <CheckBox fx:id="startsEditCB" disable="true" layoutX="299.0" layoutY="121.0" mnemonicParsing="false" onAction="#validationStartsEdit" text="Stars" textFill="WHITE" />
+      <CheckBox fx:id="starsEditCB" disable="true" layoutX="299.0" layoutY="121.0" mnemonicParsing="false" onAction="#validationStartsEdit" text="Stars" textFill="WHITE" />
       <Line endX="427.03533935546875" layoutX="99.0" layoutY="149.0" startX="-100.0" stroke="#00fffb" />
       <Label layoutX="60.0" layoutY="165.0" text="Name" textFill="WHITE">
          <font>
@@ -68,9 +68,9 @@
             <TableColumn fx:id="planetsColumn" prefWidth="119.0" sortable="false" text="Planets" />
          </columns>
       </TableView>
-      <TableView fx:id="tableStarts" disable="true" editable="true" layoutX="388.0" layoutY="253.0" prefHeight="118.0" prefWidth="120.0">
+      <TableView fx:id="tableStars" disable="true" editable="true" layoutX="388.0" layoutY="253.0" prefHeight="118.0" prefWidth="120.0">
          <columns>
-            <TableColumn fx:id="startsColumn" prefWidth="119.0" sortable="false" text="Stars" />
+            <TableColumn fx:id="starsColumn" prefWidth="119.0" sortable="false" text="Stars" />
          </columns>
       </TableView>
       <Button fx:id="saveButton" disable="true" layoutX="123.0" layoutY="490.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="27.0" prefWidth="99.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Save Changes" />
