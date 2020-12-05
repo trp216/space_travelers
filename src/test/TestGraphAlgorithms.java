@@ -1,12 +1,14 @@
 package test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.Hashtable;
 import java.util.List;
 import javax.naming.directory.InvalidAttributesException;
 import org.junit.jupiter.api.Test;
 import collections.Graph;
 import collections.GraphAlgorithms;
 import collections.MatrixGraph;
+import collections.Vertex;
 
 class TestGraphAlgorithms {
 
@@ -154,4 +156,88 @@ class TestGraphAlgorithms {
 		assertThrows(Exception.class, () -> GraphAlgorithms.DFS(graphD,1,9));
 	}
 
+	@Test
+	void testDijkstra1() throws Exception {
+		setup1();
+		setup4();
+		
+		assertThrows(Exception.class, () -> GraphAlgorithms.dijkstra(graphND, 1));
+		assertThrows(Exception.class, () -> GraphAlgorithms.dijkstra(graphD, 1));
+	}
+	
+	@Test
+	void testDijkstra2() throws Exception {
+		setup2();
+		setup5();
+		
+		Hashtable<Vertex<Integer>,Integer> distND = GraphAlgorithms.dijkstra(graphND, 1);
+		Hashtable<Vertex<Integer>,Integer> distD = GraphAlgorithms.dijkstra(graphD, 1);
+		
+		Hashtable<Integer,Vertex<Integer>> verticesND = graphND.getVertices();
+		Hashtable<Integer,Vertex<Integer>> verticesD = graphD.getVertices();
+		
+		assertEquals(0,distND.get(verticesND.get(1)));
+		for (int i = 2; i <= 5; i++) {
+			assertEquals(1000000000, distND.get(verticesND.get(i)));
+		}
+		
+		assertEquals(0,distD.get(verticesD.get(1)));
+		for (int i = 2; i <= 5; i++) {
+			assertEquals(1000000000, distD.get(verticesD.get(i)));
+		}
+		
+	}
+	
+	@Test
+	void testDijkstra3() throws Exception {
+		setup3();
+		setup6();
+		Hashtable<Vertex<Integer>,Integer> distNDI = GraphAlgorithms.dijkstra(graphND, 1);
+		Hashtable<Vertex<Integer>,Integer> distNDII = GraphAlgorithms.dijkstra(graphND, 3);
+		Hashtable<Vertex<Integer>,Integer> distDI = GraphAlgorithms.dijkstra(graphD, 1);
+		Hashtable<Vertex<Integer>,Integer> distDII = GraphAlgorithms.dijkstra(graphD, 5);
+		
+		Hashtable<Integer,Vertex<Integer>> verticesND = graphND.getVertices();
+		Hashtable<Integer,Vertex<Integer>> verticesD = graphD.getVertices();
+			
+		
+		//NDI
+		assertEquals(0,distNDI.get(verticesND.get(1)));
+		assertEquals(5,distNDI.get(verticesND.get(2)));
+		assertEquals(6,distNDI.get(verticesND.get(3)));
+		assertEquals(11,distNDI.get(verticesND.get(4)));
+		assertEquals(7,distNDI.get(verticesND.get(5)));
+		
+		//NDII
+		assertEquals(6,distNDII.get(verticesND.get(1)));
+		assertEquals(8,distNDII.get(verticesND.get(2)));
+		assertEquals(0,distNDII.get(verticesND.get(3)));
+		assertEquals(5,distNDII.get(verticesND.get(4)));
+		assertEquals(1,distNDII.get(verticesND.get(5)));
+		
+		//NDIII
+		
+		assertThrows(Exception.class, () -> GraphAlgorithms.dijkstra(graphND,9));
+		
+		//DI
+		assertEquals(0,distDI.get(verticesD.get(1)));
+		assertEquals(5,distDI.get(verticesD.get(2)));
+		assertEquals(13,distDI.get(verticesD.get(3)));
+		assertEquals(1000000000,distDI.get(verticesD.get(4)));
+		assertEquals(1000000000,distDI.get(verticesD.get(5)));
+		
+		//DII
+		assertEquals(7,distDII.get(verticesD.get(1)));
+		assertEquals(9,distDII.get(verticesD.get(2)));
+		assertEquals(1,distDII.get(verticesD.get(3)));
+		assertEquals(4,distDII.get(verticesD.get(4)));
+		assertEquals(0,distDII.get(verticesD.get(5)));
+		
+		//DIII
+		
+		assertThrows(Exception.class, () -> GraphAlgorithms.dijkstra(graphD,9));
+		
+	}
+	
+	//As floyd-warshall, prim and kruskal are not used they are not tested
 }

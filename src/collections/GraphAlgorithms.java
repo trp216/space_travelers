@@ -17,10 +17,10 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
-
-import com.sun.org.apache.xpath.internal.FoundIndex;
-
+import java.util.Set;
 import java.util.Comparator;
+import java.util.Enumeration;
+
 import utilities.Pair;
 
 public class GraphAlgorithms {
@@ -145,7 +145,7 @@ public class GraphAlgorithms {
 
 	// DIJKSTRA METHOD
 
-	public static <E> int dijkstra(Graph<E> graph, int sourceVertexId, int endVertexId) {
+	public static <E> int dijkstra(Graph<E> graph, int sourceVertexId, int endVertexId) throws Exception {
 
 		//<vertex,distance>
 		Hashtable<Vertex<E>,Integer> dist = dijkstra(graph,sourceVertexId);
@@ -161,25 +161,31 @@ public class GraphAlgorithms {
 
 	// RETURN E DIJKSTRA METHOD
 
-	public static <E> Hashtable<Vertex<E>,Integer> dijkstra(Graph<E> graph, int sourceVertexId) {
-
+	public static <E> Hashtable<Vertex<E>,Integer> dijkstra(Graph<E> graph, int sourceVertexId) throws Exception {
+		
 		//<Vertex,List<Pair<weight,vertex>>
 		Hashtable<Vertex<E>, List<Pair<Integer, Vertex<E>>>> adjacencyList = graph.getAdjacencyList();
 
 		//<Vertex,distance>
 		Hashtable<Vertex<E>,Integer> dist = new Hashtable<>();
-
+		
 		//<id,vertex>
 		Hashtable<Integer,Vertex<E>> vertices = graph.getVertices();
 
 		Collection<Vertex<E>> aloneVertices = vertices.values();
+		
+		Vertex<E> vertex = vertices.get(sourceVertexId);
+		
+		if (vertex == null) { throw new Exception("Vertex not found"); }
 
-		for (Vertex<E> vertex : aloneVertices) {
+		for (Vertex<E> v : aloneVertices) {
 
-			dist.put(vertex, 1000000000);
+			dist.put(v, 1000000000);
 
 		}
 
+		dist.replace(vertices.get(sourceVertexId), 0);
+		
 		PriorityQueue<Pair<Integer,Vertex<E>>> pq = new PriorityQueue<Pair<Integer,Vertex<E>>>(10, 
 				new Comparator< Pair<Integer,Vertex<E>> >() {
 
@@ -189,19 +195,17 @@ public class GraphAlgorithms {
 
 			}
 
-		}
+		});
 
-				);
-
-		pq.offer(new Pair<Integer,Vertex<E>>(0,vertices.get(sourceVertexId)));
+		pq.offer(new Pair<Integer,Vertex<E>>(0,vertex));
 
 		while (!pq.isEmpty()) { 
-
+						
 			Pair<Integer,Vertex<E>> top = pq.poll();
 
 			int distance = top.getKey();
 
-			Vertex<E> vertex = top.getValue();
+			vertex = top.getValue();
 
 			if (distance > dist.get(vertex)) continue;
 
@@ -212,9 +216,9 @@ public class GraphAlgorithms {
 				Vertex<E> adjacentVertex = p.getValue();
 
 				int weight = p.getKey();
-
-				if (dist.get(vertex) + weight < dist.get(adjacentVertex)) {     
-
+				
+				if (dist.get(vertex) + weight < dist.get(adjacentVertex)) {   
+					
 					dist.replace(adjacentVertex, dist.get(vertex) + weight);  
 
 					pq.offer(new Pair<Integer,Vertex<E>>(dist.get(adjacentVertex), adjacentVertex)); 
@@ -235,29 +239,41 @@ public class GraphAlgorithms {
 
 	// FLOYD WARSHALL METHOD
 
-	public <E> List<List<Integer>> floydWarshall(Graph<E> graph) {
+	public <E> Hashtable<Integer, Hashtable<Integer, Integer>> floydWarshall(Graph<E> graph) {
 
-		double dist[][] = graph.getWeightMatrix();							//arreglar luego
+		@SuppressWarnings("unchecked")
+		Hashtable<Integer, Hashtable<Integer, Integer>> dist = (Hashtable<Integer, Hashtable<Integer, Integer>>) graph.getWeightMatrix().clone();							//arreglar luego
 
-		int V = dist.length;
+		Enumeration<Integer> rowKeys = dist.keys();
+		
+		Set<Integer> vertices = graph.getVertices().keySet();
+				
+		while(rowKeys.hasMoreElements()) {
+			
+			int k = rowKeys.nextElement();
+			
+			Enumeration<Integer> columnKeys = dist.get(k).keys();
+			
+			while(columnKeys.hasMoreElements()) {
+				
+				int i = columnKeys.nextElement();
+				
+				
+				for (Integer j : vertices) {
+					try {
+						if (dist.get(i).get(k) + dist.get(k).get(j) < dist.get(i).get(j))
 
-		int i, j, k;
-
-		for (k = 0; k < V; k++) {
-
-			for (i = 0; i < V; i++) {
-
-				for (j = 0; j < V; j++) {
-
-					if (dist[i][k] + dist[k][j] < dist[i][j])
-
-						dist[i][j] = dist[i][k] + dist[k][j];
-
+						dist.get(i).replace(j,dist.get(i).get(k) + dist.get(k).get(j));
+					}
+					catch(NullPointerException ex) {
+						//Should get here in some cases
+					}
 				}
-
+				
 			}
+			
 		}
-
+		
 		return dist;
 
 	}
