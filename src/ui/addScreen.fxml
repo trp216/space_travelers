@@ -55,7 +55,7 @@
       <TextField fx:id="nameText" layoutX="57.0" layoutY="63.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
       <DatePicker fx:id="discorveryDate" layoutX="298.0" layoutY="63.0" />
       <TextField fx:id="coordinatesText" layoutX="190.0" layoutY="217.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
-      <Button fx:id="systemButtton" layoutX="317.0" layoutY="471.0" mnemonicParsing="false" onAction="#addSystem" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Add" />
+      <Button fx:id="systemButtton" layoutX="270.0" layoutY="471.0" mnemonicParsing="false" onAction="#addSystem" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Add" />
       <Line endX="427.03533935546875" layoutX="101.0" layoutY="261.0" startX="-100.0" stroke="#00fffb" />
       <Line endX="427.03533935546875" layoutX="100.0" layoutY="308.0" startX="-100.0" stroke="#00fffb" />
       <CheckBox fx:id="civilizationsCB" layoutX="47.0" layoutY="276.0" mnemonicParsing="false" onAction="#validationCivilizations" text="Civilizations" textFill="WHITE" />
@@ -74,5 +74,6 @@
       </RadioButton>
       <RadioButton fx:id="t3" layoutX="116.0" layoutY="415.0" mnemonicParsing="false" text="T-2" textFill="WHITE" toggleGroup="$tipo" />
       <RadioButton fx:id="t2" layoutX="70.0" layoutY="416.0" mnemonicParsing="false" text="T-3" textFill="WHITE" toggleGroup="$tipo" />
+      <Button fx:id="clearButton" layoutX="361.0" layoutY="471.0" mnemonicParsing="false" onAction="#Clear" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Clear" />
    </children>
 </AnchorPane>

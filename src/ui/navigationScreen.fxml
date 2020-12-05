@@ -16,8 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="524.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="524.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.1965648854961832, 0.9236641221374046" orientation="VERTICAL" prefHeight="526.0" prefWidth="524.0" style="-fx-background-color: #2f2f2f;">
          <items>
@@ -61,12 +60,12 @@
                   </StackPane>
                   <StackPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="objetiveSystemTextField" promptText="System name" />
+                        <TextField fx:id="objetiveSystemTextField" promptText="System name" style="-fx-border-color: white; -fx-background-color: transparent; -fx-text-fill: white;" />
                      </children>
                   </StackPane>
                   <StackPane GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#searchSystem" text="Search" />
+                        <Button mnemonicParsing="false" onAction="#searchSystem" style="-fx-background-color: yellow;" text="Search" />
                      </children>
                   </StackPane>
                </children>
@@ -196,7 +195,7 @@
             </GridPane>
             <StackPane prefHeight="105.0" prefWidth="522.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#changeCurrentSystem" text="Move" />
+                  <Button mnemonicParsing="false" onAction="#changeCurrentSystem" style="-fx-background-color: black;" text="Move" textFill="WHITE" />
                </children>
             </StackPane>
          </items>
