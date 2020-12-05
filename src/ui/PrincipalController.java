@@ -43,7 +43,7 @@ public class PrincipalController {
 
 		navSys = navegationSystem;
 		
-		welcomeC = new WelcomeController(navSys);
+		welcomeC = new WelcomeController(navSys,this);
 		
 		generateC = new GenerateController(navSys);
 
@@ -68,7 +68,7 @@ public class PrincipalController {
 	private AnchorPane welcomeAP;
 	
 	@FXML
-	private Tab generateTAB;
+	private Tab generateTab;
 
 	@FXML
 	private AnchorPane generateAP;
@@ -80,16 +80,10 @@ public class PrincipalController {
 	private AnchorPane addSystemAP;
 
 	@FXML
-	private Tab editSystem;
+	private Tab searchAndEditSystem;
 
 	@FXML
-	private AnchorPane editSystemAP;
-
-	@FXML
-	private Tab searchSystem;
-
-	@FXML
-	private AnchorPane searchSystemAP;
+	private AnchorPane searchAndEditSystemAP;
 
 	@FXML
 	private Tab navegation;
@@ -155,7 +149,7 @@ public class PrincipalController {
 
 		fxmlLoader.setController(searchAndEditC);
 
-		editSystemAP.getChildren().add(fxmlLoader.load());
+		searchAndEditSystemAP.getChildren().add(fxmlLoader.load());
 
 	}
 	
@@ -211,5 +205,12 @@ public class PrincipalController {
 	}
 	
 	//------------------------------------------------------------------------------------
-
+	
+	public void enableTabs() {
+		generateTab.setDisable(false);
+		addSystemTab.setDisable(false);
+		searchAndEditSystem.setDisable(false);
+		navegation.setDisable(false);
+		universe.setDisable(false);		
+	}
 }

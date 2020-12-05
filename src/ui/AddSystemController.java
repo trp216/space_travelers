@@ -105,10 +105,10 @@ public class AddSystemController {
 	// ACCIONES DE JAVA FX PARA AGREGAR ESTRELLAS
 
 	@FXML
-	private TextField startsText;
+	private TextField starsText;
 
 	@FXML
-	private Button startButton;
+	private Button starButton;
 
 	// ***********************************************
 
@@ -194,7 +194,7 @@ public class AddSystemController {
 
 		} catch(InsufficientInformationException e1) {
 
-			missingDataAlert();
+			missingStarAndPlanetsAlert();
 
 		}
 
@@ -205,11 +205,11 @@ public class AddSystemController {
 	// METODO PARA AGREGAR UNA ESTRELLA
 
 	@FXML
-	void addStart(ActionEvent event) {
+	void addStar(ActionEvent event) {
 
 		try {
 
-			String name = startsText.getText();
+			String name = starsText.getText();
 
 			if(name.isEmpty()) {
 
@@ -219,7 +219,7 @@ public class AddSystemController {
 
 				stars.add(name);
 
-				startsText.setText("");
+				starsText.setText("");
 
 			}
 
@@ -276,7 +276,7 @@ public class AddSystemController {
 
 		} catch(InsufficientPlanetsAndStars e2) {
 
-			mensajePlanetasEstrellasInsuficientes();
+			missingStarAndPlanetsAlert();
 
 		} catch(NumberFormatException ex) {
 			missingDataAlert();
@@ -293,14 +293,10 @@ public class AddSystemController {
 
 	@FXML
 	void missingDataAlert() {
-
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Sorry");
-		alert.setHeaderText("We couldn't add the planetary system");
+		alert.setHeaderText("Missing Information");
 		alert.setContentText("Please check fot empty fields and fill them");
-
 		alert.showAndWait();
-
 	}
 
 	//------------------------------------------------------------------------------------
@@ -308,15 +304,11 @@ public class AddSystemController {
 	// MENSAJE DE PLANETAS Y ESTRELLAS INSUFICENTES
 
 	@FXML
-	void mensajePlanetasEstrellasInsuficientes() {
-
+	void missingStarAndPlanetsAlert() {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Sorry");
-		alert.setHeaderText("We can't add to the system");
-		alert.setContentText("Please add planets and stars");
-
+		alert.setHeaderText("Missing stars and/or planets");
+		alert.setContentText("Planetary system must have at least 1 star and 1 planet, please add more");
 		alert.showAndWait();
-
 	}
 
 	//------------------------------------------------------------------------------------
@@ -338,7 +330,7 @@ public class AddSystemController {
 
 		planetsText.setText("");
 
-		startsText.setText("");
+		starsText.setText("");
 		
 		stars = new ArrayList<>();
 		

@@ -24,12 +24,15 @@ public class WelcomeController {
 	
 	private NavigationSystem navSys;
 	
+	private PrincipalController prinC;
+	
 	//------------------------------------------------------------------------------------
 
 	//Constructor of class WelcomeController
 	
-	public WelcomeController(NavigationSystem navigationSystem) {
+	public WelcomeController(NavigationSystem navigationSystem, PrincipalController principalController) {
 		
+		prinC = principalController;
 		navSys = navigationSystem;
 		
 	}
@@ -60,19 +63,30 @@ public class WelcomeController {
 	@FXML
 	void selectGrafo(ActionEvent event) {
 
-		if(tipo1.isSelected()) {
+		
+		
+		
+		if(tipo1.isSelected() || tipo2.isSelected()) {
 			
-			navSys.graphSelected(true);
+			if(tipo1.isSelected()) {
+				navSys.graphSelected(true);
+			}
+			else {
+				navSys.graphSelected(false);
+			}
+					
+			prinC.enableTabs();
+			
+			tipo1.setDisable(true);
+			
+			tipo2.setDisable(true);
+			
+			tipoGrafoButton.setDisable(true);
 			
 			success();
 			
-		} else if(tipo2.isSelected()) {
-			
-			navSys.graphSelected(false);
-			
-			success();
-			
-		} else {
+		}
+		else {
 			
 			insufficientDataAlert();
 			

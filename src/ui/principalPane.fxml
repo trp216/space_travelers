@@ -11,27 +11,27 @@
         <AnchorPane fx:id="welcomeAP" minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="525.0" />
       </content>
     </Tab>
-      <Tab fx:id="generateTab" text="Generate">
+      <Tab fx:id="generateTab" disable="true" text="Generate">
          <content>
             <AnchorPane fx:id="generateAP" minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="525.0" />
          </content>
       </Tab>
-    <Tab fx:id="addSystemTab" text="Add">
+    <Tab fx:id="addSystemTab" disable="true" text="Add">
       <content>
         <AnchorPane fx:id="addSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
       </content>
     </Tab>
-      <Tab fx:id="searchAndEditSystem" text="Search and Edit">
+      <Tab fx:id="searchAndEditSystem" disable="true" text="Search and Edit">
          <content>
-            <AnchorPane fx:id="editSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            <AnchorPane fx:id="searchAndEditSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
          </content>
       </Tab>
-      <Tab fx:id="navegation" text="Navegation">
+      <Tab fx:id="navegation" disable="true" text="Navigation">
          <content>
             <AnchorPane fx:id="navigationAP" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
          </content>
       </Tab>
-      <Tab fx:id="universe" text="Universe">
+      <Tab fx:id="universe" disable="true" text="Universe">
          <content>
             <AnchorPane fx:id="universeAP" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
          </content>

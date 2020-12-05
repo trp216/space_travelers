@@ -279,6 +279,8 @@ public class NavigationSystem {
 
 		systems.addVertex(nps, id);
 		
+		updateEdges(nps);
+		
 		return id;
 
 	}
