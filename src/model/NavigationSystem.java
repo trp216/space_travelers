@@ -129,7 +129,7 @@ public class NavigationSystem {
 
 	//------------------------------------------------------------------------------------
 
-	private void updateEdges(PlanetarySystem newPlanetarySystem) {
+	public void updateEdges(PlanetarySystem newPlanetarySystem) {
 		
 		int newPSId = newPlanetarySystem.getId();
 		
