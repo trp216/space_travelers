@@ -90,7 +90,9 @@ public class NavigationSystem {
 
 		}
 
-		generateWeights(ids); //generates
+		generateWeights(ids); //generates the edges in the graph
+		
+		getSystemFirstTime(ids); //puts a random system as the first
 
 	}
 
@@ -161,6 +163,23 @@ public class NavigationSystem {
 		}
 
 	}
+	
+	//------------------------------------------------------------------------------------
+	
+	private void getSystemFirstTime(Hashtable<Integer, PlanetarySystem> ht) {
+		
+		Random random = new Random();
+		
+		int s1 = random.nextInt(ht.size());
+		
+		while(ht.get(s1)==null) {
+			
+			s1 = random.nextInt(ht.size());
+		}
+		
+		currentSystem = ht.get(s1);
+		
+	}
 
 	//------------------------------------------------------------------------------------
 
@@ -185,9 +204,9 @@ public class NavigationSystem {
 	// METHOD PLANETARY SYSTEM SEARCH
 
 	@SuppressWarnings("unchecked")
-	public PlanetarySystem search(int id) {
+	public PlanetarySystem search(int id) throws Exception {
 
-		currentSystem = (PlanetarySystem) GraphAlgorithms.DFS(systems, id);
+		currentSystem = (PlanetarySystem) GraphAlgorithms.DFS(systems, currentSystem.getId(),id);
 
 		return currentSystem;
 
@@ -198,7 +217,7 @@ public class NavigationSystem {
 	// METHOD CALCULATE DISTANCE
 
 	@SuppressWarnings("unchecked")
-	public int calculateDistance(int idPS1, int idPS2) {
+	public int calculateDistance(int idPS1, int idPS2) throws Exception {
 
 		return GraphAlgorithms.dijkstra(systems, search(idPS1).getId(), search(idPS2).getId());
 
