@@ -7,6 +7,7 @@
 package ui;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import exceptions.InsufficientInformationException;
 import exceptions.InsufficientPlanetsAndStars;
 import javafx.event.ActionEvent;
@@ -14,21 +15,24 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import model.NavigationSystem;
-import model.PlanetarySystem;
+import utilities.Pair;
 
 public class AddSystemController {
 
 	//------------------------------------------------------------------------------------
 
-	private PlanetarySystem planetarySystem;
-
 	private NavigationSystem navegationSystem;
+	
+	private ArrayList<String> stars;
+	
+	private ArrayList<String> planets;
+	
+	private ArrayList<Pair<String,Integer>> civilizations;
 
 	//------------------------------------------------------------------------------------
 
@@ -36,6 +40,12 @@ public class AddSystemController {
 
 	public AddSystemController(NavigationSystem navegationSystem) {
 
+		stars = new ArrayList<>();
+		
+		planets = new ArrayList<>();
+		
+		civilizations = new ArrayList<>();		
+		
 		this.navegationSystem = navegationSystem;
 
 	}
@@ -57,19 +67,6 @@ public class AddSystemController {
 
 	@FXML
 	private TextField coordinatesText;
-
-	// ***********************************************
-
-	// ESTA ES LA MITAD DE LA PANTALLA (FUNCIONA PARA VALIDAR ALGUNAS DISPONIBILIDADES)
-
-	@FXML
-	private CheckBox civilizationsCB;
-
-	@FXML
-	private CheckBox planetsCB;
-
-	@FXML
-	private CheckBox startsCB;
 
 	// ***********************************************
 
@@ -120,87 +117,6 @@ public class AddSystemController {
 
 	//------------------------------------------------------------------------------------
 
-	// METODO DE VALIDACION EN EL CHECK BOX 1
-
-	@FXML
-	void validationCivilizations(ActionEvent event) {
-
-		if(civilizationsCB.isSelected()) {
-
-			civilizationsText.setDisable(false);
-
-			t1.setDisable(false);
-
-			t2.setDisable(false);
-
-			t3.setDisable(false);
-
-			civilizationButton.setDisable(false);
-
-		} else {
-
-			civilizationsText.setDisable(true);
-
-			t1.setDisable(true);
-
-			t2.setDisable(true);
-
-			t3.setDisable(true);
-
-			civilizationButton.setDisable(true);
-
-		}
-
-	}
-
-	//------------------------------------------------------------------------------------
-
-	// METODO DE VALIDACION EN EL CHECK BOX 2
-
-	@FXML
-	void validationPlanets(ActionEvent event) {
-
-		if(planetsCB.isSelected()) {
-
-			planetsText.setDisable(false);
-
-			planetButton.setDisable(false);
-
-		} else {
-
-			planetsText.setDisable(true);
-
-			planetButton.setDisable(true);
-
-		}
-
-	}
-
-	//------------------------------------------------------------------------------------
-
-	// METODO DE VALIDACION EN EL CHECK BOX 2
-
-	@FXML
-	void validationStars(ActionEvent event) {
-
-		if(startsCB.isSelected()) {
-
-			startsText.setDisable(false);
-
-			startButton.setDisable(false);
-
-		} else {
-
-			startsText.setDisable(true);
-
-			startButton.setDisable(true);
-
-		}
-
-	}
-
-	//------------------------------------------------------------------------------------
-
 	// METODO PARA AGREGAR UNA CIVILIZACION
 
 	@FXML
@@ -208,49 +124,40 @@ public class AddSystemController {
 
 		try {
 
-			String nombreCivilizacion = civilizationsText.getText();
+			String civilizationName = civilizationsText.getText();
 
-			int tipo = 0 ;
+			int type = 0 ;
 
 			if(t1.isSelected()) {
 
-				tipo = 1 ;
+				type = 1 ;
 
 			} else if(t2.isSelected()) {
 
-				tipo = 2;
+				type = 2;
 
 			} else if(t3.isSelected()) {
 
-				tipo = 3;
+				type = 3;
 
 			}
 
-			if(nombreCivilizacion.isEmpty() || tipo == 0) {
+			if(civilizationName == null || civilizationName.isEmpty() || type == 0) {
 
 				throw new InsufficientInformationException();
 
 			} else {
 
-				planetarySystem.addCivilization(nombreCivilizacion, tipo);
+				civilizations.add(new Pair<String, Integer>(civilizationName, type));
 
 				civilizationsText.setText("");
 
-				civilizationsText.setDisable(true);
-
-				civilizationButton.setDisable(true);
-
 				t1.setSelected(false);
-
-				t1.setDisable(true);
 
 				t2.setSelected(false);
 
-				t2.setDisable(true);
-
 				t3.setSelected(false);
 
-				t3.setDisable(true);
 
 			}
 
@@ -279,12 +186,8 @@ public class AddSystemController {
 
 			} else {
 
-				planetarySystem.addplanet(name);
-
-				planetButton.setDisable(true);
-
-				planetsText.setDisable(true);
-
+				planets.add(name);
+				
 				planetsText.setText("");
 
 			}
@@ -314,13 +217,9 @@ public class AddSystemController {
 
 			} else {
 
-				planetarySystem.addStars(name);
+				stars.add(name);
 
 				startsText.setText("");
-
-				startsText.setDisable(true);
-
-				startButton.setDisable(true);
 
 			}
 
@@ -341,83 +240,34 @@ public class AddSystemController {
 
 		try {
 
+			int coordX, coordY, coordZ;
+			
 			String name = nameText.getText();
 
 			LocalDate date = discorveryDate.getValue();
 
-			Integer coordinates = Integer.parseInt(coordinatesText.getText());
-
+			String coordinates = coordinatesText.getText();			
+			String[] splitCoordinates = coordinates.split(",");			
+			coordX = Integer.parseInt(splitCoordinates[0]);
+			coordY = Integer.parseInt(splitCoordinates[1]);			
+			coordZ = Integer.parseInt(splitCoordinates[2]);
+			
 			if(name.isEmpty() || date == null || coordinates == null) {
 
 				throw new InsufficientInformationException();
 
-			} else if(planetarySystem.getPlanets().size() == 0 || planetarySystem.getStars().size() == 0) {
+			} 
+			else if(planets.size() == 0 || stars.size() == 0) {
 
 				throw new InsufficientPlanetsAndStars();
 
-			} else {
-
-				navegationSystem.addPlanetarySystem(name, date, coordinates,planetarySystem.getCivilizations(),
-						planetarySystem.getPlanets(),planetarySystem.getStars());
-
-				nameText.setText("");
-
-				discorveryDate.setValue(null);
-
-				coordinatesText.setText("");
-
-				t1.setDisable(true);
-
-				t1.setSelected(false);
-
-				t2.setDisable(true);
-
-				t2.setSelected(false);
-
-				t3.setDisable(true);
-
-				t3.setSelected(false);
-
-				// *******************************************
-
-				civilizationsText.setText("");
-
-				civilizationsText.setDisable(true);
-
-				civilizationButton.setDisable(true);
-
-				t1.setSelected(false);
-
-				t1.setDisable(true);
-
-				t2.setSelected(false);
-
-				t2.setDisable(true);
-
-				t3.setSelected(false);
-
-				t3.setDisable(true);
-
-				// *******************************************
-
-				planetarySystem.addplanet(name);
-
-				planetButton.setDisable(true);
-
-				planetsText.setDisable(true);
-
-				planetsText.setText("");
-
-				// *******************************************
-
-				planetarySystem.addStars(name);
-
-				startsText.setText("");
-
-				startsText.setDisable(true);
-
-				startButton.setDisable(true);
-
+			}
+			else {
+				int id = navegationSystem.addPlanetarySystem(name, date, coordX, coordY, coordZ, civilizations, planets, stars);
+				
+				successAlert(id);
+				
+				clear(new ActionEvent());
 			}
 
 		} catch(InsufficientInformationException e1) {
@@ -428,6 +278,11 @@ public class AddSystemController {
 
 			mensajePlanetasEstrellasInsuficientes();
 
+		} catch(NumberFormatException ex) {
+			missingDataAlert();
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
 		}
 
 	}
@@ -465,32 +320,46 @@ public class AddSystemController {
 	}
 
 	//------------------------------------------------------------------------------------
-
-	// METODO INITILIAZE
-
 	@FXML
-	void initialize() {
+	void clear(ActionEvent event) {
+		nameText.setText("");
 
-		civilizationsText.setDisable(true);
+		discorveryDate.setValue(null);
 
-		planetsText.setDisable(true);
+		coordinatesText.setText("");
 
-		startsText.setDisable(true);
+		t1.setSelected(false);
 
-		t1.setDisable(true);
+		t2.setSelected(false);
 
-		t2.setDisable(true);
+		t3.setSelected(false);
 
-		t3.setDisable(true);
+		civilizationsText.setText("");
 
-		civilizationButton.setDisable(true);
+		planetsText.setText("");
 
-		planetButton.setDisable(true);
-
-		startButton.setDisable(true);
-
+		startsText.setText("");
+		
+		stars = new ArrayList<>();
+		
+		planets = new ArrayList<>();
+		
+		civilizations = new ArrayList<>();	
+		
+		successClear();
 	}
-
-	//------------------------------------------------------------------------------------
-
+	
+	void successClear() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setContentText("Information has been cleared succesfully");
+		alert.setTitle("Information Cleared!");
+		alert.showAndWait();
+	}
+	
+	void successAlert(int id) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setContentText("Planetary system added succesfully with id: " + id);
+		alert.setTitle("Information");
+		alert.showAndWait();
+	}
 }

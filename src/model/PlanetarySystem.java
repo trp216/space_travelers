@@ -21,7 +21,11 @@ public class PlanetarySystem {
 	
 	private LocalDate discoveryDate;
 	
-	private String coordinates;
+	private int coordX;
+	
+	private int coordY;
+	
+	private int coordZ;
 	
 	private int id;
 	
@@ -37,7 +41,7 @@ public class PlanetarySystem {
 	
 	// CONSTRUCTOR METHOD OF THE CLASS PLANETARY SYSTEM
 
-	public PlanetarySystem(String name, int id, LocalDate discoveryDate, String coordinates) {
+	public PlanetarySystem(String name, int id, LocalDate discoveryDate, int coordX, int coordY, int coordZ) {
 		
 		this.name = name;
 		
@@ -45,7 +49,11 @@ public class PlanetarySystem {
 		
 		this.discoveryDate = discoveryDate;
 		
-		this.coordinates = coordinates;
+		this.coordX = coordX;
+		
+		this.coordY = coordY;
+		
+		this.coordZ = coordZ;
 		
 		civilizations = new ArrayList<Pair<String,Integer>>();
 		
@@ -72,7 +80,19 @@ public class PlanetarySystem {
 	}
 
 	public String getCoordinates() {
-		return coordinates;
+		return coordX + "," + coordY + "," + coordZ;
+	}
+	
+	public int getCoordX() {
+		return coordX;
+	}
+	
+	public int getCoordY() {
+		return coordY;
+	}
+	
+	public int getCoordZ() {
+		return coordZ;
 	}
 	
 	public ArrayList<Pair<String, Integer>> getCivilizations() {
@@ -98,11 +118,7 @@ public class PlanetarySystem {
 	public void setDiscoveryDate(LocalDate discoveryDate) {
 		this.discoveryDate = discoveryDate;
 	}
-
-	public void setCoordinates(String coordinates) {
-		this.coordinates = coordinates;
-	}
-
+	
 	public void setCivilizations(ArrayList<Pair<String, Integer>> civilizations) {
 		this.civilizations = civilizations;
 	}
@@ -113,10 +129,6 @@ public class PlanetarySystem {
 
 	public void setStars(ArrayList<String> stars) {
 		this.stars = stars;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 		
 	//------------------------------------------------------------------------------------

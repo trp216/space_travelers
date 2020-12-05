@@ -29,9 +29,7 @@ public class PrincipalController {
 
 	private AddSystemController addC;
 
-	private EditSystemController editC;
-
-	private SearchSystemController searchC;
+	private SearchAndEditSystemController searchAndEditC;
 
 	private NavigationController navigationC;
 
@@ -51,9 +49,7 @@ public class PrincipalController {
 
 		addC = new AddSystemController(navSys);
 
-		editC = new EditSystemController(navSys);
-
-		searchC = new SearchSystemController(navSys);
+		searchAndEditC = new SearchAndEditSystemController(navSys);
 
 		navigationC = new NavigationController(navSys);
 
@@ -153,27 +149,13 @@ public class PrincipalController {
 	
 	// METODO PARA CARGAR LA VENTANA DE EDITAR
 
-	public void loadEdit() throws IOException {
+	public void loadSearchAndEdit() throws IOException {
 
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editScreen.fxml"));
 
-		fxmlLoader.setController(editC);
+		fxmlLoader.setController(searchAndEditC);
 
 		editSystemAP.getChildren().add(fxmlLoader.load());
-
-	}
-
-	//------------------------------------------------------------------------------------
-
-	// METODO PARA CARGAR LA VENTANA DE EDITAR
-
-	public void loadSearh() throws IOException {
-
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchScreen.fxml"));
-
-		fxmlLoader.setController(searchC);
-
-		searchSystemAP.getChildren().add(fxmlLoader.load());
 
 	}
 	
@@ -221,9 +203,7 @@ public class PrincipalController {
 		
 		loadAdd();
 		
-		loadEdit();
-		
-		loadSearh();
+		loadSearchAndEdit();
 		
 		loadNavigation();
 		

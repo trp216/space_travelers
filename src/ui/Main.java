@@ -27,7 +27,7 @@ public class Main extends Application {
 	
 	public Main() {
 		
-		ns = new NavigationSystem("Space Travelers");
+		ns = new NavigationSystem();
 		
 		controladora = new PrincipalController(ns);
 		

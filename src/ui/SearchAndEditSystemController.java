@@ -6,9 +6,17 @@
 
 package ui;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import exceptions.InsufficientInformationException;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -20,9 +28,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import model.NavigationSystem;
 import model.PlanetarySystem;
+import utilities.Pair;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-public class EditSystemController {
+public class SearchAndEditSystemController {
 
 	//------------------------------------------------------------------------------------
 
@@ -34,7 +45,7 @@ public class EditSystemController {
 
 	// METODO CONSTRUCTOR DE LA CLASE EDIT SYSTEM CONTROLLER
 
-	public EditSystemController(NavigationSystem ns) {
+	public SearchAndEditSystemController(NavigationSystem ns) {
 
 		this.ns = ns;
 
@@ -93,22 +104,25 @@ public class EditSystemController {
 	// TABLAS PARA VISUALIZAR Y EDITAR LA INFORMACION
 
 	@FXML
-	private TableView<String> tableCivilizations;
+	private TableView<Pair<String,Integer>> tableCivilizations;
+
+    @FXML
+    private TableColumn<Pair<String,Integer>, String> civilNameColumn;
+
+    @FXML
+    private TableColumn<Pair<String,Integer>, Integer> civilTypeColumn;
 
 	@FXML
-	private TableColumn<String, String> civilizationsColumn;
+	private TableView<Pair<String,String>> tablePlanets;
 
 	@FXML
-	private TableView<String> tablePlanets;
+	private TableColumn<Pair<String,String>, String> planetsColumn;
 
 	@FXML
-	private TableColumn<String, String> planetsColumn;
+	private TableView<Pair<String,String>> tableStarts;
 
 	@FXML
-	private TableView<String> tableStarts;
-
-	@FXML
-	private TableColumn<String, String> startsColumn;
+	private TableColumn<Pair<String,String>, String> startsColumn;
 
 	// ***********************************************
 
@@ -135,22 +149,81 @@ public class EditSystemController {
 
 			} else {
 
-				PlanetarySystem p = ns.search(Integer.parseInt(idEditText.getText()));
+				PlanetarySystem ps = ns.search(Integer.parseInt(idEditText.getText()));
 
-				if(p!=null) {
+				if(ps!=null) {
 
 					editSelection();
+					
+					//name
+					nameEditText.setText(ps.getName());
+
+					//Coordinates
+					coordinatesEditText.setText(ps.getCoordinates());
+
+					//Discovery date
+					discoveryDateEdit.setValue(ps.getDiscoveryDate());
+
+					//Planets
+					
+					List<String> planets = ps.getPlanets();
+					
+					ArrayList<Pair<String,String>> pairs = new ArrayList<>();
+					
+					for (String planet : planets) {
+						pairs.add(new Pair<String,String>(planet,planet));
+					}
+					
+					@SuppressWarnings("unchecked")
+					ObservableList<Pair<String,String>> obsArrayList1 = FXCollections.observableArrayList(pairs);
+					
+					tablePlanets.setItems(obsArrayList1);	
+					
+					planetsColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,String>,String>("value"));									
+
+					//Stars
+					List<String> stars = ps.getStars();
+					
+					pairs = new ArrayList<>();
+					
+					for (String star : stars) {
+						pairs.add(new Pair<String,String>(star,star));
+					}
+					
+					ObservableList<Pair<String,String>> observableList2 = FXCollections.observableArrayList(pairs);
+					
+					tablePlanets.setItems(observableList2);
+					
+					planetsColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,String>,String>("value"));
+					
+					//Civilizations
+					
+					
+					ObservableList<Pair<String,Integer>> observableList3 = FXCollections.observableArrayList(ps.getCivilizations());
+					
+					tableCivilizations.setItems(observableList3);
+					
+					civilNameColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,Integer>,String>("key"));
+					civilTypeColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,Integer>,Integer>("value"));
 
 				} else {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.setHeaderText("Couldn't find your search");
+					alert.setContentText("It seems like the specified planetary system does not exist in the program");
 
+					alert.showAndWait();
 				}
 
 			}
 
-		}catch(InsufficientInformationException e) {
+		} catch(InsufficientInformationException e) {
 
 			insufficientDataAlert();
 
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
 		}
 
 	}
@@ -267,8 +340,8 @@ public class EditSystemController {
 
 		}
 
-		if(!coordinatesEditText.getText().equals("")){
-
+		if(!coordinatesEditText.getText().equals("")){			
+			
 			ns.getCurrentSystem().setCoordinates(coordinatesEditText.getText());
 
 		}
@@ -329,39 +402,7 @@ public class EditSystemController {
 
 
 		//Listeners of changes in selected item of each table
-		tableCivilizations.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-
-				editCivilizationName(newValue);
-
-			}
-
-		});
-
-		tablePlanets.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-
-				editStarName(newValue);
-
-			}
-
-		});
-
-		tableStarts.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-
-				editPlanetName(newValue);
-
-			}
-
-		});
-
+		
 
 	}
 
