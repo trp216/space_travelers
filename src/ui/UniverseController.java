@@ -15,53 +15,60 @@ import model.NavigationSystem;
 import model.PlanetarySystem;
 
 public class UniverseController {
-		
+
 	//------------------------------------------------------------------------------------
-	
+
+	// RELACION CON LA CLASE PRINCIPAL DEL MODELO
+
 	private NavigationSystem navSys;
-	
+
 	//------------------------------------------------------------------------------------
-	
+
 	// METODO CONSTRUCTOR DE LA CLASE UNIVERSE CONTROLLER
-	
+
 	public UniverseController(NavigationSystem navigationSystem) {
 
 		navSys = navigationSystem;
-		
+
 	}
-	
+
+	//------------------------------------------------------------------------------------
+
+	// POSIBLES ACCIONES DE JAVA FX
+
+	@FXML
+	private TableView<PlanetarySystem> systemsTableView;
+
+	@FXML
+	private TableColumn<PlanetarySystem, String> nameColumn;
+
+	@FXML
+	private TableColumn<PlanetarySystem, String> coordinatesColumn;
+
+	@FXML
+	private TableColumn<PlanetarySystem, String> idColumn;
+
+	@FXML
+	private TableColumn<PlanetarySystem, LocalDate> discoveryDateColumn;
+
+	@FXML
+	private TableColumn<PlanetarySystem, Integer> civilizationNumberColumn;
+
+	@FXML
+	private TableColumn<PlanetarySystem, Integer> starsNumberColumn;
+
+	@FXML
+	private TableColumn<PlanetarySystem, Integer> planetNumberColumn;
+
+
 	//------------------------------------------------------------------------------------
 	
-	// POSIBLES ACCIONES DE JAVA FX
-	
-	 @FXML
-	 private TableView<PlanetarySystem> systemsTableView;
+	// UPDATE TABLE METHOD
 
-	 @FXML
-	 private TableColumn<PlanetarySystem, String> nameColumn;
+	public void updateTable() {
 
-	 @FXML
-	 private TableColumn<PlanetarySystem, String> coordinatesColumn;
+	}
 
-	 @FXML
-	 private TableColumn<PlanetarySystem, String> idColumn;
+	//------------------------------------------------------------------------------------
 
-	 @FXML
-	 private TableColumn<PlanetarySystem, LocalDate> discoveryDateColumn;
-
-	 @FXML
-	 private TableColumn<PlanetarySystem, Integer> civilizationNumberColumn;
-
-	 @FXML
-	 private TableColumn<PlanetarySystem, Integer> starsNumberColumn;
-
-	 @FXML
-	 private TableColumn<PlanetarySystem, Integer> planetNumberColumn;
-
-	
-	 //------------------------------------------------------------------------------------
-	 
-	 public void updateTable() {
-		 
-	 }
 }

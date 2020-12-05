@@ -29,10 +29,14 @@ public class WelcomeController {
 	//Constructor of class WelcomeController
 	
 	public WelcomeController(NavigationSystem navigationSystem) {
+		
 		navSys = navigationSystem;
+		
 	}
 	
 	//------------------------------------------------------------------------------------
+	
+	// Things of java'fx
 
 	@FXML
 	private AnchorPane welcomeAP;
@@ -51,24 +55,34 @@ public class WelcomeController {
 
 	//------------------------------------------------------------------------------------
 	
+	// Select Graph method
+	
 	@FXML
 	void selectGrafo(ActionEvent event) {
 
 		if(tipo1.isSelected()) {
+			
 			navSys.graphSelected(true);
+			
 			success();
-		}
-		else if(tipo2.isSelected()) {
+			
+		} else if(tipo2.isSelected()) {
+			
 			navSys.graphSelected(false);
+			
 			success();
-		}
-		else {
+			
+		} else {
+			
 			insufficientDataAlert();
+			
 		}
 
 	}
 	
 	//------------------------------------------------------------------------------------
+	
+	// Success method
 	
 	@FXML
 	void success() {
@@ -84,6 +98,8 @@ public class WelcomeController {
 	
 	//------------------------------------------------------------------------------------
 	
+	// Insufficient data alert
+	
 	@FXML
 	void insufficientDataAlert() {
 
@@ -97,6 +113,8 @@ public class WelcomeController {
 	}
 	
 	//------------------------------------------------------------------------------------
+	
+	// Initialize method
 
 	@FXML
 	void initialize() {
@@ -104,4 +122,5 @@ public class WelcomeController {
 	}
 	
 	//------------------------------------------------------------------------------------
+	
 }

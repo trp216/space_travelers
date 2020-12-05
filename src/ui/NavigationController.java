@@ -8,9 +8,6 @@ package ui;
 
 import model.NavigationSystem;
 import model.PlanetarySystem;
-
-import java.io.IOException;
-
 import exceptions.InsufficientInformationException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,8 +35,10 @@ public class NavigationController{
 		this.ns = ns;
 
 	}
-
-
+	
+	//------------------------------------------------------------------------------------
+	
+	// ACCIONES DE JAVA'FX
 
 	@FXML
 	private Label actualSystemLabel;
@@ -82,15 +81,22 @@ public class NavigationController{
 
 	@FXML
 	private Label objetiveSystemDistance;
+	
+	//------------------------------------------------------------------------------------
+	
+	// SEARCH SYSTEM METHOD
 
 	@FXML
 	void searchSystem(ActionEvent event) {
 
 		try {
+			
 			if(objetiveSystemTextField.getText().equals("")) {
+				
 				throw new InsufficientInformationException();
-			}
-			else {
+				
+			} else {
+				
 				PlanetarySystem p = ns.search(Integer.parseInt(objetiveSystemTextField.getText()));
 				
 				if(p!=null) {
@@ -113,8 +119,8 @@ public class NavigationController{
 					
 			    	//agregar lo de las tablas
 					
-				}
-				else {
+				} else {
+					
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Error");
 					alert.setHeaderText("Couldn't find your search");
@@ -122,28 +128,39 @@ public class NavigationController{
 
 					alert.showAndWait();
 				}
+				
 			}
+			
 		}catch(InsufficientInformationException e) {
+			
 			insufficientDataAlert();
+			
 		}
 
 	}
 
 	//------------------------------------------------------------------------------------
+	
+	// INITIALIZE
 	
 	@FXML
 	public void initialize() {
 		
 		if(ns.getCurrentSystem()!=null) {
+			
 			actualSystemLabel.setText(ns.getCurrentSystem().getName());
-		}
-		else {
+			
+		} else {
+			
 			//improvise a ver
+		
 		}
+		
 	}
 	
-
 	//------------------------------------------------------------------------------------
+	
+	// INSUFFICIENT DATA ALERT
 
 	@FXML
 	void insufficientDataAlert() {
@@ -158,6 +175,8 @@ public class NavigationController{
 	}
 
 	//------------------------------------------------------------------------------------
+	
+	// CHANGE CURRENT SYSTEM
 
 	@FXML
 	void changeCurrentSystem(ActionEvent event) {
@@ -165,7 +184,6 @@ public class NavigationController{
 	}
 	
 	//------------------------------------------------------------------------------------
-	
 	
 }
 

@@ -43,6 +43,7 @@ public class GraphAlgorithms {
 		Vertex<E> vertex = vertices.get(sourceVertexID);
 		
 		if (vertex == null) throw new Exception("Source vertex not found");
+		
 		if (vertices.get(objetiveVertexId) == null) throw new Exception("Objetive vertex not found");
 			
 		stack.push(vertex);
@@ -94,6 +95,7 @@ public class GraphAlgorithms {
 	public static <E> List<E> BFS(Graph<E> graph, int vertexId) throws Exception {
 
 		Hashtable<Vertex<E>, List<Pair<Integer, Vertex<E>>>> adjacencyList = graph.getAdjacencyList();
+		
 		Hashtable<Integer,Vertex<E>> vertices = graph.getVertices();
 
 		List<E> traversal = new ArrayList<>();
