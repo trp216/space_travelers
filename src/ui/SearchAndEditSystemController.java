@@ -437,6 +437,10 @@ public class SearchAndEditSystemController {
 			
 			updateValidationsAvailability(false);
 			updateButtonsAvailability(false, false, false);
+			updateCivilizationModificationAvailability(false);
+	    	updateStarsModificationAvailability(false);
+	    	updatePlanetsModificationAvailability(false);
+	    	updateTextFieldsAndDatePickersAvailability(false);
 			clear();
 			saveSuccessfulAlert();
 		}		
@@ -454,8 +458,11 @@ public class SearchAndEditSystemController {
 		removeSuccessfulAlert();
 		clear();
 		updateButtonsAvailability(false, false, false);
-		updateValidationsAvailability(false);		
-
+		updateValidationsAvailability(false);
+		updateCivilizationModificationAvailability(false);
+    	updateStarsModificationAvailability(false);
+    	updatePlanetsModificationAvailability(false);
+    	updateTextFieldsAndDatePickersAvailability(false);
 	}
 
 	//------------------------------------------------------------------------------------
@@ -571,6 +578,12 @@ public class SearchAndEditSystemController {
     	loadInformation(ns.getCurrentSystem());
     }
     
+    void updateTextFieldsAndDatePickersAvailability(boolean areEnable) {
+    	nameEditText.setDisable(!areEnable);
+    	discoveryDateEdit.setDisable(!areEnable);
+    	coordinatesEditText.setDisable(!areEnable);
+    }
+    
     void updateValidationsAvailability(boolean areEnable) {
     	nameEditCB.setDisable(!areEnable);
     	discoveryDateEditCB.setDisable(!areEnable);
@@ -597,7 +610,7 @@ public class SearchAndEditSystemController {
     }
     
     void updateStarsModificationAvailability(boolean isEnable) {
-    	tableStarts.setDisable(!tableStarts.isDisable());
+    	tableStarts.setDisable(!isEnable);
     	newStarTextField.setDisable(!isEnable);
     	addStarButton.setDisable(!isEnable);
     	removeStarButton.setDisable(!isEnable);    	
@@ -614,21 +627,29 @@ public class SearchAndEditSystemController {
     	idEditText.setText("");
     	discoveryDateEdit.setValue(null);
     	coordinatesEditText.setText("");
-    	tableCivilizations.getItems().clear();   
-    	tableCivilizations.setDisable(true);
+    	
+    	tableCivilizations.getItems().clear();
     	tableStarts.getItems().clear();
-    	tableStarts.setDisable(true);
     	tablePlanets.getItems().clear();
-    	tablePlanets.setDisable(true);
+    	
     	civilizationsTemp = new ArrayList<>();
     	starsTemp = new ArrayList<>();
     	planetsTemp = new ArrayList<>();
+    	
     	newCivilizationNameTextField.clear();
     	newPlanetTextField.clear();
     	newStarTextField.clear();
+    	
     	t1.setSelected(false);
     	t2.setSelected(false);
-    	t3.setSelected(false);
+    	t3.setSelected(false);   
+    	nameEditCB.setSelected(false);
+    	civilizationsEditCB.setSelected(false);
+    	discoveryDateEditCB.setSelected(false);
+    	coordinatesEditCB.setSelected(false);
+    	planetsEditCB.setSelected(false);
+    	startsEditCB.setSelected(false);
+    	
     }
     
     void saveSuccessfulAlert() {
@@ -749,8 +770,7 @@ public class SearchAndEditSystemController {
 				for (String star : starsTemp) {
 					pairs.add(new Pair<String,String>(star,star));
 				}
-				
-				
+								
 				tableStarts.getItems().clear();
 				tableStarts.getItems().addAll(FXCollections.observableArrayList(pairs));
 				
@@ -766,16 +786,50 @@ public class SearchAndEditSystemController {
     
     @FXML
     void removeSelectedCivilization(ActionEvent event) {
+    	Pair<String,Integer> removeCivil = tableCivilizations.getSelectionModel().getSelectedItem();
     	
+    	if(removeCivil == null) {
+    		elementNotSelectedAlert();
+    	}
+    	else {
+    		civilizationsTemp.remove(removeCivil);
+    		tableCivilizations.getItems().remove(removeCivil);
+    	}
+    
     }
 
     @FXML
     void removeSelectedPlanet(ActionEvent event) {
-
+    	Pair<String, String> removePlanetPair = tablePlanets.getSelectionModel().getSelectedItem();
+    	
+    	if(removePlanetPair == null) {
+    		elementNotSelectedAlert();
+    	}
+    	else {
+    		String removePlanet = removePlanetPair.getKey();
+    		planetsTemp.remove(removePlanet);
+    		tablePlanets.getItems().remove(removePlanetPair);
+    	}
     }
 
     @FXML
     void removeSelectedStar(ActionEvent event) {
-
+    	Pair<String, String> removeStarPair = tableStarts.getSelectionModel().getSelectedItem();
+    	
+    	if(removeStarPair == null) {
+    		elementNotSelectedAlert();
+    	}
+    	else {
+    		String removePlanet = removeStarPair.getKey();
+    		starsTemp.remove(removePlanet);
+    		tableStarts.getItems().remove(removeStarPair);
+    	}
+    }
+    
+    void elementNotSelectedAlert() {
+    	Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("No selected element");
+		alert.setHeaderText("Please select an element");
+		alert.showAndWait();
     }
 }

@@ -90,12 +90,12 @@
             <ToggleGroup fx:id="tipo" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="t3" disable="true" layoutX="96.0" layoutY="449.0" mnemonicParsing="false" text="T-2" textFill="WHITE">
+      <RadioButton fx:id="t2" disable="true" layoutX="96.0" layoutY="449.0" mnemonicParsing="false" text="T-2" textFill="WHITE">
          <toggleGroup>
             <ToggleGroup fx:id="tipo" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="t2" disable="true" layoutX="144.0" layoutY="449.0" mnemonicParsing="false" text="T-3" textFill="WHITE">
+      <RadioButton fx:id="t3" disable="true" layoutX="144.0" layoutY="449.0" mnemonicParsing="false" text="T-3" textFill="WHITE">
          <toggleGroup>
             <ToggleGroup fx:id="tipo" />
          </toggleGroup>
