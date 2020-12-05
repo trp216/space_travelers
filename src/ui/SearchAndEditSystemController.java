@@ -18,10 +18,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import model.NavigationSystem;
 import model.PlanetarySystem;
 import utilities.Pair;
@@ -31,7 +33,46 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
 
 public class SearchAndEditSystemController {
+	
+	@FXML
+    private Button removeCivilizationButton;
 
+    @FXML
+    private Button removePlanetButton;
+
+    @FXML
+    private Button removeStarButton;
+
+    @FXML
+    private Button addCivilizationButton;
+
+    @FXML
+    private TextField newCivilizationNameTextField;
+
+    @FXML
+    private Button addPlanetButton;
+
+    @FXML
+    private TextField newPlanetTextField;
+
+    @FXML
+    private Button addStarButton;
+
+    @FXML
+    private TextField newStarTextField;
+
+    @FXML
+    private RadioButton t1;
+
+    @FXML
+    private ToggleGroup tipo;
+
+    @FXML
+    private RadioButton t3;
+
+    @FXML
+    private RadioButton t2;
+	
 	//------------------------------------------------------------------------------------
 
 	// RELACION CON OTRAS CLASES
@@ -327,7 +368,7 @@ public class SearchAndEditSystemController {
 	@FXML
 	void validationCivilizationsEdit(ActionEvent event) {
 
-		tableCivilizations.setDisable(!tableCivilizations.isDisable());
+		updateCivilizationModificationAvailability(civilizationsEditCB.isSelected());
 
 	}
 
@@ -338,7 +379,7 @@ public class SearchAndEditSystemController {
 	@FXML
 	void validationPlanetsEdit(ActionEvent event) {
 
-		tablePlanets.setDisable(!tablePlanets.isDisable());
+		updatePlanetsModificationAvailability(planetsEditCB.isSelected());
 
 	}
 
@@ -349,7 +390,7 @@ public class SearchAndEditSystemController {
 	@FXML
 	void validationStartsEdit(ActionEvent event) {
 
-		tableStarts.setDisable(!tableStarts.isDisable());
+		updateStarsModificationAvailability(startsEditCB.isSelected());
 
 	}
 
@@ -545,6 +586,29 @@ public class SearchAndEditSystemController {
     	resetButton.setDisable(!resetIsEnable);
     }
     
+    void updateCivilizationModificationAvailability(boolean isEnable) {
+    	tableCivilizations.setDisable(!isEnable);
+    	t1.setDisable(!isEnable);
+    	t2.setDisable(!isEnable);
+    	t3.setDisable(!isEnable);
+    	newCivilizationNameTextField.setDisable(!isEnable);
+    	addCivilizationButton.setDisable(!isEnable);
+    	removeCivilizationButton.setDisable(!isEnable);
+    }
+    
+    void updateStarsModificationAvailability(boolean isEnable) {
+    	tableStarts.setDisable(!tableStarts.isDisable());
+    	newStarTextField.setDisable(!isEnable);
+    	addStarButton.setDisable(!isEnable);
+    	removeStarButton.setDisable(!isEnable);    	
+    }
+    void updatePlanetsModificationAvailability(boolean isEnable) {
+		tablePlanets.setDisable(!isEnable);
+    	newPlanetTextField.setDisable(!isEnable);
+    	addPlanetButton.setDisable(!isEnable);
+    	removePlanetButton.setDisable(!isEnable);
+    }
+    
     void clear() {
     	nameEditText.setText("");
     	idEditText.setText("");
@@ -559,6 +623,12 @@ public class SearchAndEditSystemController {
     	civilizationsTemp = new ArrayList<>();
     	starsTemp = new ArrayList<>();
     	planetsTemp = new ArrayList<>();
+    	newCivilizationNameTextField.clear();
+    	newPlanetTextField.clear();
+    	newStarTextField.clear();
+    	t1.setSelected(false);
+    	t2.setSelected(false);
+    	t3.setSelected(false);
     }
     
     void saveSuccessfulAlert() {
@@ -573,5 +643,139 @@ public class SearchAndEditSystemController {
 		alert.setTitle("Success!");
 		alert.setHeaderText("System removed successfully");
 		alert.showAndWait();
+    }
+    
+    @FXML
+    void addCivilization(ActionEvent event) {
+    	try {
+
+			String civilizationName = newCivilizationNameTextField.getText();
+
+			int type = 0 ;
+
+			if(t1.isSelected()) {
+
+				type = 1 ;
+
+			}
+			else if(t2.isSelected()) {
+
+				type = 2;
+
+			}
+			else if(t3.isSelected()) {
+
+				type = 3;
+
+			}
+
+			if(civilizationName == null || civilizationName.isEmpty() || type == 0) {
+
+				throw new InsufficientInformationException();
+
+			}
+			else {
+
+				civilizationsTemp.add(new Pair<String, Integer>(civilizationName, type));
+				newCivilizationNameTextField.setText("");
+				t1.setSelected(false);
+				t2.setSelected(false);
+				t3.setSelected(false);
+			
+				tableCivilizations.getItems().clear();
+				tableCivilizations.getItems().addAll(civilizationsTemp);
+			}
+
+		}
+    	catch(InsufficientInformationException e1) {
+
+			insufficientDataAlert();
+
+		}
+    }
+
+    @FXML
+    void addPlanet(ActionEvent event) {
+    	try {
+
+			String name = newPlanetTextField.getText();
+
+			if(name.isEmpty()) {
+
+				throw new InsufficientInformationException();
+
+			} else {
+
+				planetsTemp.add(name);				
+				newPlanetTextField.clear();
+				
+				ArrayList<Pair<String,String>> pairs = new ArrayList<>();
+				
+				for (String planet : planetsTemp) {
+					pairs.add(new Pair<String,String>(planet,planet));
+				}
+				
+				
+				tablePlanets.getItems().clear();
+				tablePlanets.getItems().addAll(FXCollections.observableArrayList(pairs));
+				
+			}
+
+		} 
+    	catch(InsufficientInformationException e1) {
+
+			insufficientDataAlert();
+
+		}
+    }
+
+    @FXML
+    void addStar(ActionEvent event) {
+    	try {
+
+			String name = newStarTextField.getText();
+
+			if(name.isEmpty()) {
+
+				throw new InsufficientInformationException();
+
+			} else {
+
+				starsTemp.add(name);				
+				newStarTextField.clear();
+				
+				ArrayList<Pair<String,String>> pairs = new ArrayList<>();
+				
+				for (String star : starsTemp) {
+					pairs.add(new Pair<String,String>(star,star));
+				}
+				
+				
+				tableStarts.getItems().clear();
+				tableStarts.getItems().addAll(FXCollections.observableArrayList(pairs));
+				
+			}
+
+		} 
+    	catch(InsufficientInformationException e1) {
+
+			insufficientDataAlert();
+
+		}
+    }
+    
+    @FXML
+    void removeSelectedCivilization(ActionEvent event) {
+    	
+    }
+
+    @FXML
+    void removeSelectedPlanet(ActionEvent event) {
+
+    }
+
+    @FXML
+    void removeSelectedStar(ActionEvent event) {
+
     }
 }
