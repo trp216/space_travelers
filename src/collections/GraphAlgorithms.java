@@ -35,8 +35,6 @@ public class GraphAlgorithms {
 
 		Hashtable<Integer,Vertex<E>> vertices = graph.getVertices();
 
-		List<E> traversal = new ArrayList<>();
-
 		//More efficient than Linked List Queue
 		ArrayDeque<Vertex<E>> stack = new ArrayDeque<>();
 		
@@ -46,6 +44,10 @@ public class GraphAlgorithms {
 		
 		if (vertices.get(objetiveVertexId) == null) throw new Exception("Objetive vertex not found");
 			
+		if(sourceVertexID == objetiveVertexId) {
+			return vertex.getElement();
+		}
+		
 		stack.push(vertex);
 
 		int N = adjacencyList.size();
@@ -53,8 +55,6 @@ public class GraphAlgorithms {
 		Hashtable<Vertex<E>,Boolean> visitedNodes = new Hashtable<>(N);
 
 		visitedNodes.put(vertices.get(sourceVertexID), true);
-
-		traversal.add(vertices.get(sourceVertexID).getElement());
 
 		while(!stack.isEmpty()){
 
@@ -68,9 +68,7 @@ public class GraphAlgorithms {
 
 					visitedNodes.put(adjacentVertex, true);	
 
-					stack.push(adjacentVertex);
-
-					traversal.add(adjacentVertex.getElement());		
+					stack.push(adjacentVertex);	
 
 					if(adjacentVertex.getId() == objetiveVertexId) {
 

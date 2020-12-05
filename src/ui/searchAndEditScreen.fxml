@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="editSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="522.0" prefWidth="522.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="editSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="522.0" prefWidth="522.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="526.0" stroke="BLACK" strokeType="INSIDE" width="525.0" />
       <ImageView fitHeight="102.0" fitWidth="189.0" layoutX="172.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -55,22 +55,28 @@
       <TextField fx:id="nameEditText" layoutX="112.0" layoutY="218.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
       <DatePicker fx:id="discoveryDateEdit" layoutX="314.0" layoutY="268.0" />
       <TextField fx:id="coordinatesEditText" layoutX="112.0" layoutY="281.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
-      <TableView fx:id="tableCivilizations" layoutX="42.0" layoutY="337.0" prefHeight="118.0" prefWidth="120.0">
+      <TableView fx:id="tableCivilizations" layoutX="16.0" layoutY="348.0" prefHeight="118.0" prefWidth="192.0">
          <columns>
-            <TableColumn fx:id="civilizationsColumn" prefWidth="119.0" text="Civilizations" />
+            <TableColumn fx:id="civilNameColumn" prefWidth="88.0" text="Name" />
+            <TableColumn fx:id="civilTypeColumn" prefWidth="103.0" text="Type" />
          </columns>
       </TableView>
-      <TableView fx:id="tablePlanets" layoutX="201.0" layoutY="337.0" prefHeight="118.0" prefWidth="120.0">
+      <TableView fx:id="tablePlanets" layoutX="239.0" layoutY="348.0" prefHeight="118.0" prefWidth="120.0">
          <columns>
             <TableColumn fx:id="planetsColumn" prefWidth="119.0" text="Planets" />
          </columns>
       </TableView>
-      <TableView fx:id="tableStarts" layoutX="367.0" layoutY="337.0" prefHeight="118.0" prefWidth="120.0">
+      <TableView fx:id="tableStarts" layoutX="388.0" layoutY="348.0" prefHeight="118.0" prefWidth="120.0">
          <columns>
             <TableColumn fx:id="startsColumn" prefWidth="119.0" text="Stars" />
          </columns>
       </TableView>
       <Button fx:id="editButton" layoutX="180.0" layoutY="482.0" mnemonicParsing="false" onAction="#edit" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Edit" />
       <Button fx:id="removeButton" layoutX="270.0" layoutY="482.0" mnemonicParsing="false" onAction="#remove" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Remove" />
+      <Label layoutX="61.0" layoutY="325.0" text="Civilizations" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

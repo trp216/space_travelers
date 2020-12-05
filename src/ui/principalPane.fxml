@@ -21,14 +21,9 @@
         <AnchorPane fx:id="addSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
       </content>
     </Tab>
-      <Tab fx:id="editSystem" text="Edit">
+      <Tab fx:id="searchAndEditSystem" text="Search and Edit">
          <content>
             <AnchorPane fx:id="editSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-         </content>
-      </Tab>
-      <Tab fx:id="searchSystem" text="Search">
-         <content>
-            <AnchorPane fx:id="searchSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
          </content>
       </Tab>
       <Tab fx:id="navegation" text="Navegation">

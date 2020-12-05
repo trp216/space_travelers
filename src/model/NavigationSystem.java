@@ -10,40 +10,63 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
+import java.util.Set;
 import java.util.SplittableRandom;
-
 import javax.naming.directory.InvalidAttributesException;
-
 import collections.AdjacencyListGraph;
 import collections.Graph;
 import collections.GraphAlgorithms;
 import collections.MatrixGraph;
+import collections.Vertex;
 import utilities.Pair;
 
 public class NavigationSystem {
+	
+	public static int MAX_SYSTEMS_NUMBER = 27000;
 
+	Hashtable<Integer,Integer> usedXCoordinates;
+	
+	Hashtable<Integer,Integer> usedYCoordinates;
+	
+	Hashtable<Integer,Integer> usedZCoordinates;
+	
+	Hashtable<Integer, Integer> usedIds;
+	
+	int systemCount;
 	//------------------------------------------------------------------------------------
 
 	// ATTRIBUTES AND RELATIONS OF THE CLASS NAVEGATION SYSTEM
 
-	private String name;
-
+	private PlanetarySystem currentLocationSystem;
+	
 	private PlanetarySystem currentSystem;
 
-	private Graph systems;
+	private Graph<PlanetarySystem> systems;
 
 	//------------------------------------------------------------------------------------
 
 	// CONSTRUCTOR METHOD OF THE CLASS NAVEGATION SYSTEM
 
-	public NavigationSystem(String name) {
-
-		this.name = name;
+	public NavigationSystem() {
 		
-		PlanetarySystem solarSystem = new PlanetarySystem("Solar System", 1, LocalDate.of(1543, 1, 1), (int)Math.random()*Integer.MAX_VALUE+"");
+		usedXCoordinates = new Hashtable<>();
+		usedYCoordinates = new Hashtable<>();
+		usedZCoordinates = new Hashtable<>();		
+		usedIds = new Hashtable<>();
 		
-		currentSystem = solarSystem;
+		PlanetarySystem solarSystem = new PlanetarySystem("Solar System", 1, LocalDate.of(1543, 1, 1), 0, 0, 0);
+		
+		usedXCoordinates.put(0, 0);
+		usedYCoordinates.put(0, 0);
+		usedZCoordinates.put(0, 0);
+		
+		solarSystem.addPlanet("Earth");
+		solarSystem.addStars("Sun");
+		solarSystem.addCivilization("Human", 2);
+		
+		currentLocationSystem = solarSystem;		
 
+		systemCount = 1;
 	}
 
 	//------------------------------------------------------------------------------------
@@ -52,54 +75,103 @@ public class NavigationSystem {
 
 	public void generateSystems(int n) throws InvalidAttributesException, IllegalArgumentException {
 
-		Hashtable<Integer,Boolean> c = new Hashtable<Integer,Boolean>(); //saves the coordinates to check later that they won't repeat
-
-		Hashtable<Integer,PlanetarySystem> ids = new Hashtable<Integer,PlanetarySystem>(); //saves the ids
-
 		for(int i = 65 ; i <= 90 && n > 0 ; i ++) { //Generates the letter of the name
 
 			char x = (char) i;
 
 			for(int j = 1 ; j <= 1000 && n > 0 ; j++) { //Adds the number to the letter generated before
 
-				String sname = x + "" + j + "";
+				String sName = x + "" + j;
 
-				int coordinate = (int)Math.random()*Integer.MAX_VALUE;
+				int coordX, coordY, coordZ;
+				
+				Random r = new Random();
+				
+				do {
+										
+					coordX = r.nextInt();
+					coordY = r.nextInt();
+					coordZ = r.nextInt();					
+					
+				} while(usedXCoordinates.containsKey(coordX)
+						&& usedYCoordinates.containsKey(coordY)
+						&& usedZCoordinates.containsKey(coordZ));
+				
+				usedXCoordinates.put(coordX, coordX);
+				usedYCoordinates.put(coordY, coordY);
+				usedZCoordinates.put(coordZ, coordZ);
+				
+				int id;
 
-				while(c.contains(coordinate)) { //checks if the coordinate already exists
+				do { // checks if the id is repeated
 
-					coordinate = (int)Math.random()*Integer.MAX_VALUE;
-
-				}
-
-				c.put(coordinate, true);
-
-				int id = (int) Math.random() * 27000;
-
-				while(ids.contains(id)) { // checks if the id is repeated
-
-					id = (int) Math.random() * 27000;
-
-				}
-
-				PlanetarySystem nps = new PlanetarySystem(sname, (int) id, generateDiscoveryDate(), (coordinate + ""));
+					id = r.nextInt();
+					if(id < 0) id = -id;
+					
+				}while(usedIds.contains(id));
+				
+				usedIds.put(id, id);
+				
+				PlanetarySystem nps = new PlanetarySystem(sName, (int) id, generateDiscoveryDate(), coordX, coordY, coordZ);
 
 				systems.addVertex(nps, id);
 
-				ids.put(id, nps); // Saves the id. Also saves the object, just in case that we would like to use that hashtable later
-
+				//Updates edges, is a fully connected graph
+				updateEdges(nps);				
+				
 				n -- ;
 
 			}
 
 		}
 
-		generateWeights(ids); //generates the edges in the graph
-
 	}
 
 	//------------------------------------------------------------------------------------
 
+	private void updateEdges(PlanetarySystem newPlanetarySystem) {
+		
+		int newPSId = newPlanetarySystem.getId();
+		
+		Hashtable<Integer, Vertex<PlanetarySystem>> vertices = systems.getVertices();
+		
+		Set<Integer> ids = vertices.keySet();
+		
+		for(Integer id : ids) {
+			if(id!= newPSId) {
+				
+				int distance = calculateDistance(newPlanetarySystem, vertices.get(id).getElement());
+				
+				try {
+					systems.addEdge(newPSId,id,distance);
+				}
+				catch (InvalidAttributesException e) {
+					e.printStackTrace();
+				} 
+				catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		}
+		
+		
+	}
+
+	private int calculateDistance(PlanetarySystem ps1, PlanetarySystem ps2) {
+		
+		int x1,x2,y1,y2,z1,z2;
+		x1 = ps1.getCoordX();
+		y1 = ps1.getCoordY();
+		z1 = ps1.getCoordZ();
+		
+		x2 = ps2.getCoordX();
+		y2 = ps2.getCoordY();
+		z2 = ps2.getCoordZ();
+		
+		return (int)Math.pow((x2-x1)^2 + (y2-y1)^2 + (z2-z1)^2,1/2);
+	}
+	
 	public LocalDate generateDiscoveryDate() {
 
 		SplittableRandom sr = new SplittableRandom();
@@ -128,43 +200,7 @@ public class NavigationSystem {
 
 		return discDate;
 
-	}
-
-	//------------------------------------------------------------------------------------
-
-	// GENERATE WEIGHTS
-
-	public void generateWeights(Hashtable<Integer, PlanetarySystem> ht) throws InvalidAttributesException, IllegalArgumentException {
-
-		Random random = new Random();
-
-		int n = ht.size();
-
-		while(n<0) {
-
-			int weight = (int) Math.random() * 100001;
-
-			int s1 = random.nextInt(ht.size());
-
-			int s2 = random.nextInt(ht.size());
-
-			if(s1!= s2 && systems.getAdjacentVertices(s1)!= null && systems.getAdjacentVertices(s1).get(s2) != null) {
-
-				systems.addEdge(s1, s2, weight);
-
-				n--;
-
-			} else {
-
-				s1 = random.nextInt(ht.size());
-
-				s2 = random.nextInt(ht.size());
-
-			}
-
-		}
-
-	}
+	}	
 
 	//------------------------------------------------------------------------------------
 
@@ -182,17 +218,16 @@ public class NavigationSystem {
 
 		}
 		
-
+		systems.addVertex(currentLocationSystem, currentLocationSystem.getId());
 	}
 
 	//------------------------------------------------------------------------------------
 
 	// METHOD PLANETARY SYSTEM SEARCH
 
-	@SuppressWarnings("unchecked")
 	public PlanetarySystem search(int id) throws Exception {
 
-		currentSystem = (PlanetarySystem) GraphAlgorithms.DFS(systems, currentSystem.getId(),id);
+		currentSystem = (PlanetarySystem) GraphAlgorithms.DFS(systems, currentLocationSystem.getId(),id);
 
 		return currentSystem;
 
@@ -202,7 +237,6 @@ public class NavigationSystem {
 
 	// METHOD CALCULATE DISTANCE
 
-	@SuppressWarnings("unchecked")
 	public int calculateDistance(int idPS1, int idPS2) throws Exception {
 
 		return GraphAlgorithms.dijkstra(systems, search(idPS1).getId(), search(idPS2).getId());
@@ -213,12 +247,29 @@ public class NavigationSystem {
 
 	// METHOD ADD PLANETARY SYSTEM
 
-	@SuppressWarnings("unchecked")
-	public void addPlanetarySystem(String n, LocalDate ld, int coordinates, ArrayList<Pair<String,Integer>> civilizations, ArrayList<String> planets, ArrayList<String> stars) {
+	public int addPlanetarySystem(String n, LocalDate ld, int coordX, int coordY, int coordZ, ArrayList<Pair<String,Integer>> civilizations, ArrayList<String> planets, ArrayList<String> stars) throws Exception {
 
-		int id = (int)Math.random()*(Integer.MAX_VALUE-27001) + 27001;
+		Random r = new Random();
+		
+		int id;
 
-		PlanetarySystem nps = new PlanetarySystem(n, id, ld, (coordinates + ""));
+		do { // checks if the id is repeated
+
+			id = r.nextInt();
+
+		} while(usedIds.contains(id));
+		
+		usedIds.put(id, id);
+
+		if(usedXCoordinates.containsKey(coordX) && usedYCoordinates.containsKey(coordY) && usedZCoordinates.containsKey(coordZ)) {
+			throw new Exception("Planetary system in the given coordinates already exists");
+		}
+		
+		usedXCoordinates.put(coordX, coordX);
+		usedYCoordinates.put(coordY, coordY);
+		usedZCoordinates.put(coordZ, coordZ);
+		
+		PlanetarySystem nps = new PlanetarySystem(n, id, ld, coordX, coordY, coordZ);
 
 		nps.setCivilizations(civilizations);
 
@@ -227,6 +278,8 @@ public class NavigationSystem {
 		nps.setStars(stars);
 
 		systems.addVertex(nps, id);
+		
+		return id;
 
 	}
 
