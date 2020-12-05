@@ -8,13 +8,9 @@ package ui;
 
 import model.NavigationSystem;
 import model.PlanetarySystem;
-
+import utilities.Pair;
 import java.util.ArrayList;
-import java.util.List;
-
 import exceptions.InsufficientInformationException;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,12 +21,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class NavigationController{
 	//------------------------------------------------------------------------------------
 
 	private NavigationSystem ns;
+	
+	private PlanetarySystem foundPS;
 
 	//------------------------------------------------------------------------------------
 
@@ -46,52 +45,56 @@ public class NavigationController{
 
 	// ACCIONES DE JAVA'FX
 
-	@FXML
-	private Label actualSystemLabel;
 
-	@FXML
-	private TextField objetiveSystemTextField;
+    @FXML
+    private Label actualSystemLabel;
 
-	@FXML
-	private TableView<List<StringProperty>> tableStartsSearch;
+    @FXML
+    private TextField objetiveSystemTextField;
 
-	@FXML
-	private TableColumn<List<StringProperty>, String> starsColumn;
+    @FXML
+    private TableView<Pair<String,String>> starsTable;
 
-	@FXML
-	private TableView<?> tablePlanetsSearch;
+    @FXML
+    private TableColumn<Pair<String,String>, String> starsColumn;
 
-	@FXML
-	private TableColumn<?, ?> planetsColumn;
+    @FXML
+    private TableView<Pair<String,String>> planetsTable;
 
-	@FXML
-	private TableView<?> tableCivilizationsSearch;
+    @FXML
+    private TableColumn<Pair<String,String>, String> planetsColumn;
 
-	@FXML
-	private TableColumn<?, ?> civilizationsNameColumn;
+    @FXML
+    private TableView<Pair<String,Integer>> civilizationsTable;
 
-	@FXML
-	private TableColumn<?, ?> civilizationsTypeColumn;
+    @FXML
+    private TableColumn<Pair<String,Integer>, String> civilizationsNameColumn;
 
-	@FXML
-	private Label objetiveSystemName;
+    @FXML
+    private TableColumn<Pair<String,Integer>, Integer> civilizationsTypeColumn;
 
-	@FXML
-	private Label objetiveSystemDiscoveryDate;
+    @FXML
+    private Label objetiveSystemName;
 
-	@FXML
-	private Label objetiveSystemCoordinates;
+    @FXML
+    private Label objetiveSystemDiscoveryDate;
 
-	@FXML
-	private Label objetiveSystemId;
+    @FXML
+    private Label objetiveSystemCoordinates;
 
-	@FXML
-	private Label objetiveSystemDistance;
+    @FXML
+    private Label objetiveSystemId;
+
+    @FXML
+    private Label objetiveSystemDistance;
+    
+    @FXML
+    private Button moveButton;
 
 	//------------------------------------------------------------------------------------
 
 	// SEARCH SYSTEM METHOD
-
+	
 	@FXML
 	void searchSystem(ActionEvent event) {
 
@@ -103,59 +106,97 @@ public class NavigationController{
 
 			} else {
 
-				PlanetarySystem p = ns.search(Integer.parseInt(objetiveSystemTextField.getText()));
+				PlanetarySystem oPS = ns.search(Integer.parseInt(objetiveSystemTextField.getText()));
 
-				if(p!=null) {
-
-					objetiveSystemName.setText(p.getName());
-
-					objetiveSystemDiscoveryDate.setText(p.getDiscoveryDate().toString());
-
-					objetiveSystemCoordinates.setText(p.getCoordinates());
-
-					objetiveSystemId.setText(p.getId() + "");
-
-					objetiveSystemDistance.setText(ns.calculateDistance(ns.getCurrentSystem().getId(), p.getId()) + "");
-
-					ObservableList<String> observableList = FXCollections.observableArrayList(p.getStars());
-
-					//					tableStartsSearch.setItems(observableList); //
-					//					
-					//					starsColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("name")); //
-
-					//agregar lo de las tablas
-
-					ArrayList<String> list = p.getStars();
-
-					ObservableList<List<StringProperty>> lists = FXCollections.observableArrayList();
-
-					for(int i = 0; i<list.size();i++) {
-
-						lists.add(i,new SimpleStringProperty(list.get(i)));
-
-					}
-
-					starsColumn = new TableColumn<>("Stars");
-					starsColumn.setCellValueFactory();
-
-				} else {
-
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Error");
-					alert.setHeaderText("Couldn't find your search");
-					alert.setContentText("It seems like the specified planetary system does not exist in the program");
-
-					alert.showAndWait();
+				if(oPS != null) {
+					loadInformation(oPS);	
+					foundPS = oPS;
+					moveButton.setDisable(false);
+				}
+				else {
+					systemNotFoundAlert();
 				}
 
 			}
 
-		}catch(InsufficientInformationException e) {
+		}
+		catch(InsufficientInformationException e) {
 
 			insufficientDataAlert();
 
 		}
+		catch(Exception ex) {
+			systemNotFoundAlert();
+		}
 
+	}
+
+	@SuppressWarnings("unchecked")
+	private void loadInformation(PlanetarySystem oPS) {
+		//name
+		objetiveSystemName.setText(oPS.getName());
+
+		//Coordinates
+		objetiveSystemCoordinates.setText(oPS.getCoordinates());
+
+		//Discovery date
+		objetiveSystemDiscoveryDate.setText(oPS.getDiscoveryDate().toString());
+
+		//Planets
+		
+		ArrayList<String> planetsTemp = (ArrayList<String>) oPS.getPlanets().clone();
+		
+		ArrayList<Pair<String,String>> pairs = new ArrayList<>();
+		
+		for (String planet : planetsTemp) {
+			pairs.add(new Pair<String,String>(planet,planet));
+		}
+		
+		ObservableList<Pair<String,String>> obsArrayList1 = FXCollections.observableArrayList(pairs);
+		
+		planetsTable.getItems().clear();
+		
+		planetsTable.setItems(obsArrayList1);	
+		
+		planetsColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,String>,String>("value"));									
+
+		//Stars
+		ArrayList<String> starsTemp = (ArrayList<String>) oPS.getStars().clone();
+		
+		pairs = new ArrayList<>();
+		
+		for (String star : starsTemp) {
+			pairs.add(new Pair<String,String>(star,star));
+		}
+		
+		ObservableList<Pair<String,String>> observableList2 = FXCollections.observableArrayList(pairs);
+		
+		starsTable.getItems().clear();		
+		starsTable.setItems(observableList2);
+		
+		starsColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,String>,String>("value"));
+		
+		//Civilizations
+		
+		ArrayList<Pair<String, Integer>> civilizationsTemp = (ArrayList<Pair<String, Integer>>) oPS.getCivilizations().clone();
+		
+		ObservableList<Pair<String,Integer>> observableList3 = FXCollections.observableArrayList(civilizationsTemp);
+		
+		civilizationsTable.getItems().clear();		
+		civilizationsTable.setItems(observableList3);
+		
+		civilizationsNameColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,Integer>,String>("key"));
+		civilizationsTypeColumn.setCellValueFactory(new PropertyValueFactory<Pair<String,Integer>,Integer>("value"));
+
+		try {
+			objetiveSystemDistance.setText("" + ns.calculateDistance(ns.getCurrentLocationSystem().getId(), oPS.getId()));
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		objetiveSystemId.setText("" + oPS.getId());
+		
 	}
 
 	//------------------------------------------------------------------------------------
@@ -165,18 +206,14 @@ public class NavigationController{
 	@FXML
 	public void initialize() {
 
-		if(ns.getCurrentSystem()!=null) {
+		if(ns.getCurrentLocationSystem()!=null) {
 
-			actualSystemLabel.setText(ns.getCurrentSystem().getName());
-
-		} else {
-
-			//improvise a ver
+			actualSystemLabel.setText(ns.getCurrentLocationSystem().getName());
 
 		}
-
+		
+		
 	}
-
 	//------------------------------------------------------------------------------------
 
 	// INSUFFICIENT DATA ALERT
@@ -199,10 +236,33 @@ public class NavigationController{
 
 	@FXML
 	void changeCurrentSystem(ActionEvent event) {
-
+		
+		ns.setCurrentLocationPlanetarySystem(foundPS);
+		actualSystemLabel.setText(ns.getCurrentLocationSystem().getName());
+		foundPS = null;
+		clear();
+		moveButton.setDisable(true);
 	}
 
 	//------------------------------------------------------------------------------------
-
+	private void systemNotFoundAlert() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("Couldn't find the system");
+		alert.setContentText("It seems like the specified planetary system does not exist in the program");
+		alert.showAndWait();
+	}
+	
+	private void clear() {
+		objetiveSystemTextField.clear();
+		civilizationsTable.getItems().clear();
+		starsTable.getItems().clear();
+		planetsTable.getItems().clear();
+		objetiveSystemName.setText("...");
+		objetiveSystemDiscoveryDate.setText("...");
+		objetiveSystemId.setText("...");
+		objetiveSystemCoordinates.setText("...");
+		objetiveSystemDistance.setText("...");		
+	}
 }
 

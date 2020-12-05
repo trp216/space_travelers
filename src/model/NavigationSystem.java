@@ -167,9 +167,9 @@ public class NavigationSystem {
 		
 		x2 = ps2.getCoordX();
 		y2 = ps2.getCoordY();
-		z2 = ps2.getCoordZ();
+		z2 = ps2.getCoordZ();	
 		
-		return (int)Math.pow((x2-x1)^2 + (y2-y1)^2 + (z2-z1)^2,1/2);
+		return (int)Math.pow(Math.pow(x2-x1,2) + Math.pow(y2-y1,2) + Math.pow(z2-z1,2),0.5);
 	}
 	
 	public LocalDate generateDiscoveryDate() {
@@ -257,7 +257,7 @@ public class NavigationSystem {
 
 			id = r.nextInt();
 
-		} while(usedIds.contains(id));
+		} while(usedIds.contains(id) || id < 0);
 		
 		usedIds.put(id, id);
 
@@ -317,8 +317,16 @@ public class NavigationSystem {
 
 	// SET PLANETARY SYSTEM
 
-	public void setPlanetarySystem(PlanetarySystem currentSystem) {
+	public void setCurrentPlanetarySystem(PlanetarySystem currentSystem) {
 		this.currentSystem = currentSystem;
+	}
+
+	public void setCurrentLocationPlanetarySystem(PlanetarySystem currentLocationSystem) {
+		this.currentLocationSystem = currentLocationSystem;
+	}
+	
+	public PlanetarySystem getCurrentLocationSystem() {
+		return currentLocationSystem;
 	}
 
 	//------------------------------------------------------------------------------------
