@@ -25,6 +25,8 @@ import utilities.Pair;
 public class AddSystemController {
 
 	//------------------------------------------------------------------------------------
+	
+	// RELATION WITH ANOTHER CLASS
 
 	private NavigationSystem ns;
 	
@@ -50,8 +52,6 @@ public class AddSystemController {
 
 	}
 	
-	
-
 	//------------------------------------------------------------------------------------
 
 	/*
@@ -158,7 +158,6 @@ public class AddSystemController {
 
 				t3.setSelected(false);
 
-
 			}
 
 		} catch(InsufficientInformationException e1) {
@@ -247,27 +246,31 @@ public class AddSystemController {
 			LocalDate date = discorveryDate.getValue();
 
 			String coordinates = coordinatesText.getText();			
+			
 			String[] splitCoordinates = coordinates.split(",");			
+			
 			coordX = Integer.parseInt(splitCoordinates[0]);
+			
 			coordY = Integer.parseInt(splitCoordinates[1]);			
+			
 			coordZ = Integer.parseInt(splitCoordinates[2]);
 			
 			if(name.isEmpty() || date == null || coordinates == null) {
 
 				throw new InsufficientInformationException();
 
-			} 
-			else if(planets.size() == 0 || stars.size() == 0) {
+			} else if(planets.size() == 0 || stars.size() == 0) {
 
 				throw new InsufficientPlanetsAndStars();
 
-			}
-			else {
+			} else {
+				
 				int id = ns.addPlanetarySystem(name, date, coordX, coordY, coordZ, civilizations, planets, stars);
 				
 				successAlert(id);
 				
 				clear(new ActionEvent());
+				
 			}
 
 		} catch(InsufficientInformationException e1) {
@@ -280,9 +283,11 @@ public class AddSystemController {
 
 		} catch(NumberFormatException ex) {
 			missingDataAlert();
-		}
-		catch(Exception ex) {
+		
+		} catch(Exception ex) {
+			
 			ex.printStackTrace();
+			
 		}
 
 	}
@@ -293,10 +298,13 @@ public class AddSystemController {
 
 	@FXML
 	void missingDataAlert() {
+		
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setHeaderText("Missing Information");
 		alert.setContentText("Please check fot empty fields and fill them");
+		
 		alert.showAndWait();
+		
 	}
 
 	//------------------------------------------------------------------------------------
@@ -305,15 +313,22 @@ public class AddSystemController {
 
 	@FXML
 	void missingStarAndPlanetsAlert() {
+		
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setHeaderText("Missing stars and/or planets");
 		alert.setContentText("Planetary system must have at least 1 star and 1 planet, please add more");
+		
 		alert.showAndWait();
+		
 	}
 
 	//------------------------------------------------------------------------------------
+	
+	// CLEAR METHOD
+	
 	@FXML
 	void clear(ActionEvent event) {
+		
 		nameText.setText("");
 
 		discorveryDate.setValue(null);
@@ -339,19 +354,37 @@ public class AddSystemController {
 		civilizations = new ArrayList<>();	
 		
 		successClear();
+		
 	}
 	
+	//------------------------------------------------------------------------------------
+	
+	// SUCCESS CLEAR METHOD
+	
 	void successClear() {
+		
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setContentText("Information has been cleared succesfully");
 		alert.setTitle("Information Cleared!");
+		
 		alert.showAndWait();
+		
 	}
 	
+	//------------------------------------------------------------------------------------
+	
+	// SUCESS ALERT METHOD
+	
 	void successAlert(int id) {
+		
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setContentText("Planetary system added succesfully with id: " + id);
 		alert.setTitle("Information");
+		
 		alert.showAndWait();
+		
 	}
+	
+	//------------------------------------------------------------------------------------
+	
 }
