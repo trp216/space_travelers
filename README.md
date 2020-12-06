@@ -42,3 +42,19 @@ https://github.com/trp216/space_travelers/tree/main/src/test
 
 ## License
 This project is under the license (Apache License 2.0): https://github.com/trp216/space_travelers/blob/main/LICENSE
+
+## Window prototypes
+
+![](https://github.com/trp216/space_travelers/blob/main/extras/images%20to%20readme/1.JPG)
+
+-------------------------------------------------------------------------------------------------------------------------
+
+![](https://github.com/trp216/space_travelers/blob/main/extras/images%20to%20readme/2.JPG)
+
+-------------------------------------------------------------------------------------------------------------------------
+
+![](https://github.com/trp216/space_travelers/blob/main/extras/images%20to%20readme/3.JPG)
+
+-------------------------------------------------------------------------------------------------------------------------
+
+![](https://github.com/trp216/space_travelers/blob/main/extras/images%20to%20readme/4.JPG)
