@@ -4,17 +4,13 @@
  * DIAZ - MARTINEZ - RODAS
  */
 
-package test;
+package collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Hashtable;
 import java.util.List;
 import javax.naming.directory.InvalidAttributesException;
 import org.junit.jupiter.api.Test;
-import collections.Graph;
-import collections.GraphAlgorithms;
-import collections.MatrixGraph;
-import collections.Vertex;
 
 class TestGraphAlgorithms {
 	

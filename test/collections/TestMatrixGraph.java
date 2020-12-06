@@ -4,7 +4,7 @@
  * DIAZ - MARTINEZ - RODAS
  */
 
-package test;
+package collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,13 +13,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
-
 import javax.naming.directory.InvalidAttributesException;
 import org.junit.jupiter.api.Test;
-
-import collections.Edge;
-import collections.MatrixGraph;
-import collections.Vertex;
 import utilities.Pair;
 
 class TestMatrixGraph {
