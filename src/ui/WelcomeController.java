@@ -33,6 +33,7 @@ public class WelcomeController {
 	public WelcomeController(NavigationSystem navigationSystem, PrincipalController principalController) {
 		
 		prinC = principalController;
+		
 		navSys = navigationSystem;
 		
 	}
@@ -62,17 +63,17 @@ public class WelcomeController {
 	
 	@FXML
 	void selectGrafo(ActionEvent event) {
-
-		
-		
 		
 		if(tipo1.isSelected() || tipo2.isSelected()) {
 			
 			if(tipo1.isSelected()) {
+				
 				navSys.graphSelected(true);
-			}
-			else {
+				
+			} else {
+				
 				navSys.graphSelected(false);
+				
 			}
 					
 			prinC.enableTabs();
@@ -85,8 +86,7 @@ public class WelcomeController {
 			
 			success();
 			
-		}
-		else {
+		} else {
 			
 			insufficientDataAlert();
 			

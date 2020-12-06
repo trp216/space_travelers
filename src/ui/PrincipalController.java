@@ -205,10 +205,19 @@ public class PrincipalController {
 	//------------------------------------------------------------------------------------
 	
 	public void enableTabs() {
+		
 		generateTab.setDisable(false);
+		
 		addSystemTab.setDisable(false);
+		
 		searchAndEditSystem.setDisable(false);
+		
 		navegation.setDisable(false);
-		universe.setDisable(false);		
+		
+		universe.setDisable(false);	
+		
 	}
+	
+	//------------------------------------------------------------------------------------
+	
 }
