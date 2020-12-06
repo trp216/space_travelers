@@ -37,7 +37,7 @@ public class SearchAndEditSystemController {
 	//=====================================================================================================
     //Relations
 
-	private NavigationSystem navSys;
+	private NavigationSystem ns;
 	
 	private ArrayList<Pair<String,Integer>> civilizationsTemp;
 
@@ -50,7 +50,7 @@ public class SearchAndEditSystemController {
 
 	public SearchAndEditSystemController(NavigationSystem navigationSystem) {
 
-		navSys = navigationSystem;
+		ns = navigationSystem;
 		civilizationsTemp = new ArrayList<>();
 		planetsTemp = new ArrayList<>();
 		starsTemp = new ArrayList<>();
@@ -291,7 +291,7 @@ public class SearchAndEditSystemController {
 			}
 			else {
 
-				PlanetarySystem ps = navSys.search(Integer.parseInt(idEditText.getText()));
+				PlanetarySystem ps = ns.search(Integer.parseInt(idEditText.getText()));
 
 				if(ps != null) {
 					
@@ -319,7 +319,7 @@ public class SearchAndEditSystemController {
 	@FXML
 	void remove(ActionEvent event) {
 		
-		navSys.removePlanetarySystem(Integer.parseInt(idEditText.getText()));
+		ns.removePlanetarySystem(Integer.parseInt(idEditText.getText()));
 		removeSuccessfulAlert();
 		clear();
 		updateButtonsAvailability(false, false, false);
@@ -336,7 +336,7 @@ public class SearchAndEditSystemController {
 		String name = nameEditText.getText();			
 		String[] splitCoordinates = coordinatesEditText.getText().trim().split(",");		
 		LocalDate discDate = discoveryDateEdit.getValue();
-		PlanetarySystem currentSystem = navSys.getCurrentSystem();
+		PlanetarySystem currentSystem = ns.getCurrentSystem();
 			
 		if(name.isEmpty() 
 				|| splitCoordinates == null 
@@ -359,7 +359,7 @@ public class SearchAndEditSystemController {
 			int coordZ = Integer.parseInt(splitCoordinates[2]);
 			
 			currentSystem.setCoordinates(coordX, coordY, coordZ);			
-			navSys.updateEdges(currentSystem);
+			ns.updateEdges(currentSystem);
 			
 			currentSystem.setCivilizations(civilizationsTemp);
 			
@@ -445,65 +445,65 @@ public class SearchAndEditSystemController {
 	
     @FXML
     void resetFields(ActionEvent event) {
-    	loadInformation(navSys.getCurrentSystem());
+    	loadInformation(ns.getCurrentSystem());
     }
     
     //=====================================================================================================
     //Methods to update availability of window elements
   
   	@FXML
-  	void validationNameEdit(ActionEvent event) {
+  	private void validationNameEdit(ActionEvent event) {
 
   		nameEditText.setDisable(!nameEditText.isDisable());
-  		nameEditText.setText(navSys.getCurrentSystem().getName());
+  		nameEditText.setText(ns.getCurrentSystem().getName());
   		
   	}
 
   	@FXML
-  	void validationCoordinatesEdit(ActionEvent event) {
+  	private void validationCoordinatesEdit(ActionEvent event) {
 
   		coordinatesEditText.setDisable(!coordinatesEditText.isDisable());
 
-  		coordinatesEditText.setText(navSys.getCurrentSystem().getCoordinates());
+  		coordinatesEditText.setText(ns.getCurrentSystem().getCoordinates());
 
   	}
 
   	@FXML
-  	void validationDiscoveryDateEdit(ActionEvent event) {
+  	private void validationDiscoveryDateEdit(ActionEvent event) {
 
   		discoveryDateEdit.setDisable(!discoveryDateEdit.isDisable());
   		
-  		discoveryDateEdit.setValue(navSys.getCurrentSystem().getDiscoveryDate());
+  		discoveryDateEdit.setValue(ns.getCurrentSystem().getDiscoveryDate());
   	}
 
   	@FXML
-  	void validationCivilizationsEdit(ActionEvent event) {
+  	private void validationCivilizationsEdit(ActionEvent event) {
 
   		updateCivilizationModificationAvailability(civilizationsEditCB.isSelected());
 
   	}
 
   	@FXML
-  	void validationPlanetsEdit(ActionEvent event) {
+  	private void validationPlanetsEdit(ActionEvent event) {
 
   		updatePlanetsModificationAvailability(planetsEditCB.isSelected());
 
   	}
 
   	@FXML
-  	void validationStartsEdit(ActionEvent event) {
+  	private void validationStartsEdit(ActionEvent event) {
 
   		updateStarsModificationAvailability(starsEditCB.isSelected());
 
   	}
 
-    void updateTextFieldsAndDatePickersAvailability(boolean areEnable) {
+    private void updateTextFieldsAndDatePickersAvailability(boolean areEnable) {
     	nameEditText.setDisable(!areEnable);
     	discoveryDateEdit.setDisable(!areEnable);
     	coordinatesEditText.setDisable(!areEnable);
     }
     
-    void updateValidationsAvailability(boolean areEnable) {
+    private void updateValidationsAvailability(boolean areEnable) {
     	nameEditCB.setDisable(!areEnable);
     	discoveryDateEditCB.setDisable(!areEnable);
     	coordinatesEditCB.setDisable(!areEnable);
@@ -512,13 +512,13 @@ public class SearchAndEditSystemController {
     	starsEditCB.setDisable(!areEnable);
     }
     
-    void updateButtonsAvailability(boolean saveIsEnable, boolean removeIsEnable, boolean resetIsEnable) {
+    private void updateButtonsAvailability(boolean saveIsEnable, boolean removeIsEnable, boolean resetIsEnable) {
     	saveButton.setDisable(!saveIsEnable);
     	removeButton.setDisable(!removeIsEnable);
     	resetButton.setDisable(!resetIsEnable);
     }
     
-    void updateCivilizationModificationAvailability(boolean isEnable) {
+    private void updateCivilizationModificationAvailability(boolean isEnable) {
     	tableCivilizations.setDisable(!isEnable);
     	t1.setDisable(!isEnable);
     	t2.setDisable(!isEnable);
@@ -528,14 +528,14 @@ public class SearchAndEditSystemController {
     	removeCivilizationButton.setDisable(!isEnable);
     }
     
-    void updateStarsModificationAvailability(boolean isEnable) {
+    private void updateStarsModificationAvailability(boolean isEnable) {
     	tableStars.setDisable(!isEnable);
     	newStarTextField.setDisable(!isEnable);
     	addStarButton.setDisable(!isEnable);
     	removeStarButton.setDisable(!isEnable);    	
     }
     
-    void updatePlanetsModificationAvailability(boolean isEnable) {
+    private void updatePlanetsModificationAvailability(boolean isEnable) {
 		tablePlanets.setDisable(!isEnable);
     	newPlanetTextField.setDisable(!isEnable);
     	addPlanetButton.setDisable(!isEnable);
@@ -545,7 +545,7 @@ public class SearchAndEditSystemController {
     //=====================================================================================================
     //Method to clear fields
     
-    void clear() {
+    private void clear() {
     	nameEditText.setText("");
     	idEditText.setText("");
     	discoveryDateEdit.setValue(null);
@@ -579,7 +579,7 @@ public class SearchAndEditSystemController {
     //Methods to add civilizations, planets and stars
     
     @FXML
-    void addCivilization(ActionEvent event) {
+    private void addCivilization(ActionEvent event) {
     	try {
 
 			String civilizationName = newCivilizationNameTextField.getText();
@@ -628,7 +628,7 @@ public class SearchAndEditSystemController {
     }
 
     @FXML
-    void addPlanet(ActionEvent event) {
+    private void addPlanet(ActionEvent event) {
     	try {
 
 			String name = newPlanetTextField.getText();
@@ -663,7 +663,7 @@ public class SearchAndEditSystemController {
     }
 
     @FXML
-    void addStar(ActionEvent event) {
+    private void addStar(ActionEvent event) {
     	try {
 
 			String name = newStarTextField.getText();

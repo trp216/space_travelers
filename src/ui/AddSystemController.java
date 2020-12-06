@@ -26,7 +26,7 @@ public class AddSystemController {
 
 	//------------------------------------------------------------------------------------
 
-	private NavigationSystem navegationSystem;
+	private NavigationSystem ns;
 	
 	private ArrayList<String> stars;
 	
@@ -46,7 +46,7 @@ public class AddSystemController {
 		
 		civilizations = new ArrayList<>();		
 		
-		this.navegationSystem = navegationSystem;
+		this.ns = navegationSystem;
 
 	}
 	
@@ -263,7 +263,7 @@ public class AddSystemController {
 
 			}
 			else {
-				int id = navegationSystem.addPlanetarySystem(name, date, coordX, coordY, coordZ, civilizations, planets, stars);
+				int id = ns.addPlanetarySystem(name, date, coordX, coordY, coordZ, civilizations, planets, stars);
 				
 				successAlert(id);
 				
