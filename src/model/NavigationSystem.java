@@ -216,7 +216,7 @@ public class NavigationSystem {
 		int low = 65;
 		int high = 91;
 		char x = (char) (r.nextInt(high-low) + low);
-		String obj = x + r.nextInt() + "";
+		String obj = x + ""+  r.nextInt() + "";
 		return obj;
 	}
 	
