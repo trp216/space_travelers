@@ -28,6 +28,14 @@ https://github.com/trp216/space_travelers/tree/main/src
 * Test
 https://github.com/trp216/space_travelers/tree/main/src/test
 
+-------------------------------------------------------------------------------------------------------------------------
+
+* Explanation video
+
+https://youtu.be/pGYGPoWygB4
+
+-------------------------------------------------------------------------------------------------------------------------
+
 ## Tools used
 * Google Docs
 * LucidChart
