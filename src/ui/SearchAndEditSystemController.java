@@ -199,6 +199,20 @@ public class SearchAndEditSystemController {
 						replace = true;
 					}
 				}
+				
+				ObservableList<Pair<String,Integer>> tableList = tableCivilizations.getItems();
+				
+				replace = false;
+				
+				for(int i = 0; i < tableList.size() && !replace;i++) {	
+					
+					Pair<String,Integer> civil = tableList.get(i);
+					
+					if(civil.getKey().equals(oldName)) {	
+						tableList.set(i, new Pair<String,Integer>(newName, civil.getValue()));
+						replace = true;
+					}
+				}
 						
 			}
 			
@@ -220,6 +234,20 @@ public class SearchAndEditSystemController {
 					
 					if(civil.getValue().equals(oldType)) {	
 						civilizationsTemp.set(i, new Pair<String,Integer>(civil.getKey(), newType));
+						replace = true;
+					}
+				}
+				
+				ObservableList<Pair<String,Integer>> tableList = tableCivilizations.getItems();
+				
+				replace = false;
+				
+				for(int i = 0; i < tableList.size() && !replace;i++) {	
+					
+					Pair<String,Integer> civil = tableList.get(i);
+					
+					if(civil.getValue().equals(oldType)) {	
+						tableList.set(i, new Pair<String,Integer>(civil.getKey(), newType));
 						replace = true;
 					}
 				}
@@ -247,7 +275,19 @@ public class SearchAndEditSystemController {
 						planetsTemp.set(i, newName);
 						replace = true;
 					}
-				}						
+				}	
+				
+				ObservableList<Pair<String,String>> tableList = tablePlanets.getItems();
+				
+				replace = false;
+				
+				for(int i = 0; i < tableList.size() && !replace;i++) {	
+					
+					if(tableList.get(i).getKey().equals(oldName)) {	
+						tableList.set(i, new Pair<String,String>(newName,newName));
+						replace = true;
+					}
+				}
 			}
 			
 		});
@@ -258,7 +298,7 @@ public class SearchAndEditSystemController {
 			
 			@Override
 			public void handle(CellEditEvent<Pair<String, String>, String> event) {
-				
+								
 				String newName = event.getNewValue();
 				String oldName = event.getOldValue();
 				
@@ -269,7 +309,19 @@ public class SearchAndEditSystemController {
 						starsTemp.set(i, newName);
 						replace = true;
 					}
-				}						
+				}	
+				
+				ObservableList<Pair<String,String>> tableList = tableStars.getItems();
+				
+				replace = false;
+				
+				for(int i = 0; i < tableList.size() && !replace;i++) {	
+					
+					if(tableList.get(i).getKey().equals(oldName)) {	
+						tableList.set(i, new Pair<String,String>(newName,newName));
+						replace = true;
+					}
+				}
 			}
 			
 		});		

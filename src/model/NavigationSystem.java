@@ -174,7 +174,7 @@ public class NavigationSystem {
 		y2 = ps2.getCoordY();
 		z2 = ps2.getCoordZ();	
 
-		return (int)Math.sqrt(Math.pow(Math.pow(x2-x1,2) + Math.pow(y2-y1,2) + Math.pow(z2-z1,2),0.5));
+		return (int)Math.pow(Math.pow(x2-x1,2) + Math.pow(y2-y1,2) + Math.pow(z2-z1,2),0.5);
 	}
 	
 	//------------------------------------------------------------------------------------
