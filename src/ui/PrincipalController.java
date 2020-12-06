@@ -186,6 +186,8 @@ public class PrincipalController {
 
 	//------------------------------------------------------------------------------------
 	
+	// INITIALIZE METHOD
+	
 	@FXML
 	public void initialize() throws IOException {
 		
@@ -203,6 +205,8 @@ public class PrincipalController {
 	}
 	
 	//------------------------------------------------------------------------------------
+	
+	// ENABLE TABS METHOD
 	
 	public void enableTabs() {
 		

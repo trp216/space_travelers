@@ -20,6 +20,8 @@ import model.NavigationSystem;
 public class GenerateController {
 
 	//------------------------------------------------------------------------------------
+	
+	// RELATION WITH ANOTHER CLASS
 
 	private NavigationSystem ns;
 
