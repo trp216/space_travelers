@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="editSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="522.0" prefWidth="522.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="editSystemAP" minHeight="0.0" minWidth="0.0" prefHeight="522.0" prefWidth="522.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="526.0" stroke="BLACK" strokeType="INSIDE" width="525.0" />
       <ImageView fitHeight="102.0" fitWidth="189.0" layoutX="172.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
@@ -29,7 +29,7 @@
             <Font name="Century Gothic" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="idEditText" layoutX="43.0" layoutY="36.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
+      <TextField fx:id="idEditText" layoutX="43.0" layoutY="36.0" promptText="System ID" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" />
       <Button fx:id="searchAndEditButton" layoutX="370.0" layoutY="36.0" mnemonicParsing="false" onAction="#search" style="-fx-background-color: yellow; -fx-border-color: white;" text="Search" />
       <Line endX="427.03533935546875" layoutX="99.0" layoutY="74.0" startX="-100.0" stroke="#00fffb" />
       <CheckBox fx:id="nameEditCB" disable="true" layoutX="65.0" layoutY="85.0" mnemonicParsing="false" onAction="#validationNameEdit" text="Name" textFill="WHITE" />

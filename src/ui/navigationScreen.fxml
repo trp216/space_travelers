@@ -60,7 +60,7 @@
                   </StackPane>
                   <StackPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="objetiveSystemTextField" promptText="System name" style="-fx-border-color: white; -fx-background-color: transparent; -fx-text-fill: white;" />
+                        <TextField fx:id="objetiveSystemTextField" promptText="System ID" style="-fx-border-color: white; -fx-background-color: transparent; -fx-text-fill: white;" />
                      </children>
                   </StackPane>
                   <StackPane GridPane.columnIndex="2" GridPane.rowIndex="1">
