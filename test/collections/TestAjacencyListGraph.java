@@ -4,7 +4,7 @@
  * DIAZ - MARTINEZ - RODAS
  */
 
-package test;
+package collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,9 +14,6 @@ import java.util.Hashtable;
 import java.util.List;
 import javax.naming.directory.InvalidAttributesException;
 import org.junit.jupiter.api.Test;
-import collections.AdjacencyListGraph;
-import collections.Edge;
-import collections.Vertex;
 import utilities.Pair;
 
 class TestAjacencyListGraph {
