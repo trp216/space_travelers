@@ -241,7 +241,7 @@ public class NavigationSystem {
 		int type = r.nextInt(high-low) + low;
 		
 		ArrayList<Pair<String,Integer>> ar = new ArrayList<Pair<String,Integer>>(); 
-		ar.add(new Pair(generateRandomString(),type));
+		ar.add(new Pair<String, Integer>(generateRandomString(),type));
 		
 		return ar;
 	}
