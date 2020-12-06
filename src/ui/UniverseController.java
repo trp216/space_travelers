@@ -68,17 +68,26 @@ public class UniverseController {
 	
 	// UPDATE TABLE METHOD
 	@FXML
-	void updateTable(ActionEvent event) {	
+	void updateTable(ActionEvent event) {
+		
 		nameColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("name"));
+		
 		coordinatesColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,String>("coordinates"));
+		
 		idColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,Integer>("id"));
+		
 		discoveryDateColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,LocalDate>("discoveryDate"));
+		
 		civilizationNumberColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,Integer>("civilizationsNumber"));
+		
 		starsNumberColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,Integer>("starsNumber"));
+		
 		planetNumberColumn.setCellValueFactory(new PropertyValueFactory<PlanetarySystem,Integer>("planetsNumber"));
 	
 		systemsTableView.getItems().clear();
+		
 		systemsTableView.setItems(FXCollections.observableArrayList(navSys.getSystems()));
+		
 	}
 
 	//------------------------------------------------------------------------------------
