@@ -85,14 +85,20 @@ public class NavigationSystem {
 				String sName = x + "" + j;
 
 				int coordX, coordY, coordZ;
-
+				
+				double sign;
+				
 				Random r = new Random();
 
 				do {
-
-					coordX = r.nextInt();
-					coordY = r.nextInt();
-					coordZ = r.nextInt();					
+					sign = Math.random();
+					coordX = (sign > 0.5? 1:-1)*(int)(Math.random()*1000000);
+					
+					sign = Math.random();
+					coordY = (sign > 0.5? 1:-1)*(int)(Math.random()*1000000);
+					
+					sign = Math.random();
+					coordZ = (sign > 0.5? 1:-1)*(int)(Math.random()*1000000);				
 
 				} while(usedXCoordinates.containsKey(coordX)
 						&& usedYCoordinates.containsKey(coordY)
@@ -174,7 +180,7 @@ public class NavigationSystem {
 		y2 = ps2.getCoordY();
 		z2 = ps2.getCoordZ();	
 
-		return (int)Math.pow(Math.pow(x2-x1,2) + Math.pow(y2-y1,2) + Math.pow(z2-z1,2),0.5);
+		return (int) Math.sqrt((Math.pow(x2-x1,2) + Math.pow(y2-y1,2) + Math.pow(z2-z1,2)));
 	}
 	
 	//------------------------------------------------------------------------------------
@@ -210,7 +216,7 @@ public class NavigationSystem {
 	}	
 
 	//------------------------------------------------------------------------------------
-	
+	//Name generator for planets, systems, civilizations...
 	private String generateRandomString() {
 		Random r = new Random();
 		int low = 65;
@@ -332,7 +338,7 @@ public class NavigationSystem {
 	//------------------------------------------------------------------------------------
 
 	// CLOSESTS SYSTEM METHOD
-
+	//Not used
 	public ArrayList<PlanetarySystem> closestSystems(int id) throws Exception{
 
 		return (ArrayList<PlanetarySystem>) GraphAlgorithms.BFS(systems, id);

@@ -177,7 +177,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="0.0" prefWidth="261.0" spacing="10.0">
                            <children>
-                              <Label text="Distance:" textFill="WHITE">
+                              <Label text="Distance (UA):" textFill="WHITE">
                                  <font>
                                     <Font name="Century Gothic" size="14.0" />
                                  </font>
